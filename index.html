@@ -23,7 +23,6 @@
       --gold-soft: #fff3d4;
       --gold-text: #8a5d00;
       --border: #dbe8df;
-      --danger-soft: #fff0e7;
       --shadow: 0 22px 70px rgba(25, 56, 49, 0.08);
       --radius-xl: 30px;
       --radius-lg: 22px;
@@ -48,7 +47,8 @@
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    button {
+    button,
+    input {
       font-family: inherit;
     }
 
@@ -272,6 +272,33 @@
       margin-top: 34px;
       display: grid;
       gap: 18px;
+    }
+
+    .search-box {
+      width: 100%;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--ink);
+      border-radius: 18px;
+      padding: 18px 20px;
+      font-size: 17px;
+      font-weight: 750;
+      outline: none;
+      box-shadow: 0 12px 30px rgba(25, 56, 49, 0.04);
+    }
+
+    .search-input::placeholder {
+      color: var(--muted);
+    }
+
+    .search-input:focus {
+      border-color: var(--green-line);
+      box-shadow: 0 0 0 5px rgba(40, 93, 75, 0.08);
     }
 
     .days {
@@ -795,8 +822,8 @@
         <div class="metric">
           <div class="metric-icon">3</div>
           <div>
-            <strong>Copie rapide</strong>
-            <span>Un bouton pour récupérer uniquement le texte à dire, sans les éléments de mise en page.</span>
+            <strong>Recherche rapide</strong>
+            <span>Un champ pour retrouver un script par titre, thème, contenu ou mot-clé.</span>
           </div>
         </div>
       </aside>
@@ -811,6 +838,16 @@
       </div>
 
       <div class="filters">
+        <div class="search-box">
+          <input
+            class="search-input"
+            id="searchInput"
+            type="search"
+            placeholder="Rechercher un script, un thème, un mot-clé..."
+            autocomplete="off"
+          />
+        </div>
+
         <div class="days" id="dayFilters"></div>
 
         <div class="filter-row">
@@ -823,14 +860,14 @@
 
       <div class="program-note">
         11 septembre 2026 · Conversations patrimoine · Objectif 60–65 secondes.
-        Les textes sont réécrits pour une diction plus naturelle et restent à valider avant tournage.
+        Les textes sont chargés depuis <strong>data/scripts.json</strong> pour simplifier les prochaines mises à jour.
       </div>
 
       <div class="layout">
         <aside>
           <div class="script-list" id="scriptList"></div>
           <div class="empty" id="emptyState">
-            Aucun script ne correspond à ce filtre pour le moment.
+            Chargement des scripts...
           </div>
         </aside>
 
@@ -842,7 +879,6 @@
   <div class="toast" id="toast">Script copié</div>
 
   <script>
-
     let scripts = [];
 
     const days = [
@@ -864,6 +900,7 @@
 
     let activeDay = "02";
     let activeTheme = "all";
+    let activeSearch = "";
     let activeScriptId = null;
     let activeMode = "script";
 
@@ -871,6 +908,7 @@
     const scriptList = document.getElementById("scriptList");
     const scriptDetail = document.getElementById("scriptDetail");
     const emptyState = document.getElementById("emptyState");
+    const searchInput = document.getElementById("searchInput");
 
     function renderDays() {
       dayFilters.innerHTML = days.map((item) => `
@@ -883,11 +921,35 @@
       `).join("");
     }
 
+    function normalizeText(value) {
+      return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
     function filteredScripts() {
+      const query = normalizeText(activeSearch);
+
       return scripts.filter((script) => {
         const dayOk = script.day === activeDay;
         const themeOk = activeTheme === "all" || script.theme === activeTheme;
-        return dayOk && themeOk;
+
+        const searchableText = normalizeText([
+          script.title,
+          script.summary,
+          script.theme,
+          script.category,
+          script.target,
+          script.conclusion,
+          script.status,
+          script.natural,
+          ...(script.body || [])
+        ].join(" "));
+
+        const searchOk = !query || searchableText.includes(query);
+
+        return dayOk && themeOk && searchOk;
       });
     }
 
@@ -897,6 +959,9 @@
       if (!items.length) {
         scriptList.innerHTML = "";
         emptyState.style.display = "block";
+        emptyState.textContent = activeSearch
+          ? "Aucun script ne correspond à cette recherche pour ce jour et ce filtre."
+          : "Aucun script ne correspond à ce filtre pour le moment.";
         scriptDetail.style.display = "none";
         return;
       }
@@ -1034,6 +1099,12 @@
       document.getElementById("scripts").scrollIntoView({ behavior: "smooth" });
     }
 
+    searchInput.addEventListener("input", () => {
+      activeSearch = searchInput.value;
+      activeMode = "script";
+      renderList();
+    });
+
     document.querySelectorAll(".chip").forEach((chip) => {
       chip.addEventListener("click", () => {
         document.querySelectorAll(".chip").forEach((item) => item.classList.remove("active"));
@@ -1044,33 +1115,37 @@
       });
     });
 
-   async function loadScripts() {
-  try {
-    const response = await fetch("data/scripts.json");
+    async function loadScripts() {
+      try {
+        emptyState.style.display = "block";
+        emptyState.textContent = "Chargement des scripts...";
 
-    if (!response.ok) {
-      throw new Error("Impossible de charger data/scripts.json");
+        const response = await fetch("data/scripts.json");
+
+        if (!response.ok) {
+          throw new Error("Impossible de charger data/scripts.json");
+        }
+
+        scripts = await response.json();
+
+        if (!scripts.length) {
+          throw new Error("Le fichier scripts.json est vide");
+        }
+
+        activeScriptId = scripts[0].id;
+        renderDays();
+        renderList();
+      } catch (error) {
+        console.error(error);
+        scriptList.innerHTML = "";
+        emptyState.style.display = "block";
+        emptyState.textContent = "Impossible de charger les scripts. Vérifiez le fichier data/scripts.json.";
+        scriptDetail.style.display = "none";
+      }
     }
 
-    scripts = await response.json();
-
-    if (!scripts.length) {
-      throw new Error("Le fichier scripts.json est vide");
-    }
-
-    activeScriptId = scripts[0].id;
     renderDays();
-    renderList();
-  } catch (error) {
-    console.error(error);
-    scriptList.innerHTML = "";
-    emptyState.style.display = "block";
-    emptyState.textContent = "Impossible de charger les scripts. Vérifiez le fichier data/scripts.json.";
-    scriptDetail.style.display = "none";
-  }
-}
-
-loadScripts();
+    loadScripts();
   </script>
 </body>
 </html>
