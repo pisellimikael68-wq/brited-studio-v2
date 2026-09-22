@@ -822,8 +822,8 @@
         <div class="metric">
           <div class="metric-icon">3</div>
           <div>
-            <strong>Recherche rapide</strong>
-            <span>Un champ pour retrouver un script par titre, thème, contenu ou mot-clé.</span>
+            <strong>Recherche toutes dates</strong>
+            <span>Un champ pour retrouver un script dans toute la bibliothèque ou par date précise.</span>
           </div>
         </div>
       </aside>
@@ -843,7 +843,7 @@
             class="search-input"
             id="searchInput"
             type="search"
-            placeholder="Rechercher un script, un thème, un mot-clé..."
+            placeholder="Rechercher dans toutes les dates : impôt, retraite, assurance-vie, risque..."
             autocomplete="off"
           />
         </div>
@@ -860,7 +860,8 @@
 
       <div class="program-note">
         11 septembre 2026 · Conversations patrimoine · Objectif 60–65 secondes.
-        Les textes sont chargés depuis <strong>data/scripts.json</strong> pour simplifier les prochaines mises à jour.
+        Les textes sont chargés depuis <strong>data/scripts.json</strong>. Le mode <strong>Toutes dates</strong>
+        permet un contrôle exhaustif de toute la bibliothèque.
       </div>
 
       <div class="layout">
@@ -898,7 +899,7 @@
       { day: "15", weekday: "Mar" }
     ];
 
-    let activeDay = "02";
+    let activeDay = "all";
     let activeTheme = "all";
     let activeSearch = "";
     let activeScriptId = null;
@@ -911,7 +912,16 @@
     const searchInput = document.getElementById("searchInput");
 
     function renderDays() {
-      dayFilters.innerHTML = days.map((item) => `
+      const allButton = `
+        <button class="day ${activeDay === "all" ? "active" : ""}" onclick="selectDay('all')">
+          <div>
+            <strong>Tous</strong>
+            <span>Dates</span>
+          </div>
+        </button>
+      `;
+
+      const dayButtons = days.map((item) => `
         <button class="day ${item.day === activeDay ? "active" : ""}" onclick="selectDay('${item.day}')">
           <div>
             <strong>${item.day}</strong>
@@ -919,6 +929,8 @@
           </div>
         </button>
       `).join("");
+
+      dayFilters.innerHTML = allButton + dayButtons;
     }
 
     function normalizeText(value) {
@@ -932,7 +944,7 @@
       const query = normalizeText(activeSearch);
 
       return scripts.filter((script) => {
-        const dayOk = script.day === activeDay;
+        const dayOk = activeDay === "all" || script.day === activeDay;
         const themeOk = activeTheme === "all" || script.theme === activeTheme;
 
         const searchableText = normalizeText([
@@ -944,6 +956,9 @@
           script.conclusion,
           script.status,
           script.natural,
+          script.day,
+          script.weekday,
+          script.time,
           ...(script.body || [])
         ].join(" "));
 
@@ -960,7 +975,7 @@
         scriptList.innerHTML = "";
         emptyState.style.display = "block";
         emptyState.textContent = activeSearch
-          ? "Aucun script ne correspond à cette recherche pour ce jour et ce filtre."
+          ? "Aucun script ne correspond à cette recherche avec les filtres actuels."
           : "Aucun script ne correspond à ce filtre pour le moment.";
         scriptDetail.style.display = "none";
         return;
@@ -976,7 +991,7 @@
       scriptList.innerHTML = items.map((script) => `
         <button class="list-card ${script.id === activeScriptId ? "active" : ""}" onclick="selectScript('${script.id}')">
           <div class="list-meta">
-            <span class="list-time">${script.time}</span>
+            <span class="list-time">${activeDay === "all" ? `${script.day} ${script.weekday} · ${script.time}` : script.time}</span>
             <span class="list-status">${script.status}</span>
           </div>
           <h3>${script.title}</h3>
@@ -997,7 +1012,7 @@
       scriptDetail.innerHTML = `
         <div class="script-top">
           <div class="badges">
-            <span class="badge time">${script.time}</span>
+            <span class="badge time">${script.day} ${script.weekday} · ${script.time}</span>
             <span class="badge status">${script.status}</span>
             <span class="badge natural">${script.natural}</span>
           </div>
