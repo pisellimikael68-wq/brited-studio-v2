@@ -1,1 +1,1188 @@
-file:///Users/mikael/Desktop/brited-studio-v2.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BRITED Studio V2 — Bibliothèque de tournage</title>
+
+  <style>
+    :root {
+      --bg: #f6faf7;
+      --bg-soft: #fbfdfb;
+      --card: #fffdf7;
+      --card-white: #ffffff;
+      --ink: #162b2f;
+      --ink-soft: #31464a;
+      --muted: #66787b;
+      --green: #285d4b;
+      --green-dark: #1f493b;
+      --green-soft: #edf7f2;
+      --green-line: #cfe2d8;
+      --gold: #f5d67b;
+      --gold-soft: #fff3d4;
+      --gold-text: #8a5d00;
+      --border: #dbe8df;
+      --danger-soft: #fff0e7;
+      --shadow: 0 22px 70px rgba(25, 56, 49, 0.08);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 16% 7%, rgba(40, 93, 75, 0.08), transparent 28%),
+        radial-gradient(circle at 80% 0%, rgba(245, 214, 123, 0.22), transparent 26%),
+        linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+      color: var(--ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--green);
+      color: white;
+      font-weight: 900;
+      font-size: 23px;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-title {
+      font-weight: 900;
+      font-size: 18px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-subtitle {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .access {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--green);
+      font-weight: 850;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .access-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #39b982;
+      box-shadow: 0 0 0 5px rgba(57, 185, 130, 0.13);
+    }
+
+    .small-button {
+      border: 1px solid var(--green-line);
+      background: white;
+      color: var(--green);
+      border-radius: 999px;
+      padding: 11px 15px;
+      font-size: 14px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .small-button:hover {
+      background: var(--green-soft);
+      transform: translateY(-1px);
+    }
+
+    main {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 76px 24px 90px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 38px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-weight: 950;
+      letter-spacing: 0.18em;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      max-width: 830px;
+      margin: 0;
+      font-size: clamp(54px, 8vw, 94px);
+      line-height: 0.94;
+      letter-spacing: -0.075em;
+      font-weight: 900;
+    }
+
+    .hero-text {
+      max-width: 760px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: 21px;
+      line-height: 1.5;
+      font-weight: 560;
+    }
+
+    .hero-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+    }
+
+    .hero-panel-title {
+      font-size: 15px;
+      color: var(--green);
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 18px;
+    }
+
+    .metric {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 15px;
+      align-items: center;
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .metric:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .metric-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--green-soft);
+      color: var(--green);
+      display: grid;
+      place-items: center;
+      font-weight: 950;
+      font-size: 18px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .section-head {
+      margin-top: 74px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .section-label {
+      color: var(--green);
+      font-weight: 950;
+      letter-spacing: 0.17em;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.058em;
+      font-weight: 900;
+    }
+
+    .filters {
+      margin-top: 34px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .days {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .day {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--ink);
+      border-radius: 15px;
+      min-width: 66px;
+      height: 74px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .day strong {
+      display: block;
+      font-size: 21px;
+      line-height: 1;
+      margin-bottom: 6px;
+      letter-spacing: -0.03em;
+    }
+
+    .day span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .day.active {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(40, 93, 75, 0.18);
+    }
+
+    .day.active span {
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .chip.active {
+      background: var(--green-soft);
+      border-color: var(--green-line);
+      color: var(--green);
+    }
+
+    .program-note {
+      margin-top: 20px;
+      background: var(--gold-soft);
+      color: var(--gold-text);
+      border-radius: 12px;
+      padding: 16px 18px;
+      font-weight: 750;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .layout {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .script-list {
+      display: grid;
+      gap: 14px;
+      position: sticky;
+      top: 94px;
+    }
+
+    .list-card {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      text-align: left;
+      color: inherit;
+    }
+
+    .list-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(25, 56, 49, 0.07);
+    }
+
+    .list-card.active {
+      border-color: #ead390;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .list-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .list-time {
+      background: var(--green-soft);
+      color: var(--green);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .list-status {
+      color: var(--gold-text);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .list-card h3 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+    }
+
+    .list-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.42;
+      font-weight: 620;
+    }
+
+    .script-card {
+      background: var(--card);
+      border: 1px solid #ead390;
+      border-radius: var(--radius-xl);
+      padding: clamp(25px, 4vw, 40px);
+      box-shadow: var(--shadow);
+    }
+
+    .script-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .badge.time {
+      background: #edf3f0;
+      color: #60726c;
+    }
+
+    .badge.status {
+      background: var(--gold-soft);
+      color: var(--gold-text);
+    }
+
+    .badge.natural {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .copy {
+      border: 1px solid var(--green);
+      color: var(--green);
+      background: white;
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-weight: 950;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .copy:hover {
+      background: var(--green);
+      color: white;
+    }
+
+    .script-title {
+      margin: 14px 0 24px;
+      font-size: clamp(30px, 3.6vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+    }
+
+    .meta-box {
+      background: #eef6f2;
+      border-left: 4px solid var(--green);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--ink-soft);
+    }
+
+    .meta-box strong {
+      color: var(--green);
+    }
+
+    .duration {
+      background: var(--gold-soft);
+      color: var(--gold-text);
+      border-radius: 12px;
+      padding: 17px;
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 720;
+      margin-bottom: 24px;
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .mode-tab {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 11px 15px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .mode-tab.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+    }
+
+    .script-body {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(21px, 2.2vw, 27px);
+      line-height: 1.62;
+      letter-spacing: -0.017em;
+      color: #203236;
+    }
+
+    .script-body p {
+      margin: 0 0 28px;
+    }
+
+    .notes {
+      display: none;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+    }
+
+    .notes.active {
+      display: block;
+    }
+
+    .script-body.hidden {
+      display: none;
+    }
+
+    .notes-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .note-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .note-card strong {
+      display: block;
+      color: var(--green);
+      margin-bottom: 7px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .note-card p {
+      margin: 0;
+    }
+
+    .script-actions {
+      border-top: 1px solid var(--border);
+      margin-top: 32px;
+      padding-top: 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    details {
+      background: var(--green-soft);
+      color: var(--green);
+      border-radius: 12px;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px;
+      font-weight: 950;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details div {
+      padding: 0 18px 18px;
+      color: var(--ink-soft);
+      font-weight: 640;
+      line-height: 1.55;
+    }
+
+    .warning {
+      background: var(--gold-soft);
+      color: var(--gold-text);
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 14px;
+      font-weight: 720;
+      line-height: 1.45;
+    }
+
+    .empty {
+      display: none;
+      background: white;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      color: var(--muted);
+      font-weight: 720;
+      line-height: 1.5;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--green);
+      color: white;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 900;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s ease;
+      box-shadow: 0 16px 45px rgba(25, 68, 53, 0.25);
+      z-index: 90;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 940px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .script-list {
+        position: static;
+      }
+    }
+
+    @media (max-width: 680px) {
+      main {
+        padding-top: 52px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .top-actions {
+        display: none;
+      }
+
+      h1 {
+        font-size: 55px;
+      }
+
+      .hero-text {
+        font-size: 18px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .script-top {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .copy {
+        width: 100%;
+      }
+
+      .script-card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">B</div>
+        <div>
+          <div class="brand-title">BRITED Studio</div>
+          <div class="brand-subtitle">Bibliothèque de tournage · V2</div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="small-button" onclick="scrollToScripts()">Voir les scripts</button>
+        <div class="access">
+          <span class="access-dot"></span>
+          Accès privé
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Scripts face caméra</div>
+        <h1>Vos textes de tournage, prêts à être dits.</h1>
+        <p class="hero-text">
+          Une bibliothèque plus fluide, plus orale et plus proche d’une vraie prise de parole.
+          Chaque script est pensé pour être lu à voix haute, avec une accroche claire, un exemple concret
+          et une phrase finale facile à retenir.
+        </p>
+      </div>
+
+      <aside class="hero-panel">
+        <div class="hero-panel-title">Version V2</div>
+
+        <div class="metric">
+          <div class="metric-icon">1</div>
+          <div>
+            <strong>Lecture face caméra</strong>
+            <span>Des phrases plus naturelles, moins scolaires, plus faciles à incarner.</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-icon">2</div>
+          <div>
+            <strong>Notes de tournage</strong>
+            <span>L’intention, le rythme et la prudence à garder pendant l’enregistrement.</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-icon">3</div>
+          <div>
+            <strong>Copie rapide</strong>
+            <span>Un bouton pour récupérer uniquement le texte à dire, sans les éléments de mise en page.</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="scripts">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Programme</div>
+          <h2>Programme de tournage</h2>
+        </div>
+      </div>
+
+      <div class="filters">
+        <div class="days" id="dayFilters"></div>
+
+        <div class="filter-row">
+          <button class="chip active" data-theme="all">Tous</button>
+          <button class="chip" data-theme="investir">Investir</button>
+          <button class="chip" data-theme="fiscalite">Fiscalité</button>
+          <button class="chip" data-theme="epargne">Épargne</button>
+        </div>
+      </div>
+
+      <div class="program-note">
+        11 septembre 2026 · Conversations patrimoine · Objectif 60–65 secondes.
+        Les textes sont réécrits pour une diction plus naturelle et restent à valider avant tournage.
+      </div>
+
+      <div class="layout">
+        <aside>
+          <div class="script-list" id="scriptList"></div>
+          <div class="empty" id="emptyState">
+            Aucun script ne correspond à ce filtre pour le moment.
+          </div>
+        </aside>
+
+        <article class="script-card" id="scriptDetail"></article>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">Script copié</div>
+
+  <script>
+    const scripts = [
+      {
+        id: "investir-100-euros",
+        day: "02",
+        weekday: "Mer",
+        time: "10 h",
+        theme: "investir",
+        status: "Prêt à relire",
+        natural: "Naturel 92 %",
+        title: "Investir 100 euros par mois : pourquoi le temps compte",
+        category: "Épargner et investir",
+        target: "Salariés qui commencent à épargner",
+        conclusion: "Commencer petit peut déjà compter",
+        duration: "Objectif 60–65 s · viser 63 s · environ 170 mots",
+        summary: "Pourquoi attendre le moment parfait peut coûter plus cher qu’on ne l’imagine.",
+        body: [
+          "Beaucoup de gens attendent le bon moment pour commencer à investir.",
+          "Le problème, c’est que le bon moment arrive rarement tout seul.",
+          "On se dit : “Quand je gagnerai plus, je m’y mettrai.” Et dix ans passent.",
+          "Prenons un exemple simple.",
+          "Si tu investis 100 euros par mois pendant 40 ans, avec une hypothèse de rendement de 5 % par an, tu peux arriver autour de 148 000 euros.",
+          "Si tu attends dix ans pour commencer, avec le même effort mensuel, tu arrives plutôt autour de 82 000 euros.",
+          "La différence ne vient pas seulement des 12 000 euros que tu n’as pas versés.",
+          "Elle vient surtout du temps que tu n’as pas laissé à ton argent pour travailler.",
+          "Bien sûr, 5 %, c’est une hypothèse. Il y a des frais, de la fiscalité, de l’inflation, et un risque de perte.",
+          "Mais l’idée reste simple : quand ton budget le permet, commencer petit vaut souvent mieux qu’attendre parfait."
+        ],
+        notes: {
+          intention: "Parler comme à quelqu’un qui repousse toujours le sujet, sans le culpabiliser.",
+          rythme: "Marquer une pause après “Et dix ans passent.” Puis poser l’exemple calmement.",
+          vigilance: "Bien présenter le rendement comme une hypothèse, jamais comme une promesse."
+        },
+        sources: "Hypothèse pédagogique de capitalisation à 5 % par an, avant frais, fiscalité et inflation. Chiffres à valider selon le support utilisé.",
+        guide: "Plan conseillé : accroche sur le report, exemple chiffré, explication de l’effet temps, nuance sur le risque, phrase finale mémorisable."
+      },
+      {
+        id: "augmentation-impot",
+        day: "02",
+        weekday: "Mer",
+        time: "17 h",
+        theme: "fiscalite",
+        status: "Prêt à relire",
+        natural: "Naturel 94 %",
+        title: "Une augmentation fait-elle monter l’impôt sur tout votre salaire ?",
+        category: "L’impôt en clair",
+        target: "Salariés concernés par une augmentation",
+        conclusion: "Regarder ce qu’il reste vraiment",
+        duration: "Objectif 60–65 s · viser 63 s · environ 165 mots",
+        summary: "Démonter simplement la peur du changement de tranche d’impôt.",
+        body: [
+          "Tu as déjà entendu quelqu’un dire : “Je ne veux pas être augmenté, je vais changer de tranche d’impôt” ?",
+          "Cette phrase revient souvent. Et pourtant, elle repose sur une confusion.",
+          "Quand tu changes de tranche, tout ton revenu n’est pas taxé au nouveau taux.",
+          "Il faut plutôt imaginer un escalier.",
+          "Une partie de ton revenu reste sur les premières marches. Seule la partie qui monte sur la marche suivante est imposée au taux de cette tranche.",
+          "Prenons un exemple simple.",
+          "Si tu as 1 000 euros de revenu imposable en plus, et que ces 1 000 euros tombent dans une tranche à 30 %, cela représente 300 euros d’impôt supplémentaire.",
+          "Il reste donc 700 euros avant les autres effets éventuels.",
+          "Tes revenus déjà situés dans les tranches plus basses, eux, ne remontent pas tous d’un coup.",
+          "Attention quand même : on parle ici de revenu imposable, pas de salaire brut. Les cotisations, certaines aides ou certains seuils peuvent aussi jouer.",
+          "Donc avant de refuser une augmentation par peur de l’impôt, regarde ce qu’il te reste réellement, pas seulement le numéro de ta tranche."
+        ],
+        notes: {
+          intention: "Rassurer sans promettre que l’augmentation est toujours avantageuse dans tous les cas.",
+          rythme: "Insister sur l’image de l’escalier. C’est le moment pédagogique principal.",
+          vigilance: "Rappeler que d’autres effets peuvent exister : aides, cotisations, seuils, revenu imposable."
+        },
+        sources: "Principe du barème progressif de l’impôt sur le revenu. À vérifier avec le simulateur officiel pour une situation individuelle.",
+        guide: "Plan conseillé : phrase entendue, correction de l’idée reçue, image de l’escalier, exemple de 1 000 €, nuance finale."
+      },
+      {
+        id: "livret-compte-courant",
+        day: "03",
+        weekday: "Jeu",
+        time: "10 h",
+        theme: "epargne",
+        status: "Brouillon solide",
+        natural: "Naturel 89 %",
+        title: "Pourquoi laisser trop d’argent sur son compte courant peut coûter cher",
+        category: "Épargne du quotidien",
+        target: "Actifs avec une épargne dormante",
+        conclusion: "La sécurité ne doit pas devenir de l’inertie",
+        duration: "Objectif 60–65 s · viser 62 s · environ 160 mots",
+        summary: "Expliquer sans dramatiser la différence entre argent disponible et argent oublié.",
+        body: [
+          "Avoir de l’argent disponible sur son compte courant, c’est rassurant.",
+          "Et c’est normal : personne n’a envie de se retrouver coincé au moindre imprévu.",
+          "Mais il y a une différence entre garder une réserve de sécurité et laisser dormir trop d’argent pendant des années.",
+          "Le compte courant sert à gérer le quotidien : les dépenses, les factures, les imprévus immédiats.",
+          "Au-delà d’un certain montant, l’argent peut perdre de la valeur avec l’inflation, simplement parce qu’il ne travaille pas.",
+          "L’idée n’est pas de tout investir. Ce serait une erreur.",
+          "L’idée, c’est d’organiser les rôles.",
+          "Une partie pour la sécurité, une partie pour les projets court terme, et une partie qui peut être placée selon ton horizon et ton profil de risque.",
+          "Autrement dit : garder de l’argent disponible, oui. Le laisser dormir par défaut, beaucoup moins.",
+          "La sécurité est utile. L’inertie, elle, peut finir par coûter cher."
+        ],
+        notes: {
+          intention: "Éviter le ton culpabilisant. On parle d’organisation, pas d’erreur honteuse.",
+          rythme: "Faire respirer après “L’idée n’est pas de tout investir.”",
+          vigilance: "Ne jamais suggérer de supprimer l’épargne de précaution."
+        },
+        sources: "Pédagogie générale sur liquidité, inflation et allocation de l’épargne. À adapter au profil et à l’horizon de chacun.",
+        guide: "Plan conseillé : rassurer, distinguer réserve et argent dormant, expliquer l’inflation, proposer une organisation simple."
+      },
+      {
+        id: "assurance-vie-bloquee",
+        day: "03",
+        weekday: "Jeu",
+        time: "17 h",
+        theme: "epargne",
+        status: "Brouillon solide",
+        natural: "Naturel 91 %",
+        title: "L’argent est-il vraiment bloqué huit ans en assurance-vie ?",
+        category: "Assurance-vie",
+        target: "Épargnants qui hésitent à ouvrir un contrat",
+        conclusion: "Huit ans, c’est un repère fiscal, pas un cadenas",
+        duration: "Objectif 60–65 s · viser 63 s · environ 165 mots",
+        summary: "Clarifier une idée reçue très fréquente sur l’assurance-vie.",
+        body: [
+          "Beaucoup de personnes évitent l’assurance-vie pour une raison simple : elles pensent que l’argent est bloqué pendant huit ans.",
+          "En réalité, ce n’est pas ça.",
+          "Dans une assurance-vie, tu peux en principe récupérer tout ou partie de ton argent avec ce qu’on appelle un rachat.",
+          "Le rachat peut être partiel, si tu retires seulement une partie, ou total, si tu fermes le contrat.",
+          "Alors pourquoi parle-t-on autant des huit ans ?",
+          "Parce que les huit ans concernent surtout la fiscalité des gains, pas la disponibilité de l’épargne.",
+          "Autrement dit, la porte n’est pas fermée avant huit ans.",
+          "C’est simplement qu’après huit ans, le cadre fiscal peut devenir plus favorable en cas de retrait.",
+          "Attention quand même : selon les supports, les délais et la fiscalité peuvent varier, et les unités de compte peuvent entraîner une perte en capital.",
+          "Mais l’idée à retenir est simple : huit ans, ce n’est pas un cadenas. C’est un repère fiscal."
+        ],
+        notes: {
+          intention: "Débloquer une peur fréquente sans survendre l’assurance-vie.",
+          rythme: "Poser clairement la différence entre disponibilité et fiscalité.",
+          vigilance: "Mentionner le risque sur unités de compte et éviter toute promesse de liquidité instantanée."
+        },
+        sources: "Principes généraux du rachat en assurance-vie et de l’ancienneté fiscale. Fiscalité à vérifier selon la date des versements et la situation.",
+        guide: "Plan conseillé : idée reçue, correction, rachat partiel/total, explication des huit ans, nuance, phrase finale."
+      }
+    ];
+
+    const days = [
+      { day: "02", weekday: "Mer" },
+      { day: "03", weekday: "Jeu" },
+      { day: "04", weekday: "Ven" },
+      { day: "05", weekday: "Sam" },
+      { day: "06", weekday: "Dim" },
+      { day: "07", weekday: "Lun" },
+      { day: "08", weekday: "Mar" },
+      { day: "09", weekday: "Mer" },
+      { day: "10", weekday: "Jeu" },
+      { day: "11", weekday: "Ven" },
+      { day: "12", weekday: "Sam" },
+      { day: "13", weekday: "Dim" },
+      { day: "14", weekday: "Lun" },
+      { day: "15", weekday: "Mar" }
+    ];
+
+    let activeDay = "02";
+    let activeTheme = "all";
+    let activeScriptId = scripts[0].id;
+    let activeMode = "script";
+
+    const dayFilters = document.getElementById("dayFilters");
+    const scriptList = document.getElementById("scriptList");
+    const scriptDetail = document.getElementById("scriptDetail");
+    const emptyState = document.getElementById("emptyState");
+
+    function renderDays() {
+      dayFilters.innerHTML = days.map((item) => `
+        <button class="day ${item.day === activeDay ? "active" : ""}" onclick="selectDay('${item.day}')">
+          <div>
+            <strong>${item.day}</strong>
+            <span>${item.weekday}</span>
+          </div>
+        </button>
+      `).join("");
+    }
+
+    function filteredScripts() {
+      return scripts.filter((script) => {
+        const dayOk = script.day === activeDay;
+        const themeOk = activeTheme === "all" || script.theme === activeTheme;
+        return dayOk && themeOk;
+      });
+    }
+
+    function renderList() {
+      const items = filteredScripts();
+
+      if (!items.length) {
+        scriptList.innerHTML = "";
+        emptyState.style.display = "block";
+        scriptDetail.style.display = "none";
+        return;
+      }
+
+      emptyState.style.display = "none";
+      scriptDetail.style.display = "block";
+
+      if (!items.find((script) => script.id === activeScriptId)) {
+        activeScriptId = items[0].id;
+      }
+
+      scriptList.innerHTML = items.map((script) => `
+        <button class="list-card ${script.id === activeScriptId ? "active" : ""}" onclick="selectScript('${script.id}')">
+          <div class="list-meta">
+            <span class="list-time">${script.time}</span>
+            <span class="list-status">${script.status}</span>
+          </div>
+          <h3>${script.title}</h3>
+          <p>${script.summary}</p>
+        </button>
+      `).join("");
+
+      renderDetail();
+    }
+
+    function renderDetail() {
+      const script = scripts.find((item) => item.id === activeScriptId);
+
+      if (!script) return;
+
+      const bodyHtml = script.body.map((paragraph) => `<p>${paragraph}</p>`).join("");
+
+      scriptDetail.innerHTML = `
+        <div class="script-top">
+          <div class="badges">
+            <span class="badge time">${script.time}</span>
+            <span class="badge status">${script.status}</span>
+            <span class="badge natural">${script.natural}</span>
+          </div>
+          <button class="copy" onclick="copyCurrentScript()">Copier le texte</button>
+        </div>
+
+        <h3 class="script-title">${script.title}</h3>
+
+        <div class="meta-box">
+          <strong>${script.category}</strong><br>
+          <strong>Pour :</strong> ${script.target}<br>
+          <strong>Phrase finale :</strong> ${script.conclusion}
+        </div>
+
+        <div class="duration">
+          <strong>${script.duration}</strong><br>
+          Texte pensé pour une lecture face caméra. Durée à confirmer à voix haute.
+        </div>
+
+        <div class="mode-tabs">
+          <button class="mode-tab ${activeMode === "script" ? "active" : ""}" onclick="setMode('script')">Lecture face caméra</button>
+          <button class="mode-tab ${activeMode === "notes" ? "active" : ""}" onclick="setMode('notes')">Notes de tournage</button>
+        </div>
+
+        <div class="script-body ${activeMode === "notes" ? "hidden" : ""}" id="currentScriptBody">
+          ${bodyHtml}
+        </div>
+
+        <div class="notes ${activeMode === "notes" ? "active" : ""}">
+          <div class="notes-grid">
+            <div class="note-card">
+              <strong>Intention</strong>
+              <p>${script.notes.intention}</p>
+            </div>
+            <div class="note-card">
+              <strong>Rythme</strong>
+              <p>${script.notes.rythme}</p>
+            </div>
+            <div class="note-card">
+              <strong>Vigilance</strong>
+              <p>${script.notes.vigilance}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="script-actions">
+          <details>
+            <summary>Sources et précisions <span>+</span></summary>
+            <div>${script.sources}</div>
+          </details>
+
+          <details>
+            <summary>Afficher le guide de tournage complet <span>+</span></summary>
+            <div>${script.guide}</div>
+          </details>
+
+          <div class="warning">
+            Texte à valider avant tournage. Vérifiez le fond, les chiffres et l’adéquation avec votre pratique professionnelle.
+          </div>
+        </div>
+      `;
+    }
+
+    function selectDay(day) {
+      activeDay = day;
+      activeMode = "script";
+      renderDays();
+      renderList();
+    }
+
+    function selectScript(id) {
+      activeScriptId = id;
+      activeMode = "script";
+      renderList();
+    }
+
+    function setMode(mode) {
+      activeMode = mode;
+      renderDetail();
+    }
+
+    function copyCurrentScript() {
+      const script = scripts.find((item) => item.id === activeScriptId);
+      if (!script) return;
+
+      const text = script.body.join("\n\n");
+
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById("toast");
+        toast.classList.add("visible");
+
+        setTimeout(() => {
+          toast.classList.remove("visible");
+        }, 1800);
+      });
+    }
+
+    function scrollToScripts() {
+      document.getElementById("scripts").scrollIntoView({ behavior: "smooth" });
+    }
+
+    document.querySelectorAll(".chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll(".chip").forEach((item) => item.classList.remove("active"));
+        chip.classList.add("active");
+        activeTheme = chip.dataset.theme;
+        activeMode = "script";
+        renderList();
+      });
+    });
+
+    renderDays();
+    renderList();
+  </script>
+</body>
+</html>
