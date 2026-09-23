@@ -417,7 +417,8 @@
     }
 
     .reset-button,
-    .bulk-copy-button {
+    .bulk-copy-button,
+    .export-button {
       border: 1px solid var(--green);
       border-radius: 14px;
       padding: 15px 18px;
@@ -434,14 +435,16 @@
       color: white;
     }
 
-    .bulk-copy-button {
+    .bulk-copy-button,
+    .export-button {
       background: white;
       color: var(--green);
       flex: 1;
     }
 
     .reset-button:hover,
-    .bulk-copy-button:hover {
+    .bulk-copy-button:hover,
+    .export-button:hover {
       transform: translateY(-1px);
     }
 
@@ -449,7 +452,8 @@
       background: var(--green-dark);
     }
 
-    .bulk-copy-button:hover {
+    .bulk-copy-button:hover,
+    .export-button:hover {
       background: var(--green-soft);
     }
 
@@ -917,8 +921,8 @@
         <div class="metric">
           <div class="metric-icon">3</div>
           <div>
-            <strong>Copie groupée</strong>
-            <span>Un bouton pour copier tous les scripts visibles après filtrage.</span>
+            <strong>Export simple</strong>
+            <span>Copiez ou téléchargez les scripts visibles selon les filtres actifs.</span>
           </div>
         </div>
       </aside>
@@ -976,6 +980,7 @@
 
         <div class="control-actions">
           <button class="bulk-copy-button" onclick="copyVisibleScripts()">Copier tous les scripts affichés</button>
+          <button class="export-button" onclick="downloadVisibleScripts()">Exporter en fichier .txt</button>
           <button class="reset-button" onclick="resetFilters()">Réinitialiser</button>
         </div>
       </div>
@@ -1282,6 +1287,33 @@
       ].join("\n");
     }
 
+    function buildVisibleScriptsExport() {
+      const items = filteredScripts();
+
+      if (!items.length) {
+        return {
+          items,
+          text: ""
+        };
+      }
+
+      const header = [
+        "BRITED Studio — Scripts affichés",
+        `Date : ${getDateLabel()}`,
+        `Thème : ${getThemeLabel()}`,
+        `Recherche : ${activeSearch.trim() ? activeSearch.trim() : "Aucune"}`,
+        `Nombre : ${items.length} script${items.length > 1 ? "s" : ""}`,
+        "========================================"
+      ].join("\n");
+
+      const body = items.map((script, index) => formatScriptForCopy(script, index)).join("\n\n");
+
+      return {
+        items,
+        text: `${header}\n\n${body}`
+      };
+    }
+
     function showToast(message) {
       const toast = document.getElementById("toast");
       toast.textContent = message;
@@ -1304,27 +1336,56 @@
     }
 
     function copyVisibleScripts() {
-      const items = filteredScripts();
+      const exportData = buildVisibleScriptsExport();
 
-      if (!items.length) {
+      if (!exportData.items.length) {
         showToast("Aucun script à copier");
         return;
       }
 
-      const header = [
-        "BRITED Studio — Scripts affichés",
-        `Date : ${getDateLabel()}`,
-        `Thème : ${getThemeLabel()}`,
-        `Recherche : ${activeSearch.trim() ? activeSearch.trim() : "Aucune"}`,
-        `Nombre : ${items.length} script${items.length > 1 ? "s" : ""}`,
-        "========================================"
-      ].join("\n");
-
-      const body = items.map((script, index) => formatScriptForCopy(script, index)).join("\n\n");
-
-      navigator.clipboard.writeText(`${header}\n\n${body}`).then(() => {
-        showToast(`${items.length} script${items.length > 1 ? "s" : ""} copiés`);
+      navigator.clipboard.writeText(exportData.text).then(() => {
+        showToast(`${exportData.items.length} script${exportData.items.length > 1 ? "s" : ""} copiés`);
       });
+    }
+
+    function createSafeFilename(value) {
+      return normalizeText(value)
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+    }
+
+    function downloadVisibleScripts() {
+      const exportData = buildVisibleScriptsExport();
+
+      if (!exportData.items.length) {
+        showToast("Aucun script à exporter");
+        return;
+      }
+
+      const datePart = createSafeFilename(getDateLabel());
+      const themePart = createSafeFilename(getThemeLabel());
+      const searchPart = activeSearch.trim()
+        ? `-${createSafeFilename(activeSearch.trim())}`
+        : "";
+
+      const filename = `brited-studio-scripts-${datePart}-${themePart}${searchPart}.txt`;
+
+      const blob = new Blob([exportData.text], {
+        type: "text/plain;charset=utf-8"
+      });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(url);
+
+      showToast(`${exportData.items.length} script${exportData.items.length > 1 ? "s" : ""} exportés`);
     }
 
     function scrollToScripts() {
