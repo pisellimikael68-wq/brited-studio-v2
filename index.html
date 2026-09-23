@@ -378,7 +378,7 @@
       border-radius: 20px;
       padding: 18px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr) auto;
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       align-items: center;
       box-shadow: 0 12px 30px rgba(25, 56, 49, 0.04);
@@ -409,10 +409,16 @@
       line-height: 1.2;
     }
 
-    .reset-button {
+    .control-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .reset-button,
+    .bulk-copy-button {
       border: 1px solid var(--green);
-      background: var(--green);
-      color: white;
       border-radius: 14px;
       padding: 15px 18px;
       font-size: 14px;
@@ -420,12 +426,31 @@
       cursor: pointer;
       white-space: nowrap;
       transition: 0.2s ease;
-      min-height: 64px;
+      min-height: 56px;
+    }
+
+    .reset-button {
+      background: var(--green);
+      color: white;
+    }
+
+    .bulk-copy-button {
+      background: white;
+      color: var(--green);
+      flex: 1;
+    }
+
+    .reset-button:hover,
+    .bulk-copy-button:hover {
+      transform: translateY(-1px);
     }
 
     .reset-button:hover {
       background: var(--green-dark);
-      transform: translateY(-1px);
+    }
+
+    .bulk-copy-button:hover {
+      background: var(--green-soft);
     }
 
     .program-note {
@@ -785,10 +810,6 @@
       .control-panel {
         grid-template-columns: repeat(2, 1fr);
       }
-
-      .reset-button {
-        grid-column: 1 / -1;
-      }
     }
 
     @media (max-width: 680px) {
@@ -817,6 +838,11 @@
       }
 
       .control-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .control-actions {
+        display: grid;
         grid-template-columns: 1fr;
       }
 
@@ -891,8 +917,8 @@
         <div class="metric">
           <div class="metric-icon">3</div>
           <div>
-            <strong>Panneau de contrôle</strong>
-            <span>Un résumé instantané des filtres actifs et du nombre de scripts affichés.</span>
+            <strong>Copie groupée</strong>
+            <span>Un bouton pour copier tous les scripts visibles après filtrage.</span>
           </div>
         </div>
       </aside>
@@ -948,7 +974,10 @@
           <span class="control-value" id="searchValue">Aucune</span>
         </div>
 
-        <button class="reset-button" onclick="resetFilters()">Réinitialiser</button>
+        <div class="control-actions">
+          <button class="bulk-copy-button" onclick="copyVisibleScripts()">Copier tous les scripts affichés</button>
+          <button class="reset-button" onclick="resetFilters()">Réinitialiser</button>
+        </div>
       </div>
 
       <div class="program-note">
@@ -1233,6 +1262,36 @@
       renderList();
     }
 
+    function formatScriptForCopy(script, index = null) {
+      const number = index !== null ? `${index + 1}. ` : "";
+
+      return [
+        `${number}${script.title}`,
+        `${script.day} ${script.weekday} · ${script.time}`,
+        `${script.category}`,
+        `Statut : ${script.status}`,
+        "",
+        script.body.join("\n\n"),
+        "",
+        `Intention : ${script.notes.intention}`,
+        `Rythme : ${script.notes.rythme}`,
+        `Vigilance : ${script.notes.vigilance}`,
+        "",
+        `Sources : ${script.sources}`,
+        "----------------------------------------"
+      ].join("\n");
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+
+      setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 1800);
+    }
+
     function copyCurrentScript() {
       const script = scripts.find((item) => item.id === activeScriptId);
       if (!script) return;
@@ -1240,12 +1299,31 @@
       const text = script.body.join("\n\n");
 
       navigator.clipboard.writeText(text).then(() => {
-        const toast = document.getElementById("toast");
-        toast.classList.add("visible");
+        showToast("Script copié");
+      });
+    }
 
-        setTimeout(() => {
-          toast.classList.remove("visible");
-        }, 1800);
+    function copyVisibleScripts() {
+      const items = filteredScripts();
+
+      if (!items.length) {
+        showToast("Aucun script à copier");
+        return;
+      }
+
+      const header = [
+        "BRITED Studio — Scripts affichés",
+        `Date : ${getDateLabel()}`,
+        `Thème : ${getThemeLabel()}`,
+        `Recherche : ${activeSearch.trim() ? activeSearch.trim() : "Aucune"}`,
+        `Nombre : ${items.length} script${items.length > 1 ? "s" : ""}`,
+        "========================================"
+      ].join("\n");
+
+      const body = items.map((script, index) => formatScriptForCopy(script, index)).join("\n\n");
+
+      navigator.clipboard.writeText(`${header}\n\n${body}`).then(() => {
+        showToast(`${items.length} script${items.length > 1 ? "s" : ""} copiés`);
       });
     }
 
