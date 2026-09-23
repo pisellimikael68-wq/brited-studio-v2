@@ -371,6 +371,99 @@
       color: var(--green);
     }
 
+    .summary-panel {
+      margin-top: 22px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      box-shadow: 0 12px 30px rgba(25, 56, 49, 0.04);
+    }
+
+    .summary-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .summary-head h3 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      color: var(--ink);
+    }
+
+    .summary-head p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-weight: 650;
+      line-height: 1.45;
+    }
+
+    .summary-refresh {
+      background: var(--green-soft);
+      color: var(--green);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 950;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .summary-card {
+      background: var(--green-soft);
+      border: 1px solid var(--green-line);
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 104px;
+    }
+
+    .summary-card.gold {
+      background: var(--gold-soft);
+      border-color: #ead390;
+    }
+
+    .summary-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+
+    .summary-card strong {
+      display: block;
+      color: var(--green);
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      font-weight: 950;
+    }
+
+    .summary-card.gold strong {
+      color: var(--gold-text);
+    }
+
+    .summary-card small {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-weight: 750;
+      line-height: 1.35;
+    }
+
     .control-panel {
       margin-top: 20px;
       background: white;
@@ -915,6 +1008,12 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    @media (max-width: 1100px) {
+      .summary-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     @media (max-width: 940px) {
       .hero {
         grid-template-columns: 1fr;
@@ -964,6 +1063,19 @@
 
       .section-head {
         display: block;
+      }
+
+      .summary-head {
+        display: block;
+      }
+
+      .summary-refresh {
+        display: inline-flex;
+        margin-top: 14px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
       }
 
       .control-panel {
@@ -1051,16 +1163,16 @@
         <div class="metric">
           <div class="metric-icon">2</div>
           <div>
-            <strong>Export simple</strong>
-            <span>Copiez ou téléchargez les scripts visibles selon les filtres actifs.</span>
+            <strong>Contrôle qualité</strong>
+            <span>Une vue rapide pour relire les statuts, thèmes, durées et notes de tournage.</span>
           </div>
         </div>
 
         <div class="metric">
           <div class="metric-icon">3</div>
           <div>
-            <strong>Contrôle qualité</strong>
-            <span>Une vue rapide pour relire les statuts, thèmes, durées et notes de tournage.</span>
+            <strong>Synthèse automatique</strong>
+            <span>Un résumé immédiat du volume, des thèmes et de l’état de validation.</span>
           </div>
         </div>
       </aside>
@@ -1094,6 +1206,8 @@
           <button class="chip" data-theme="epargne">Épargne</button>
         </div>
       </div>
+
+      <section class="summary-panel" id="summaryPanel"></section>
 
       <div class="control-panel">
         <div class="control-item">
@@ -1185,6 +1299,7 @@
     const themeValue = document.getElementById("themeValue");
     const searchValue = document.getElementById("searchValue");
 
+    const summaryPanel = document.getElementById("summaryPanel");
     const qualityPanel = document.getElementById("qualityPanel");
     const qualityButton = document.getElementById("qualityButton");
 
@@ -1264,6 +1379,84 @@
       };
 
       return labels[activeTheme] || activeTheme;
+    }
+
+    function getStatusCounts() {
+      let ready = 0;
+      let toValidate = 0;
+
+      scripts.forEach((script) => {
+        const status = normalizeText(script.status);
+
+        if (status.includes("pret") || status.includes("prêt")) {
+          ready += 1;
+        }
+
+        if (status.includes("valider") || status.includes("validation") || status.includes("relire")) {
+          toValidate += 1;
+        }
+      });
+
+      return {
+        ready,
+        toValidate
+      };
+    }
+
+    function renderSummaryPanel() {
+      const total = scripts.length;
+      const investir = scripts.filter((script) => script.theme === "investir").length;
+      const fiscalite = scripts.filter((script) => script.theme === "fiscalite").length;
+      const epargne = scripts.filter((script) => script.theme === "epargne").length;
+      const statusCounts = getStatusCounts();
+
+      summaryPanel.innerHTML = `
+        <div class="summary-head">
+          <div>
+            <h3>Synthèse automatique</h3>
+            <p>Vue globale de la bibliothèque complète, indépendamment des filtres actifs.</p>
+          </div>
+          <span class="summary-refresh">Mise à jour automatique</span>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-card">
+            <span>Total scripts</span>
+            <strong>${total}</strong>
+            <small>Bibliothèque complète</small>
+          </div>
+
+          <div class="summary-card">
+            <span>Investir</span>
+            <strong>${investir}</strong>
+            <small>Scripts patrimoine et allocation</small>
+          </div>
+
+          <div class="summary-card">
+            <span>Fiscalité</span>
+            <strong>${fiscalite}</strong>
+            <small>Scripts impôt et optimisation</small>
+          </div>
+
+          <div class="summary-card">
+            <span>Épargne</span>
+            <strong>${epargne}</strong>
+            <small>Scripts budget et placement</small>
+          </div>
+
+          <div class="summary-card gold">
+            <span>À valider</span>
+            <strong>${statusCounts.toValidate}</strong>
+            <small>Scripts à relire</small>
+          </div>
+
+          <div class="summary-card">
+            <span>Prêts</span>
+            <strong>${statusCounts.ready}</strong>
+            <small>Scripts validés ou prêts</small>
+          </div>
+        </div>
+      `;
     }
 
     function updateControlPanel(count) {
@@ -1655,11 +1848,13 @@
         }
 
         activeScriptId = scripts[0].id;
+        renderSummaryPanel();
         renderDays();
         renderList();
       } catch (error) {
         console.error(error);
         scriptList.innerHTML = "";
+        summaryPanel.innerHTML = "";
         emptyState.style.display = "block";
         emptyState.textContent = "Impossible de charger les scripts. Vérifiez le fichier data/scripts.json.";
         scriptDetail.style.display = "none";
