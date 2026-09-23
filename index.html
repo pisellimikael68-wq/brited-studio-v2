@@ -11,7 +11,6 @@
       --bg: #f6faf7;
       --bg-soft: #fbfdfb;
       --card: #fffdf7;
-      --card-white: #ffffff;
       --ink: #162b2f;
       --ink-soft: #31464a;
       --muted: #66787b;
@@ -22,11 +21,12 @@
       --gold: #f5d67b;
       --gold-soft: #fff3d4;
       --gold-text: #8a5d00;
+      --blue-soft: #eef5ff;
+      --blue-text: #24507a;
       --border: #dbe8df;
       --shadow: 0 22px 70px rgba(25, 56, 49, 0.08);
       --radius-xl: 30px;
       --radius-lg: 22px;
-      --radius-md: 14px;
     }
 
     * {
@@ -274,11 +274,6 @@
       gap: 18px;
     }
 
-    .search-box {
-      width: 100%;
-      position: relative;
-    }
-
     .search-input {
       width: 100%;
       border: 1px solid var(--border);
@@ -371,13 +366,18 @@
       color: var(--green);
     }
 
-    .summary-panel {
+    .summary-panel,
+    .control-panel,
+    .quality-panel {
       margin-top: 22px;
       background: white;
       border: 1px solid var(--border);
+      box-shadow: 0 12px 30px rgba(25, 56, 49, 0.04);
+    }
+
+    .summary-panel {
       border-radius: var(--radius-xl);
       padding: 22px;
-      box-shadow: 0 12px 30px rgba(25, 56, 49, 0.04);
     }
 
     .summary-head {
@@ -388,7 +388,8 @@
       margin-bottom: 16px;
     }
 
-    .summary-head h3 {
+    .summary-head h3,
+    .quality-head h3 {
       margin: 0;
       font-size: 28px;
       line-height: 1.05;
@@ -396,7 +397,8 @@
       color: var(--ink);
     }
 
-    .summary-head p {
+    .summary-head p,
+    .quality-head p {
       margin: 7px 0 0;
       color: var(--muted);
       font-weight: 650;
@@ -415,7 +417,7 @@
 
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
     }
 
@@ -430,6 +432,11 @@
     .summary-card.gold {
       background: var(--gold-soft);
       border-color: #ead390;
+    }
+
+    .summary-card.blue {
+      background: var(--blue-soft);
+      border-color: #cfe0f5;
     }
 
     .summary-card span {
@@ -456,6 +463,10 @@
       color: var(--gold-text);
     }
 
+    .summary-card.blue strong {
+      color: var(--blue-text);
+    }
+
     .summary-card small {
       display: block;
       margin-top: 8px;
@@ -471,7 +482,8 @@
       flex-wrap: wrap;
     }
 
-    .summary-filter-button {
+    .summary-filter-button,
+    .tracking-filter-button {
       border: 1px solid var(--green);
       background: white;
       color: var(--green);
@@ -485,7 +497,8 @@
       min-height: 54px;
     }
 
-    .summary-filter-button:hover {
+    .summary-filter-button:hover,
+    .tracking-filter-button:hover {
       background: var(--green-soft);
       transform: translateY(-1px);
     }
@@ -495,7 +508,13 @@
       color: var(--gold-text);
     }
 
-    .summary-filter-button.active {
+    .tracking-filter-button.blue {
+      border-color: #cfe0f5;
+      color: var(--blue-text);
+    }
+
+    .summary-filter-button.active,
+    .tracking-filter-button.active {
       background: var(--green);
       color: white;
     }
@@ -505,17 +524,18 @@
       color: var(--gold-text);
     }
 
+    .tracking-filter-button.blue.active {
+      background: var(--blue-soft);
+      color: var(--blue-text);
+    }
+
     .control-panel {
-      margin-top: 20px;
-      background: white;
-      border: 1px solid var(--border);
       border-radius: 20px;
       padding: 18px;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 12px;
       align-items: center;
-      box-shadow: 0 12px 30px rgba(25, 56, 49, 0.04);
     }
 
     .control-item {
@@ -523,6 +543,10 @@
       border-radius: 14px;
       padding: 13px 14px;
       min-height: 64px;
+    }
+
+    .control-item.blue {
+      background: var(--blue-soft);
     }
 
     .control-label {
@@ -541,6 +565,10 @@
       font-size: 16px;
       font-weight: 950;
       line-height: 1.2;
+    }
+
+    .control-item.blue .control-value {
+      color: var(--blue-text);
     }
 
     .control-actions {
@@ -584,6 +612,11 @@
       border-color: #ead390;
     }
 
+    .export-button.blue {
+      border-color: #cfe0f5;
+      color: var(--blue-text);
+    }
+
     .reset-button:hover,
     .bulk-copy-button:hover,
     .export-button:hover,
@@ -601,8 +634,8 @@
       background: var(--green-soft);
     }
 
-    .quality-button.active:hover {
-      background: var(--gold-soft);
+    .export-button.blue:hover {
+      background: var(--blue-soft);
     }
 
     .program-note {
@@ -618,9 +651,6 @@
 
     .quality-panel {
       display: none;
-      margin-top: 26px;
-      background: white;
-      border: 1px solid var(--border);
       border-radius: var(--radius-xl);
       padding: 24px;
       box-shadow: var(--shadow);
@@ -636,20 +666,6 @@
       align-items: end;
       gap: 18px;
       margin-bottom: 18px;
-    }
-
-    .quality-head h3 {
-      margin: 0;
-      font-size: 28px;
-      line-height: 1.05;
-      letter-spacing: -0.045em;
-    }
-
-    .quality-head p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-weight: 650;
-      line-height: 1.45;
     }
 
     .quality-count {
@@ -756,12 +772,18 @@
       box-shadow: var(--shadow);
     }
 
+    .list-card.shot {
+      border-color: #cfe0f5;
+      background: #fbfdff;
+    }
+
     .list-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       margin-bottom: 12px;
+      flex-wrap: wrap;
     }
 
     .list-time {
@@ -777,6 +799,17 @@
       color: var(--gold-text);
       font-size: 12px;
       font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .shot-badge {
+      display: inline-flex;
+      background: var(--blue-soft);
+      color: var(--blue-text);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 950;
       white-space: nowrap;
     }
 
@@ -842,6 +875,11 @@
       color: var(--green);
     }
 
+    .badge.shot {
+      background: var(--blue-soft);
+      color: var(--blue-text);
+    }
+
     .script-buttons {
       display: flex;
       gap: 10px;
@@ -850,7 +888,8 @@
     }
 
     .copy,
-    .shooting-button {
+    .shooting-button,
+    .shot-button {
       border: 1px solid var(--green);
       color: var(--green);
       background: white;
@@ -868,9 +907,20 @@
       color: white;
     }
 
-    .copy:hover {
-      background: var(--green);
-      color: white;
+    .shot-button {
+      border-color: #cfe0f5;
+      color: var(--blue-text);
+    }
+
+    .shot-button.active {
+      background: var(--blue-soft);
+      color: var(--blue-text);
+    }
+
+    .copy:hover,
+    .shot-button:hover {
+      background: var(--green-soft);
+      transform: translateY(-1px);
     }
 
     .shooting-button:hover {
@@ -1153,6 +1203,12 @@
       color: #17312c;
     }
 
+    .shooting-action.blue {
+      background: var(--blue-soft);
+      border-color: var(--blue-soft);
+      color: var(--blue-text);
+    }
+
     .shooting-action:hover {
       transform: translateY(-1px);
       background: rgba(255, 255, 255, 0.18);
@@ -1189,7 +1245,7 @@
 
     @media (max-width: 1100px) {
       .summary-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .control-panel {
@@ -1244,44 +1300,24 @@
         font-size: 18px;
       }
 
-      .section-head {
-        display: block;
-      }
-
-      .summary-head {
-        display: block;
-      }
-
-      .summary-refresh {
-        display: inline-flex;
-        margin-top: 14px;
-      }
-
-      .summary-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .summary-actions {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
-
-      .control-panel {
-        grid-template-columns: 1fr;
-      }
-
-      .control-actions {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
-
+      .section-head,
+      .summary-head,
       .quality-head {
         display: block;
       }
 
+      .summary-refresh,
       .quality-count {
         display: inline-flex;
         margin-top: 14px;
+      }
+
+      .summary-grid,
+      .summary-actions,
+      .control-panel,
+      .control-actions {
+        grid-template-columns: 1fr;
+        display: grid;
       }
 
       .quality-card {
@@ -1299,7 +1335,8 @@
       }
 
       .copy,
-      .shooting-button {
+      .shooting-button,
+      .shot-button {
         width: 100%;
       }
 
@@ -1367,24 +1404,24 @@
         <div class="metric">
           <div class="metric-icon">1</div>
           <div>
-            <strong>Lecture face caméra</strong>
-            <span>Des phrases plus naturelles, moins scolaires, plus faciles à incarner.</span>
+            <strong>Mode tournage</strong>
+            <span>Une lecture plein écran pour utiliser le studio comme prompteur simple.</span>
           </div>
         </div>
 
         <div class="metric">
           <div class="metric-icon">2</div>
           <div>
-            <strong>Filtres de statut</strong>
-            <span>Des boutons rapides pour isoler les scripts à valider ou prêts.</span>
+            <strong>Suivi de tournage</strong>
+            <span>Marquez les scripts déjà tournés et retrouvez ce qui reste à enregistrer.</span>
           </div>
         </div>
 
         <div class="metric">
           <div class="metric-icon">3</div>
           <div>
-            <strong>Mode tournage</strong>
-            <span>Une lecture plein écran pour utiliser le studio comme prompteur simple.</span>
+            <strong>Exports ciblés</strong>
+            <span>Exportez uniquement les scripts tournés ou uniquement les scripts restants.</span>
           </div>
         </div>
       </aside>
@@ -1399,15 +1436,13 @@
       </div>
 
       <div class="filters">
-        <div class="search-box">
-          <input
-            class="search-input"
-            id="searchInput"
-            type="search"
-            placeholder="Rechercher dans toutes les dates : impôt, retraite, assurance-vie, risque..."
-            autocomplete="off"
-          />
-        </div>
+        <input
+          class="search-input"
+          id="searchInput"
+          type="search"
+          placeholder="Rechercher dans toutes les dates : impôt, retraite, assurance-vie, risque..."
+          autocomplete="off"
+        />
 
         <div class="days" id="dayFilters"></div>
 
@@ -1442,6 +1477,11 @@
           <span class="control-value" id="statusValue">Tous</span>
         </div>
 
+        <div class="control-item blue">
+          <span class="control-label">Tournage</span>
+          <span class="control-value" id="shootingValue">Tous</span>
+        </div>
+
         <div class="control-item">
           <span class="control-label">Recherche</span>
           <span class="control-value" id="searchValue">Aucune</span>
@@ -1450,15 +1490,17 @@
         <div class="control-actions">
           <button class="bulk-copy-button" onclick="copyVisibleScripts()">Copier tous les scripts affichés</button>
           <button class="export-button" onclick="downloadVisibleScripts()">Exporter en fichier .txt</button>
+          <button class="export-button blue" onclick="downloadShotScripts('notShot')">Exporter non tournés</button>
+          <button class="export-button blue" onclick="downloadShotScripts('shot')">Exporter tournés</button>
           <button class="quality-button" id="qualityButton" onclick="toggleQualityMode()">Mode contrôle qualité</button>
           <button class="reset-button" onclick="resetFilters()">Réinitialiser</button>
         </div>
       </div>
 
       <div class="program-note">
-        11 septembre 2026 · Conversations patrimoine · Objectif 60–65 secondes.
-        Les textes sont chargés depuis <strong>data/scripts.json</strong>. Le mode <strong>Toutes dates</strong>
-        permet un contrôle exhaustif de toute la bibliothèque.
+        Les textes sont chargés depuis <strong>data/scripts.json</strong>.
+        Le suivi “tourné / non tourné” est sauvegardé localement dans ce navigateur.
+        Il reste mémorisé sur cet ordinateur, mais n’est pas partagé automatiquement entre plusieurs appareils.
       </div>
 
       <section class="quality-panel" id="qualityPanel"></section>
@@ -1466,9 +1508,7 @@
       <div class="layout">
         <aside>
           <div class="script-list" id="scriptList"></div>
-          <div class="empty" id="emptyState">
-            Chargement des scripts...
-          </div>
+          <div class="empty" id="emptyState">Chargement des scripts...</div>
         </aside>
 
         <article class="script-card" id="scriptDetail"></article>
@@ -1487,6 +1527,7 @@
 
         <div class="shooting-actions">
           <button class="shooting-action" onclick="copyCurrentScript()">Copier le texte</button>
+          <button class="shooting-action blue" id="shootingShotButton" onclick="toggleCurrentScriptShot()">Marquer comme tourné</button>
           <button class="shooting-action primary" onclick="closeShootingMode()">Quitter</button>
         </div>
       </div>
@@ -1494,15 +1535,18 @@
       <div class="shooting-body" id="shootingBody"></div>
 
       <div class="shooting-footer">
-        Lecture plein écran · Appuie sur Échap pour quitter · Fais défiler doucement pendant l’enregistrement.
+        Lecture plein écran · Appuie sur Échap pour quitter · Le statut tourné est sauvegardé localement.
       </div>
     </div>
   </section>
 
-  <div class="toast" id="toast">Script copié</div>
+  <div class="toast" id="toast">Action confirmée</div>
 
   <script>
     let scripts = [];
+
+    const storageKey = "britedStudioV2ShotScripts";
+    let shotScriptIds = new Set(loadShotScriptIds());
 
     const days = [
       { day: "02", weekday: "Mer" },
@@ -1524,6 +1568,7 @@
     let activeDay = "all";
     let activeTheme = "all";
     let activeStatus = "all";
+    let activeShootingFilter = "all";
     let activeSearch = "";
     let activeScriptId = null;
     let activeMode = "script";
@@ -1539,6 +1584,7 @@
     const dateValue = document.getElementById("dateValue");
     const themeValue = document.getElementById("themeValue");
     const statusValue = document.getElementById("statusValue");
+    const shootingValue = document.getElementById("shootingValue");
     const searchValue = document.getElementById("searchValue");
 
     const summaryPanel = document.getElementById("summaryPanel");
@@ -1549,6 +1595,24 @@
     const shootingTitle = document.getElementById("shootingTitle");
     const shootingMeta = document.getElementById("shootingMeta");
     const shootingBody = document.getElementById("shootingBody");
+    const shootingShotButton = document.getElementById("shootingShotButton");
+
+    function loadShotScriptIds() {
+      try {
+        const saved = localStorage.getItem(storageKey);
+        return saved ? JSON.parse(saved) : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveShotScriptIds() {
+      localStorage.setItem(storageKey, JSON.stringify([...shotScriptIds]));
+    }
+
+    function isScriptShot(scriptId) {
+      return shotScriptIds.has(scriptId);
+    }
 
     function renderDays() {
       const allButton = `
@@ -1581,7 +1645,7 @@
 
     function isReadyStatus(script) {
       const status = normalizeText(script.status);
-      return status.includes("pret") || status.includes("prêt") || status.includes("valide") || status.includes("validé");
+      return status.includes("pret") || status.includes("valide");
     }
 
     function isToValidateStatus(script) {
@@ -1596,6 +1660,16 @@
       return true;
     }
 
+    function matchesShootingFilter(script) {
+      const shot = isScriptShot(script.id);
+
+      if (activeShootingFilter === "all") return true;
+      if (activeShootingFilter === "shot") return shot;
+      if (activeShootingFilter === "notShot") return !shot;
+
+      return true;
+    }
+
     function filteredScripts() {
       const query = normalizeText(activeSearch);
 
@@ -1603,6 +1677,7 @@
         const dayOk = activeDay === "all" || script.day === activeDay;
         const themeOk = activeTheme === "all" || script.theme === activeTheme;
         const statusOk = matchesStatusFilter(script);
+        const shootingOk = matchesShootingFilter(script);
 
         const searchableText = normalizeText([
           script.title,
@@ -1625,7 +1700,7 @@
 
         const searchOk = !query || searchableText.includes(query);
 
-        return dayOk && themeOk && statusOk && searchOk;
+        return dayOk && themeOk && statusOk && shootingOk && searchOk;
       });
     }
 
@@ -1656,24 +1731,34 @@
       return labels[activeStatus] || "Tous";
     }
 
+    function getShootingLabel() {
+      const labels = {
+        all: "Tous",
+        shot: "Tournés",
+        notShot: "Non tournés"
+      };
+
+      return labels[activeShootingFilter] || "Tous";
+    }
+
     function getStatusCounts() {
       let ready = 0;
       let toValidate = 0;
 
       scripts.forEach((script) => {
-        if (isReadyStatus(script)) {
-          ready += 1;
-        }
-
-        if (isToValidateStatus(script)) {
-          toValidate += 1;
-        }
+        if (isReadyStatus(script)) ready += 1;
+        if (isToValidateStatus(script)) toValidate += 1;
       });
 
-      return {
-        ready,
-        toValidate
-      };
+      return { ready, toValidate };
+    }
+
+    function getShootingCounts() {
+      const total = scripts.length;
+      const shot = scripts.filter((script) => isScriptShot(script.id)).length;
+      const notShot = total - shot;
+
+      return { total, shot, notShot };
     }
 
     function renderSummaryPanel() {
@@ -1682,12 +1767,13 @@
       const fiscalite = scripts.filter((script) => script.theme === "fiscalite").length;
       const epargne = scripts.filter((script) => script.theme === "epargne").length;
       const statusCounts = getStatusCounts();
+      const shootingCounts = getShootingCounts();
 
       summaryPanel.innerHTML = `
         <div class="summary-head">
           <div>
             <h3>Synthèse automatique</h3>
-            <p>Vue globale de la bibliothèque complète, indépendamment des filtres actifs.</p>
+            <p>Vue globale de la bibliothèque complète, avec suivi local du tournage.</p>
           </div>
           <span class="summary-refresh">Mise à jour automatique</span>
         </div>
@@ -1728,6 +1814,18 @@
             <strong>${statusCounts.ready}</strong>
             <small>Scripts validés ou prêts</small>
           </div>
+
+          <div class="summary-card blue">
+            <span>Tournés</span>
+            <strong>${shootingCounts.shot}</strong>
+            <small>Scripts déjà enregistrés</small>
+          </div>
+
+          <div class="summary-card blue">
+            <span>Restants</span>
+            <strong>${shootingCounts.notShot}</strong>
+            <small>Scripts encore à tourner</small>
+          </div>
         </div>
 
         <div class="summary-actions">
@@ -1743,6 +1841,20 @@
             Voir tous les statuts
           </button>
         </div>
+
+        <div class="summary-actions">
+          <button class="tracking-filter-button blue ${activeShootingFilter === "notShot" ? "active" : ""}" onclick="selectShootingFilter('notShot')">
+            Voir uniquement les non tournés
+          </button>
+
+          <button class="tracking-filter-button blue ${activeShootingFilter === "shot" ? "active" : ""}" onclick="selectShootingFilter('shot')">
+            Voir uniquement les tournés
+          </button>
+
+          <button class="tracking-filter-button ${activeShootingFilter === "all" ? "active" : ""}" onclick="selectShootingFilter('all')">
+            Voir tous les tournages
+          </button>
+        </div>
       `;
     }
 
@@ -1751,6 +1863,7 @@
       dateValue.textContent = getDateLabel();
       themeValue.textContent = getThemeLabel();
       statusValue.textContent = getStatusLabel();
+      shootingValue.textContent = getShootingLabel();
       searchValue.textContent = activeSearch.trim() ? activeSearch.trim() : "Aucune";
     }
 
@@ -1796,8 +1909,8 @@
           </div>
 
           <div class="quality-field">
-            <span>Durée</span>
-            <strong>${script.duration}</strong>
+            <span>Tournage</span>
+            <strong>${isScriptShot(script.id) ? "Tourné" : "Non tourné"}</strong>
           </div>
 
           <div class="quality-note">
@@ -1812,7 +1925,7 @@
         <div class="quality-head">
           <div>
             <h3>Contrôle qualité</h3>
-            <p>Vue rapide des scripts visibles avec leurs informations de relecture.</p>
+            <p>Vue rapide des scripts visibles avec leurs informations de relecture et de tournage.</p>
           </div>
           <span class="quality-count">${items.length} script${items.length > 1 ? "s" : ""}</span>
         </div>
@@ -1847,25 +1960,30 @@
         activeScriptId = items[0].id;
       }
 
-      scriptList.innerHTML = items.map((script) => `
-        <button class="list-card ${script.id === activeScriptId ? "active" : ""}" onclick="selectScript('${script.id}')">
-          <div class="list-meta">
-            <span class="list-time">${activeDay === "all" ? `${script.day} ${script.weekday} · ${script.time}` : script.time}</span>
-            <span class="list-status">${script.status}</span>
-          </div>
-          <h3>${script.title}</h3>
-          <p>${script.summary}</p>
-        </button>
-      `).join("");
+      scriptList.innerHTML = items.map((script) => {
+        const shot = isScriptShot(script.id);
+
+        return `
+          <button class="list-card ${script.id === activeScriptId ? "active" : ""} ${shot ? "shot" : ""}" onclick="selectScript('${script.id}')">
+            <div class="list-meta">
+              <span class="list-time">${activeDay === "all" ? `${script.day} ${script.weekday} · ${script.time}` : script.time}</span>
+              <span class="list-status">${script.status}</span>
+              ${shot ? `<span class="shot-badge">Tourné</span>` : ""}
+            </div>
+            <h3>${script.title}</h3>
+            <p>${script.summary}</p>
+          </button>
+        `;
+      }).join("");
 
       renderDetail();
     }
 
     function renderDetail() {
       const script = scripts.find((item) => item.id === activeScriptId);
-
       if (!script) return;
 
+      const shot = isScriptShot(script.id);
       const bodyHtml = script.body.map((paragraph) => `<p>${paragraph}</p>`).join("");
 
       scriptDetail.innerHTML = `
@@ -1874,10 +1992,14 @@
             <span class="badge time">${script.day} ${script.weekday} · ${script.time}</span>
             <span class="badge status">${script.status}</span>
             <span class="badge natural">${script.natural}</span>
+            ${shot ? `<span class="badge shot">Tourné</span>` : `<span class="badge shot">Non tourné</span>`}
           </div>
 
           <div class="script-buttons">
             <button class="copy" onclick="copyCurrentScript()">Copier le texte</button>
+            <button class="shot-button ${shot ? "active" : ""}" onclick="toggleCurrentScriptShot()">
+              ${shot ? "Annuler tourné" : "Marquer comme tourné"}
+            </button>
             <button class="shooting-button" onclick="openShootingMode()">Mode tournage</button>
           </div>
         </div>
@@ -1963,6 +2085,12 @@
       renderList();
     }
 
+    function selectShootingFilter(filter) {
+      activeShootingFilter = filter;
+      activeMode = "script";
+      renderList();
+    }
+
     function toggleQualityMode() {
       qualityMode = !qualityMode;
       renderList();
@@ -1972,6 +2100,35 @@
       }
     }
 
+    function toggleCurrentScriptShot() {
+      const script = scripts.find((item) => item.id === activeScriptId);
+      if (!script) return;
+
+      if (shotScriptIds.has(script.id)) {
+        shotScriptIds.delete(script.id);
+        showToast("Script marqué comme non tourné");
+      } else {
+        shotScriptIds.add(script.id);
+        showToast("Script marqué comme tourné");
+      }
+
+      saveShotScriptIds();
+
+      if (shootingOverlay.classList.contains("active")) {
+        updateShootingShotButton();
+      }
+
+      renderList();
+    }
+
+    function updateShootingShotButton() {
+      const script = scripts.find((item) => item.id === activeScriptId);
+      if (!script) return;
+
+      const shot = isScriptShot(script.id);
+      shootingShotButton.textContent = shot ? "Annuler tourné" : "Marquer comme tourné";
+    }
+
     function openShootingMode() {
       const script = scripts.find((item) => item.id === activeScriptId);
       if (!script) return;
@@ -1979,6 +2136,8 @@
       shootingTitle.textContent = script.title;
       shootingMeta.textContent = `${script.day} ${script.weekday} · ${script.time} · ${script.category} · ${script.duration}`;
       shootingBody.innerHTML = script.body.map((paragraph) => `<p>${paragraph}</p>`).join("");
+
+      updateShootingShotButton();
 
       shootingOverlay.classList.add("active");
       shootingOverlay.setAttribute("aria-hidden", "false");
@@ -1996,6 +2155,7 @@
       activeDay = "all";
       activeTheme = "all";
       activeStatus = "all";
+      activeShootingFilter = "all";
       activeSearch = "";
       activeMode = "script";
       qualityMode = false;
@@ -2011,12 +2171,14 @@
 
     function formatScriptForCopy(script, index = null) {
       const number = index !== null ? `${index + 1}. ` : "";
+      const shotLabel = isScriptShot(script.id) ? "Tourné" : "Non tourné";
 
       return [
         `${number}${script.title}`,
         `${script.day} ${script.weekday} · ${script.time}`,
         `${script.category}`,
         `Statut : ${script.status}`,
+        `Tournage : ${shotLabel}`,
         "",
         script.body.join("\n\n"),
         "",
@@ -2029,9 +2191,7 @@
       ].join("\n");
     }
 
-    function buildVisibleScriptsExport() {
-      const items = filteredScripts();
-
+    function buildExportForItems(items, title) {
       if (!items.length) {
         return {
           items,
@@ -2040,10 +2200,11 @@
       }
 
       const header = [
-        "BRITED Studio — Scripts affichés",
+        title,
         `Date : ${getDateLabel()}`,
         `Thème : ${getThemeLabel()}`,
         `Statut : ${getStatusLabel()}`,
+        `Tournage : ${getShootingLabel()}`,
         `Recherche : ${activeSearch.trim() ? activeSearch.trim() : "Aucune"}`,
         `Nombre : ${items.length} script${items.length > 1 ? "s" : ""}`,
         "========================================"
@@ -2055,6 +2216,10 @@
         items,
         text: `${header}\n\n${body}`
       };
+    }
+
+    function buildVisibleScriptsExport() {
+      return buildExportForItems(filteredScripts(), "BRITED Studio — Scripts affichés");
     }
 
     function showToast(message) {
@@ -2097,24 +2262,8 @@
         .replace(/(^-|-$)/g, "");
     }
 
-    function downloadVisibleScripts() {
-      const exportData = buildVisibleScriptsExport();
-
-      if (!exportData.items.length) {
-        showToast("Aucun script à exporter");
-        return;
-      }
-
-      const datePart = createSafeFilename(getDateLabel());
-      const themePart = createSafeFilename(getThemeLabel());
-      const statusPart = createSafeFilename(getStatusLabel());
-      const searchPart = activeSearch.trim()
-        ? `-${createSafeFilename(activeSearch.trim())}`
-        : "";
-
-      const filename = `brited-studio-scripts-${datePart}-${themePart}-${statusPart}${searchPart}.txt`;
-
-      const blob = new Blob([exportData.text], {
+    function downloadTextFile(text, filename, count) {
+      const blob = new Blob([text], {
         type: "text/plain;charset=utf-8"
       });
 
@@ -2129,7 +2278,59 @@
 
       URL.revokeObjectURL(url);
 
-      showToast(`${exportData.items.length} script${exportData.items.length > 1 ? "s" : ""} exportés`);
+      showToast(`${count} script${count > 1 ? "s" : ""} exportés`);
+    }
+
+    function downloadVisibleScripts() {
+      const exportData = buildVisibleScriptsExport();
+
+      if (!exportData.items.length) {
+        showToast("Aucun script à exporter");
+        return;
+      }
+
+      const datePart = createSafeFilename(getDateLabel());
+      const themePart = createSafeFilename(getThemeLabel());
+      const statusPart = createSafeFilename(getStatusLabel());
+      const shootingPart = createSafeFilename(getShootingLabel());
+      const searchPart = activeSearch.trim()
+        ? `-${createSafeFilename(activeSearch.trim())}`
+        : "";
+
+      const filename = `brited-studio-scripts-${datePart}-${themePart}-${statusPart}-${shootingPart}${searchPart}.txt`;
+
+      downloadTextFile(exportData.text, filename, exportData.items.length);
+    }
+
+    function downloadShotScripts(type) {
+      const previousFilter = activeShootingFilter;
+      activeShootingFilter = type;
+
+      const items = filteredScripts();
+      const title = type === "shot"
+        ? "BRITED Studio — Scripts tournés"
+        : "BRITED Studio — Scripts non tournés";
+
+      const exportData = buildExportForItems(items, title);
+
+      activeShootingFilter = previousFilter;
+
+      if (!exportData.items.length) {
+        showToast(type === "shot" ? "Aucun script tourné à exporter" : "Aucun script non tourné à exporter");
+        return;
+      }
+
+      const datePart = createSafeFilename(getDateLabel());
+      const themePart = createSafeFilename(getThemeLabel());
+      const statusPart = createSafeFilename(getStatusLabel());
+      const typePart = type === "shot" ? "tournes" : "non-tournes";
+      const searchPart = activeSearch.trim()
+        ? `-${createSafeFilename(activeSearch.trim())}`
+        : "";
+
+      const filename = `brited-studio-${typePart}-${datePart}-${themePart}-${statusPart}${searchPart}.txt`;
+
+      downloadTextFile(exportData.text, filename, exportData.items.length);
     }
 
     function scrollToScripts() {
