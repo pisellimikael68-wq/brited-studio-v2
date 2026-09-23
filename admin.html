@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BRITED Studio V2 — Back-office</title>
+
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <style>
+    .admin-main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 64px 24px 90px;
+    }
+
+    .admin-hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: clamp(28px, 5vw, 48px);
+      margin-bottom: 28px;
+    }
+
+    .admin-hero h1 {
+      font-size: clamp(44px, 7vw, 76px);
+      max-width: 900px;
+    }
+
+    .admin-hero p {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.5;
+      font-weight: 650;
+      margin: 22px 0 0;
+    }
+
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .admin-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .admin-card h2 {
+      font-size: 34px;
+      margin-bottom: 18px;
+    }
+
+    .admin-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 15px;
+      color: var(--ink);
+      background: white;
+      font-size: 15px;
+      font-weight: 650;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 96px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--green-line);
+      box-shadow: 0 0 0 5px rgba(40, 93, 75, 0.08);
+    }
+
+    .field-help {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 650;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .admin-button {
+      border: 1px solid var(--green);
+      background: var(--green);
+      color: white;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 950;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .admin-button.secondary {
+      background: white;
+      color: var(--green);
+    }
+
+    .admin-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .output-box {
+      width: 100%;
+      min-height: 580px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      background: #0f2020;
+      color: #e7fff5;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      resize: vertical;
+      white-space: pre;
+    }
+
+    .admin-note {
+      margin-top: 18px;
+      background: var(--gold-soft);
+      color: var(--gold-text);
+      border-radius: 14px;
+      padding: 16px;
+      line-height: 1.45;
+      font-weight: 750;
+      font-size: 14px;
+    }
+
+    .preview-card {
+      margin-top: 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--bg-soft);
+      padding: 18px;
+    }
+
+    .preview-card strong {
+      display: block;
+      color: var(--green);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .preview-card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      letter-spacing: -0.035em;
+    }
+
+    .preview-card p {
+      color: var(--muted);
+      line-height: 1.45;
+      font-weight: 650;
+      margin: 0;
+    }
+
+    @media (max-width: 980px) {
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .admin-main {
+        padding-top: 42px;
+      }
+
+      .admin-card {
+        padding: 22px;
+      }
+
+      .admin-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .admin-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">B</div>
+        <div>
+          <div class="brand-title">BRITED Studio</div>
+          <div class="brand-subtitle">Back-office · Générateur JSON</div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="small-button" onclick="window.location.href='index.html'">Retour au studio</button>
+        <div class="access">
+          <span class="access-dot"></span>
+          Local
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="admin-hero">
+      <div class="eyebrow">Back-office local</div>
+      <h1>Créer un script sans écrire le JSON à la main.</h1>
+      <p>
+        Remplis le formulaire, génère le bloc JSON, puis copie-le dans <strong>data/scripts.json</strong>.
+        Cette page ne modifie pas encore automatiquement le fichier : elle sécurise la création des nouveaux scripts.
+      </p>
+    </section>
+
+    <section class="admin-layout">
+      <form class="admin-card admin-form" id="scriptForm">
+        <h2>Nouveau script</h2>
+
+        <div class="field">
+          <label for="id">Identifiant unique</label>
+          <input id="id" name="id" type="text" placeholder="ex : script-016" required />
+          <div class="field-help">Utilise un identifiant stable, sans espace. Exemple : script-029.</div>
+        </div>
+
+        <div class="field">
+          <label for="day">Jour</label>
+          <select id="day" name="day" required>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="weekday">Jour semaine</label>
+          <select id="weekday" name="weekday" required>
+            <option value="Mer">Mer</option>
+            <option value="Jeu">Jeu</option>
+            <option value="Ven">Ven</option>
+            <option value="Sam">Sam</option>
+            <option value="Dim">Dim</option>
+            <option value="Lun">Lun</option>
+            <option value="Mar">Mar</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="time">Horaire</label>
+          <input id="time" name="time" type="text" placeholder="ex : 09:30" required />
+        </div>
+
+        <div class="field">
+          <label for="theme">Thème technique</label>
+          <select id="theme" name="theme" required>
+            <option value="investir">Investir</option>
+            <option value="fiscalite">Fiscalité</option>
+            <option value="epargne">Épargne</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="category">Catégorie affichée</label>
+          <input id="category" name="category" type="text" placeholder="ex : Fiscalité · Impôt sur le revenu" required />
+        </div>
+
+        <div class="field">
+          <label for="status">Statut</label>
+          <select id="status" name="status" required>
+            <option value="À valider">À valider</option>
+            <option value="À relire">À relire</option>
+            <option value="Prêt">Prêt</option>
+            <option value="Validé">Validé</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="natural">Style oral</label>
+          <input id="natural" name="natural" type="text" value="Naturel" required />
+        </div>
+
+        <div class="field">
+          <label for="duration">Durée estimée</label>
+          <input id="duration" name="duration" type="text" value="Objectif 60–65 secondes" required />
+        </div>
+
+        <div class="field">
+          <label for="title">Titre</label>
+          <input id="title" name="title" type="text" placeholder="Titre du script" required />
+        </div>
+
+        <div class="field">
+          <label for="summary">Résumé court</label>
+          <textarea id="summary" name="summary" placeholder="Résumé affiché dans la liste des scripts." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="target">Pour qui ?</label>
+          <textarea id="target" name="target" placeholder="Public ou situation concernée." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="conclusion">Phrase finale</label>
+          <textarea id="conclusion" name="conclusion" placeholder="Phrase finale facile à retenir." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="body">Texte face caméra</label>
+          <textarea id="body" name="body" placeholder="Un paragraphe par bloc. Sépare les paragraphes par une ligne vide." required></textarea>
+          <div class="field-help">Chaque paragraphe deviendra automatiquement une entrée dans le tableau body.</div>
+        </div>
+
+        <div class="field">
+          <label for="intention">Intention</label>
+          <textarea id="intention" name="intention" placeholder="Ce que le script doit faire comprendre." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="rythme">Rythme</label>
+          <textarea id="rythme" name="rythme" placeholder="Indications de diction, tempo, pauses." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="vigilance">Vigilance</label>
+          <textarea id="vigilance" name="vigilance" placeholder="Points à vérifier avant tournage." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="sources">Sources et précisions</label>
+          <textarea id="sources" name="sources" placeholder="Sources, limites, précisions de fond." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="guide">Guide de tournage</label>
+          <textarea id="guide" name="guide" placeholder="Conseils de tournage, ton, posture, exemple." required></textarea>
+        </div>
+
+        <div class="admin-actions">
+          <button class="admin-button" type="submit">Générer le JSON</button>
+          <button class="admin-button secondary" type="button" onclick="copyJson()">Copier le JSON</button>
+          <button class="admin-button secondary" type="button" onclick="resetForm()">Réinitialiser</button>
+        </div>
+
+        <div class="admin-note">
+          Quand le JSON est généré, ajoute-le dans <strong>data/scripts.json</strong>, entre deux objets,
+          en pensant à la virgule avant ou après selon l’endroit où tu l’insères.
+        </div>
+      </form>
+
+      <aside class="admin-card">
+        <h2>JSON généré</h2>
+        <textarea class="output-box" id="jsonOutput" readonly>{
+  "id": "",
+  "day": "",
+  "weekday": "",
+  "time": "",
+  "theme": "",
+  "category": "",
+  "status": "",
+  "natural": "",
+  "duration": "",
+  "title": "",
+  "summary": "",
+  "target": "",
+  "conclusion": "",
+  "body": [],
+  "notes": {
+    "intention": "",
+    "rythme": "",
+    "vigilance": ""
+  },
+  "sources": "",
+  "guide": ""
+}</textarea>
+
+        <div class="preview-card" id="previewCard">
+          <strong>Aperçu</strong>
+          <h3>Aucun script généré</h3>
+          <p>Remplis le formulaire puis clique sur “Générer le JSON”.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">Action confirmée</div>
+
+  <script>
+    const form = document.getElementById("scriptForm");
+    const jsonOutput = document.getElementById("jsonOutput");
+    const previewCard = document.getElementById("previewCard");
+
+    function splitParagraphs(value) {
+      return String(value || "")
+        .split(/\n\s*\n/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    function getFormValue(name) {
+      return form.elements[name].value.trim();
+    }
+
+    function buildScriptObject() {
+      return {
+        id: getFormValue("id"),
+        day: getFormValue("day"),
+        weekday: getFormValue("weekday"),
+        time: getFormValue("time"),
+        theme: getFormValue("theme"),
+        category: getFormValue("category"),
+        status: getFormValue("status"),
+        natural: getFormValue("natural"),
+        duration: getFormValue("duration"),
+        title: getFormValue("title"),
+        summary: getFormValue("summary"),
+        target: getFormValue("target"),
+        conclusion: getFormValue("conclusion"),
+        body: splitParagraphs(getFormValue("body")),
+        notes: {
+          intention: getFormValue("intention"),
+          rythme: getFormValue("rythme"),
+          vigilance: getFormValue("vigilance")
+        },
+        sources: getFormValue("sources"),
+        guide: getFormValue("guide")
+      };
+    }
+
+    function generateJson() {
+      const scriptObject = buildScriptObject();
+      jsonOutput.value = JSON.stringify(scriptObject, null, 2);
+
+      previewCard.innerHTML = `
+        <strong>Aperçu</strong>
+        <h3>${scriptObject.title || "Titre non renseigné"}</h3>
+        <p>${scriptObject.day} ${scriptObject.weekday} · ${scriptObject.time} · ${scriptObject.category}</p>
+      `;
+
+      showToast("JSON généré");
+    }
+
+    function copyJson() {
+      if (!jsonOutput.value.trim()) {
+        showToast("Aucun JSON à copier");
+        return;
+      }
+
+      navigator.clipboard.writeText(jsonOutput.value).then(() => {
+        showToast("JSON copié");
+      });
+    }
+
+    function resetForm() {
+      form.reset();
+      jsonOutput.value = `{
+  "id": "",
+  "day": "",
+  "weekday": "",
+  "time": "",
+  "theme": "",
+  "category": "",
+  "status": "",
+  "natural": "",
+  "duration": "",
+  "title": "",
+  "summary": "",
+  "target": "",
+  "conclusion": "",
+  "body": [],
+  "notes": {
+    "intention": "",
+    "rythme": "",
+    "vigilance": ""
+  },
+  "sources": "",
+  "guide": ""
+}`;
+
+      previewCard.innerHTML = `
+        <strong>Aperçu</strong>
+        <h3>Aucun script généré</h3>
+        <p>Remplis le formulaire puis clique sur “Générer le JSON”.</p>
+      `;
+
+      showToast("Formulaire réinitialisé");
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+
+      setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 1800);
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      generateJson();
+    });
+  </script>
+</body>
+</html>
