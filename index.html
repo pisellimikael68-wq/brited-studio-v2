@@ -418,7 +418,8 @@
 
     .reset-button,
     .bulk-copy-button,
-    .export-button {
+    .export-button,
+    .quality-button {
       border: 1px solid var(--green);
       border-radius: 14px;
       padding: 15px 18px;
@@ -436,15 +437,23 @@
     }
 
     .bulk-copy-button,
-    .export-button {
+    .export-button,
+    .quality-button {
       background: white;
       color: var(--green);
       flex: 1;
     }
 
+    .quality-button.active {
+      background: var(--gold-soft);
+      color: var(--gold-text);
+      border-color: #ead390;
+    }
+
     .reset-button:hover,
     .bulk-copy-button:hover,
-    .export-button:hover {
+    .export-button:hover,
+    .quality-button:hover {
       transform: translateY(-1px);
     }
 
@@ -453,8 +462,13 @@
     }
 
     .bulk-copy-button:hover,
-    .export-button:hover {
+    .export-button:hover,
+    .quality-button:hover {
       background: var(--green-soft);
+    }
+
+    .quality-button.active:hover {
+      background: var(--gold-soft);
     }
 
     .program-note {
@@ -466,6 +480,109 @@
       font-weight: 750;
       font-size: 14px;
       line-height: 1.45;
+    }
+
+    .quality-panel {
+      display: none;
+      margin-top: 26px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .quality-panel.active {
+      display: block;
+    }
+
+    .quality-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .quality-head h3 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+    }
+
+    .quality-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-weight: 650;
+      line-height: 1.45;
+    }
+
+    .quality-count {
+      background: var(--green-soft);
+      color: var(--green);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .quality-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .quality-card {
+      display: grid;
+      grid-template-columns: 1.2fr 0.72fr 0.72fr 0.72fr;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-soft);
+      align-items: start;
+    }
+
+    .quality-title strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 7px;
+    }
+
+    .quality-title span,
+    .quality-field span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .quality-field strong {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .quality-note {
+      grid-column: 1 / -1;
+      background: white;
+      border-radius: 12px;
+      padding: 13px;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    .quality-note strong {
+      color: var(--green);
     }
 
     .layout {
@@ -814,6 +931,14 @@
       .control-panel {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .quality-card {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .quality-title {
+        grid-column: 1 / -1;
+      }
     }
 
     @media (max-width: 680px) {
@@ -847,6 +972,19 @@
 
       .control-actions {
         display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .quality-head {
+        display: block;
+      }
+
+      .quality-count {
+        display: inline-flex;
+        margin-top: 14px;
+      }
+
+      .quality-card {
         grid-template-columns: 1fr;
       }
 
@@ -913,16 +1051,16 @@
         <div class="metric">
           <div class="metric-icon">2</div>
           <div>
-            <strong>Notes de tournage</strong>
-            <span>L’intention, le rythme et la prudence à garder pendant l’enregistrement.</span>
+            <strong>Export simple</strong>
+            <span>Copiez ou téléchargez les scripts visibles selon les filtres actifs.</span>
           </div>
         </div>
 
         <div class="metric">
           <div class="metric-icon">3</div>
           <div>
-            <strong>Export simple</strong>
-            <span>Copiez ou téléchargez les scripts visibles selon les filtres actifs.</span>
+            <strong>Contrôle qualité</strong>
+            <span>Une vue rapide pour relire les statuts, thèmes, durées et notes de tournage.</span>
           </div>
         </div>
       </aside>
@@ -981,6 +1119,7 @@
         <div class="control-actions">
           <button class="bulk-copy-button" onclick="copyVisibleScripts()">Copier tous les scripts affichés</button>
           <button class="export-button" onclick="downloadVisibleScripts()">Exporter en fichier .txt</button>
+          <button class="quality-button" id="qualityButton" onclick="toggleQualityMode()">Mode contrôle qualité</button>
           <button class="reset-button" onclick="resetFilters()">Réinitialiser</button>
         </div>
       </div>
@@ -990,6 +1129,8 @@
         Les textes sont chargés depuis <strong>data/scripts.json</strong>. Le mode <strong>Toutes dates</strong>
         permet un contrôle exhaustif de toute la bibliothèque.
       </div>
+
+      <section class="quality-panel" id="qualityPanel"></section>
 
       <div class="layout">
         <aside>
@@ -1031,6 +1172,7 @@
     let activeSearch = "";
     let activeScriptId = null;
     let activeMode = "script";
+    let qualityMode = false;
 
     const dayFilters = document.getElementById("dayFilters");
     const scriptList = document.getElementById("scriptList");
@@ -1042,6 +1184,9 @@
     const dateValue = document.getElementById("dateValue");
     const themeValue = document.getElementById("themeValue");
     const searchValue = document.getElementById("searchValue");
+
+    const qualityPanel = document.getElementById("qualityPanel");
+    const qualityButton = document.getElementById("qualityButton");
 
     function renderDays() {
       const allButton = `
@@ -1091,6 +1236,10 @@
           script.day,
           script.weekday,
           script.time,
+          script.duration,
+          script.notes?.intention,
+          script.notes?.rythme,
+          script.notes?.vigilance,
           ...(script.body || [])
         ].join(" "));
 
@@ -1124,10 +1273,80 @@
       searchValue.textContent = activeSearch.trim() ? activeSearch.trim() : "Aucune";
     }
 
+    function renderQualityPanel(items) {
+      qualityPanel.classList.toggle("active", qualityMode);
+      qualityButton.classList.toggle("active", qualityMode);
+      qualityButton.textContent = qualityMode ? "Masquer le contrôle qualité" : "Mode contrôle qualité";
+
+      if (!qualityMode) {
+        qualityPanel.innerHTML = "";
+        return;
+      }
+
+      if (!items.length) {
+        qualityPanel.innerHTML = `
+          <div class="quality-head">
+            <div>
+              <h3>Contrôle qualité</h3>
+              <p>Aucun script ne correspond aux filtres actuels.</p>
+            </div>
+            <span class="quality-count">0 script</span>
+          </div>
+        `;
+        return;
+      }
+
+      const cards = items.map((script) => `
+        <div class="quality-card">
+          <div class="quality-title">
+            <span>Titre</span>
+            <strong>${script.title}</strong>
+            <small>${script.day} ${script.weekday} · ${script.time}</small>
+          </div>
+
+          <div class="quality-field">
+            <span>Thème</span>
+            <strong>${script.category}</strong>
+          </div>
+
+          <div class="quality-field">
+            <span>Statut</span>
+            <strong>${script.status}</strong>
+          </div>
+
+          <div class="quality-field">
+            <span>Durée</span>
+            <strong>${script.duration}</strong>
+          </div>
+
+          <div class="quality-note">
+            <strong>Intention :</strong> ${script.notes?.intention || "Non renseignée"}<br>
+            <strong>Rythme :</strong> ${script.notes?.rythme || "Non renseigné"}<br>
+            <strong>Vigilance :</strong> ${script.notes?.vigilance || "Non renseignée"}
+          </div>
+        </div>
+      `).join("");
+
+      qualityPanel.innerHTML = `
+        <div class="quality-head">
+          <div>
+            <h3>Contrôle qualité</h3>
+            <p>Vue rapide des scripts visibles avec leurs informations de relecture.</p>
+          </div>
+          <span class="quality-count">${items.length} script${items.length > 1 ? "s" : ""}</span>
+        </div>
+
+        <div class="quality-grid">
+          ${cards}
+        </div>
+      `;
+    }
+
     function renderList() {
       const items = filteredScripts();
 
       updateControlPanel(items.length);
+      renderQualityPanel(items);
 
       if (!items.length) {
         scriptList.innerHTML = "";
@@ -1252,11 +1471,21 @@
       renderDetail();
     }
 
+    function toggleQualityMode() {
+      qualityMode = !qualityMode;
+      renderList();
+
+      if (qualityMode) {
+        qualityPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
     function resetFilters() {
       activeDay = "all";
       activeTheme = "all";
       activeSearch = "";
       activeMode = "script";
+      qualityMode = false;
       searchInput.value = "";
 
       document.querySelectorAll(".chip").forEach((chip) => {
