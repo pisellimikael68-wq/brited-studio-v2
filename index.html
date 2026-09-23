@@ -464,6 +464,47 @@
       line-height: 1.35;
     }
 
+    .summary-actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .summary-filter-button {
+      border: 1px solid var(--green);
+      background: white;
+      color: var(--green);
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 14px;
+      font-weight: 950;
+      cursor: pointer;
+      transition: 0.2s ease;
+      flex: 1;
+      min-height: 54px;
+    }
+
+    .summary-filter-button:hover {
+      background: var(--green-soft);
+      transform: translateY(-1px);
+    }
+
+    .summary-filter-button.gold {
+      border-color: #ead390;
+      color: var(--gold-text);
+    }
+
+    .summary-filter-button.active {
+      background: var(--green);
+      color: white;
+    }
+
+    .summary-filter-button.gold.active {
+      background: var(--gold-soft);
+      color: var(--gold-text);
+    }
+
     .control-panel {
       margin-top: 20px;
       background: white;
@@ -471,7 +512,7 @@
       border-radius: 20px;
       padding: 18px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 12px;
       align-items: center;
       box-shadow: 0 12px 30px rgba(25, 56, 49, 0.04);
@@ -1012,6 +1053,14 @@
       .summary-grid {
         grid-template-columns: repeat(3, 1fr);
       }
+
+      .control-panel {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .control-actions {
+        grid-column: 1 / -1;
+      }
     }
 
     @media (max-width: 940px) {
@@ -1025,10 +1074,6 @@
 
       .script-list {
         position: static;
-      }
-
-      .control-panel {
-        grid-template-columns: repeat(2, 1fr);
       }
 
       .quality-card {
@@ -1075,6 +1120,11 @@
       }
 
       .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-actions {
+        display: grid;
         grid-template-columns: 1fr;
       }
 
@@ -1163,16 +1213,16 @@
         <div class="metric">
           <div class="metric-icon">2</div>
           <div>
-            <strong>Contrôle qualité</strong>
-            <span>Une vue rapide pour relire les statuts, thèmes, durées et notes de tournage.</span>
+            <strong>Synthèse automatique</strong>
+            <span>Un résumé immédiat du volume, des thèmes et de l’état de validation.</span>
           </div>
         </div>
 
         <div class="metric">
           <div class="metric-icon">3</div>
           <div>
-            <strong>Synthèse automatique</strong>
-            <span>Un résumé immédiat du volume, des thèmes et de l’état de validation.</span>
+            <strong>Filtres de statut</strong>
+            <span>Des boutons rapides pour isoler les scripts à valider ou prêts.</span>
           </div>
         </div>
       </aside>
@@ -1223,6 +1273,11 @@
         <div class="control-item">
           <span class="control-label">Thème actif</span>
           <span class="control-value" id="themeValue">Tous</span>
+        </div>
+
+        <div class="control-item">
+          <span class="control-label">Statut actif</span>
+          <span class="control-value" id="statusValue">Tous</span>
         </div>
 
         <div class="control-item">
@@ -1283,6 +1338,7 @@
 
     let activeDay = "all";
     let activeTheme = "all";
+    let activeStatus = "all";
     let activeSearch = "";
     let activeScriptId = null;
     let activeMode = "script";
@@ -1297,6 +1353,7 @@
     const countValue = document.getElementById("countValue");
     const dateValue = document.getElementById("dateValue");
     const themeValue = document.getElementById("themeValue");
+    const statusValue = document.getElementById("statusValue");
     const searchValue = document.getElementById("searchValue");
 
     const summaryPanel = document.getElementById("summaryPanel");
@@ -1332,12 +1389,30 @@
         .replace(/[\u0300-\u036f]/g, "");
     }
 
+    function isReadyStatus(script) {
+      const status = normalizeText(script.status);
+      return status.includes("pret") || status.includes("prêt") || status.includes("valide") || status.includes("validé");
+    }
+
+    function isToValidateStatus(script) {
+      const status = normalizeText(script.status);
+      return status.includes("valider") || status.includes("validation") || status.includes("relire");
+    }
+
+    function matchesStatusFilter(script) {
+      if (activeStatus === "all") return true;
+      if (activeStatus === "toValidate") return isToValidateStatus(script);
+      if (activeStatus === "ready") return isReadyStatus(script);
+      return true;
+    }
+
     function filteredScripts() {
       const query = normalizeText(activeSearch);
 
       return scripts.filter((script) => {
         const dayOk = activeDay === "all" || script.day === activeDay;
         const themeOk = activeTheme === "all" || script.theme === activeTheme;
+        const statusOk = matchesStatusFilter(script);
 
         const searchableText = normalizeText([
           script.title,
@@ -1360,7 +1435,7 @@
 
         const searchOk = !query || searchableText.includes(query);
 
-        return dayOk && themeOk && searchOk;
+        return dayOk && themeOk && statusOk && searchOk;
       });
     }
 
@@ -1381,18 +1456,26 @@
       return labels[activeTheme] || activeTheme;
     }
 
+    function getStatusLabel() {
+      const labels = {
+        all: "Tous",
+        toValidate: "À valider",
+        ready: "Prêts"
+      };
+
+      return labels[activeStatus] || "Tous";
+    }
+
     function getStatusCounts() {
       let ready = 0;
       let toValidate = 0;
 
       scripts.forEach((script) => {
-        const status = normalizeText(script.status);
-
-        if (status.includes("pret") || status.includes("prêt")) {
+        if (isReadyStatus(script)) {
           ready += 1;
         }
 
-        if (status.includes("valider") || status.includes("validation") || status.includes("relire")) {
+        if (isToValidateStatus(script)) {
           toValidate += 1;
         }
       });
@@ -1456,6 +1539,20 @@
             <small>Scripts validés ou prêts</small>
           </div>
         </div>
+
+        <div class="summary-actions">
+          <button class="summary-filter-button gold ${activeStatus === "toValidate" ? "active" : ""}" onclick="selectStatusFilter('toValidate')">
+            Voir uniquement les scripts à valider
+          </button>
+
+          <button class="summary-filter-button ${activeStatus === "ready" ? "active" : ""}" onclick="selectStatusFilter('ready')">
+            Voir uniquement les scripts prêts
+          </button>
+
+          <button class="summary-filter-button ${activeStatus === "all" ? "active" : ""}" onclick="selectStatusFilter('all')">
+            Voir tous les statuts
+          </button>
+        </div>
       `;
     }
 
@@ -1463,6 +1560,7 @@
       countValue.textContent = `${count} script${count > 1 ? "s" : ""}`;
       dateValue.textContent = getDateLabel();
       themeValue.textContent = getThemeLabel();
+      statusValue.textContent = getStatusLabel();
       searchValue.textContent = activeSearch.trim() ? activeSearch.trim() : "Aucune";
     }
 
@@ -1538,6 +1636,7 @@
     function renderList() {
       const items = filteredScripts();
 
+      renderSummaryPanel();
       updateControlPanel(items.length);
       renderQualityPanel(items);
 
@@ -1664,6 +1763,12 @@
       renderDetail();
     }
 
+    function selectStatusFilter(status) {
+      activeStatus = status;
+      activeMode = "script";
+      renderList();
+    }
+
     function toggleQualityMode() {
       qualityMode = !qualityMode;
       renderList();
@@ -1676,6 +1781,7 @@
     function resetFilters() {
       activeDay = "all";
       activeTheme = "all";
+      activeStatus = "all";
       activeSearch = "";
       activeMode = "script";
       qualityMode = false;
@@ -1723,6 +1829,7 @@
         "BRITED Studio — Scripts affichés",
         `Date : ${getDateLabel()}`,
         `Thème : ${getThemeLabel()}`,
+        `Statut : ${getStatusLabel()}`,
         `Recherche : ${activeSearch.trim() ? activeSearch.trim() : "Aucune"}`,
         `Nombre : ${items.length} script${items.length > 1 ? "s" : ""}`,
         "========================================"
@@ -1786,11 +1893,12 @@
 
       const datePart = createSafeFilename(getDateLabel());
       const themePart = createSafeFilename(getThemeLabel());
+      const statusPart = createSafeFilename(getStatusLabel());
       const searchPart = activeSearch.trim()
         ? `-${createSafeFilename(activeSearch.trim())}`
         : "";
 
-      const filename = `brited-studio-scripts-${datePart}-${themePart}${searchPart}.txt`;
+      const filename = `brited-studio-scripts-${datePart}-${themePart}-${statusPart}${searchPart}.txt`;
 
       const blob = new Blob([exportData.text], {
         type: "text/plain;charset=utf-8"
