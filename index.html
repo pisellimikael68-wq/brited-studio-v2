@@ -371,6 +371,63 @@
       color: var(--green);
     }
 
+    .control-panel {
+      margin-top: 20px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 12px 30px rgba(25, 56, 49, 0.04);
+    }
+
+    .control-item {
+      background: var(--green-soft);
+      border-radius: 14px;
+      padding: 13px 14px;
+      min-height: 64px;
+    }
+
+    .control-label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+
+    .control-value {
+      display: block;
+      color: var(--green);
+      font-size: 16px;
+      font-weight: 950;
+      line-height: 1.2;
+    }
+
+    .reset-button {
+      border: 1px solid var(--green);
+      background: var(--green);
+      color: white;
+      border-radius: 14px;
+      padding: 15px 18px;
+      font-size: 14px;
+      font-weight: 950;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: 0.2s ease;
+      min-height: 64px;
+    }
+
+    .reset-button:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
     .program-note {
       margin-top: 20px;
       background: var(--gold-soft);
@@ -724,6 +781,14 @@
       .script-list {
         position: static;
       }
+
+      .control-panel {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .reset-button {
+        grid-column: 1 / -1;
+      }
     }
 
     @media (max-width: 680px) {
@@ -749,6 +814,10 @@
 
       .section-head {
         display: block;
+      }
+
+      .control-panel {
+        grid-template-columns: 1fr;
       }
 
       .script-top {
@@ -822,8 +891,8 @@
         <div class="metric">
           <div class="metric-icon">3</div>
           <div>
-            <strong>Recherche toutes dates</strong>
-            <span>Un champ pour retrouver un script dans toute la bibliothèque ou par date précise.</span>
+            <strong>Panneau de contrôle</strong>
+            <span>Un résumé instantané des filtres actifs et du nombre de scripts affichés.</span>
           </div>
         </div>
       </aside>
@@ -856,6 +925,30 @@
           <button class="chip" data-theme="fiscalite">Fiscalité</button>
           <button class="chip" data-theme="epargne">Épargne</button>
         </div>
+      </div>
+
+      <div class="control-panel">
+        <div class="control-item">
+          <span class="control-label">Scripts affichés</span>
+          <span class="control-value" id="countValue">0</span>
+        </div>
+
+        <div class="control-item">
+          <span class="control-label">Date active</span>
+          <span class="control-value" id="dateValue">Toutes dates</span>
+        </div>
+
+        <div class="control-item">
+          <span class="control-label">Thème actif</span>
+          <span class="control-value" id="themeValue">Tous</span>
+        </div>
+
+        <div class="control-item">
+          <span class="control-label">Recherche</span>
+          <span class="control-value" id="searchValue">Aucune</span>
+        </div>
+
+        <button class="reset-button" onclick="resetFilters()">Réinitialiser</button>
       </div>
 
       <div class="program-note">
@@ -910,6 +1003,11 @@
     const scriptDetail = document.getElementById("scriptDetail");
     const emptyState = document.getElementById("emptyState");
     const searchInput = document.getElementById("searchInput");
+
+    const countValue = document.getElementById("countValue");
+    const dateValue = document.getElementById("dateValue");
+    const themeValue = document.getElementById("themeValue");
+    const searchValue = document.getElementById("searchValue");
 
     function renderDays() {
       const allButton = `
@@ -968,8 +1066,34 @@
       });
     }
 
+    function getDateLabel() {
+      if (activeDay === "all") return "Toutes dates";
+      const day = days.find((item) => item.day === activeDay);
+      return day ? `${day.day} ${day.weekday}` : activeDay;
+    }
+
+    function getThemeLabel() {
+      const labels = {
+        all: "Tous",
+        investir: "Investir",
+        fiscalite: "Fiscalité",
+        epargne: "Épargne"
+      };
+
+      return labels[activeTheme] || activeTheme;
+    }
+
+    function updateControlPanel(count) {
+      countValue.textContent = `${count} script${count > 1 ? "s" : ""}`;
+      dateValue.textContent = getDateLabel();
+      themeValue.textContent = getThemeLabel();
+      searchValue.textContent = activeSearch.trim() ? activeSearch.trim() : "Aucune";
+    }
+
     function renderList() {
       const items = filteredScripts();
+
+      updateControlPanel(items.length);
 
       if (!items.length) {
         scriptList.innerHTML = "";
@@ -1094,6 +1218,21 @@
       renderDetail();
     }
 
+    function resetFilters() {
+      activeDay = "all";
+      activeTheme = "all";
+      activeSearch = "";
+      activeMode = "script";
+      searchInput.value = "";
+
+      document.querySelectorAll(".chip").forEach((chip) => {
+        chip.classList.toggle("active", chip.dataset.theme === "all");
+      });
+
+      renderDays();
+      renderList();
+    }
+
     function copyCurrentScript() {
       const script = scripts.find((item) => item.id === activeScriptId);
       if (!script) return;
@@ -1156,6 +1295,7 @@
         emptyState.style.display = "block";
         emptyState.textContent = "Impossible de charger les scripts. Vérifiez le fichier data/scripts.json.";
         scriptDetail.style.display = "none";
+        updateControlPanel(0);
       }
     }
 
