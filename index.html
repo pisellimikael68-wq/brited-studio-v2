@@ -842,7 +842,15 @@
       color: var(--green);
     }
 
-    .copy {
+    .script-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .copy,
+    .shooting-button {
       border: 1px solid var(--green);
       color: var(--green);
       background: white;
@@ -855,9 +863,19 @@
       white-space: nowrap;
     }
 
+    .shooting-button {
+      background: var(--green);
+      color: white;
+    }
+
     .copy:hover {
       background: var(--green);
       color: white;
+    }
+
+    .shooting-button:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
     }
 
     .script-title {
@@ -1049,6 +1067,126 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    .shooting-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(245, 214, 123, 0.18), transparent 28%),
+        linear-gradient(180deg, #0d201f 0%, #142c2a 100%);
+      color: white;
+      display: none;
+      overflow-y: auto;
+      padding: 28px;
+    }
+
+    .shooting-overlay.active {
+      display: block;
+    }
+
+    .shooting-shell {
+      max-width: 980px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 28px;
+    }
+
+    .shooting-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .shooting-label {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .shooting-title {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+      max-width: 780px;
+    }
+
+    .shooting-meta {
+      margin-top: 12px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .shooting-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .shooting-action {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 950;
+      cursor: pointer;
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .shooting-action.primary {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #17312c;
+    }
+
+    .shooting-action:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .shooting-action.primary:hover {
+      background: #ffe28a;
+    }
+
+    .shooting-body {
+      align-self: center;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(30px, 4vw, 50px);
+      line-height: 1.45;
+      letter-spacing: -0.025em;
+      max-width: 960px;
+      padding: 24px 0 40px;
+    }
+
+    .shooting-body p {
+      margin: 0 0 42px;
+    }
+
+    .shooting-footer {
+      position: sticky;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(20, 44, 42, 0), #142c2a 38%);
+      padding: 34px 0 0;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
     @media (max-width: 1100px) {
       .summary-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -1155,12 +1293,36 @@
         align-items: stretch;
       }
 
-      .copy {
+      .script-buttons {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .copy,
+      .shooting-button {
         width: 100%;
       }
 
       .script-card {
         padding: 24px;
+      }
+
+      .shooting-overlay {
+        padding: 20px;
+      }
+
+      .shooting-top {
+        display: block;
+      }
+
+      .shooting-actions {
+        justify-content: flex-start;
+        margin-top: 18px;
+      }
+
+      .shooting-body {
+        font-size: clamp(27px, 8vw, 38px);
+        line-height: 1.42;
       }
     }
   </style>
@@ -1213,16 +1375,16 @@
         <div class="metric">
           <div class="metric-icon">2</div>
           <div>
-            <strong>Synthèse automatique</strong>
-            <span>Un résumé immédiat du volume, des thèmes et de l’état de validation.</span>
+            <strong>Filtres de statut</strong>
+            <span>Des boutons rapides pour isoler les scripts à valider ou prêts.</span>
           </div>
         </div>
 
         <div class="metric">
           <div class="metric-icon">3</div>
           <div>
-            <strong>Filtres de statut</strong>
-            <span>Des boutons rapides pour isoler les scripts à valider ou prêts.</span>
+            <strong>Mode tournage</strong>
+            <span>Une lecture plein écran pour utiliser le studio comme prompteur simple.</span>
           </div>
         </div>
       </aside>
@@ -1314,6 +1476,29 @@
     </section>
   </main>
 
+  <section class="shooting-overlay" id="shootingOverlay" aria-hidden="true">
+    <div class="shooting-shell">
+      <div class="shooting-top">
+        <div>
+          <div class="shooting-label">Mode tournage</div>
+          <h2 class="shooting-title" id="shootingTitle"></h2>
+          <div class="shooting-meta" id="shootingMeta"></div>
+        </div>
+
+        <div class="shooting-actions">
+          <button class="shooting-action" onclick="copyCurrentScript()">Copier le texte</button>
+          <button class="shooting-action primary" onclick="closeShootingMode()">Quitter</button>
+        </div>
+      </div>
+
+      <div class="shooting-body" id="shootingBody"></div>
+
+      <div class="shooting-footer">
+        Lecture plein écran · Appuie sur Échap pour quitter · Fais défiler doucement pendant l’enregistrement.
+      </div>
+    </div>
+  </section>
+
   <div class="toast" id="toast">Script copié</div>
 
   <script>
@@ -1359,6 +1544,11 @@
     const summaryPanel = document.getElementById("summaryPanel");
     const qualityPanel = document.getElementById("qualityPanel");
     const qualityButton = document.getElementById("qualityButton");
+
+    const shootingOverlay = document.getElementById("shootingOverlay");
+    const shootingTitle = document.getElementById("shootingTitle");
+    const shootingMeta = document.getElementById("shootingMeta");
+    const shootingBody = document.getElementById("shootingBody");
 
     function renderDays() {
       const allButton = `
@@ -1685,7 +1875,11 @@
             <span class="badge status">${script.status}</span>
             <span class="badge natural">${script.natural}</span>
           </div>
-          <button class="copy" onclick="copyCurrentScript()">Copier le texte</button>
+
+          <div class="script-buttons">
+            <button class="copy" onclick="copyCurrentScript()">Copier le texte</button>
+            <button class="shooting-button" onclick="openShootingMode()">Mode tournage</button>
+          </div>
         </div>
 
         <h3 class="script-title">${script.title}</h3>
@@ -1776,6 +1970,26 @@
       if (qualityMode) {
         qualityPanel.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+    }
+
+    function openShootingMode() {
+      const script = scripts.find((item) => item.id === activeScriptId);
+      if (!script) return;
+
+      shootingTitle.textContent = script.title;
+      shootingMeta.textContent = `${script.day} ${script.weekday} · ${script.time} · ${script.category} · ${script.duration}`;
+      shootingBody.innerHTML = script.body.map((paragraph) => `<p>${paragraph}</p>`).join("");
+
+      shootingOverlay.classList.add("active");
+      shootingOverlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      shootingOverlay.scrollTop = 0;
+    }
+
+    function closeShootingMode() {
+      shootingOverlay.classList.remove("active");
+      shootingOverlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
     }
 
     function resetFilters() {
@@ -1936,6 +2150,12 @@
         activeMode = "script";
         renderList();
       });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && shootingOverlay.classList.contains("active")) {
+        closeShootingMode();
+      }
     });
 
     async function loadScripts() {
