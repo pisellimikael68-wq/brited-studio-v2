@@ -1794,5 +1794,761 @@
     },
     "sources": "À compléter avec principes de gestion budgétaire.",
     "guide": "Ton pratique, exemple de comptes ou enveloppes."
+  },
+  {
+    "id": "script-054",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "10:30",
+    "theme": "investir",
+    "category": "Investir · Allocation",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi investir tout d’un coup peut faire peur ?",
+    "summary": "Script court sur la différence entre investissement en une fois et entrée progressive.",
+    "target": "Épargnants qui hésitent à placer une somme importante.",
+    "conclusion": "Le bon rythme d’investissement est celui qu’on peut tenir sans paniquer.",
+    "body": [
+      "Quand on a une somme importante à investir, une question revient souvent : est-ce que je dois tout placer maintenant, ou y aller progressivement ?",
+      "Investir tout d’un coup peut être rationnel dans certains cas, mais psychologiquement, ce n’est pas toujours facile. Si le marché baisse juste après, même temporairement, on peut avoir l’impression d’avoir pris une mauvaise décision.",
+      "L’entrée progressive permet de réduire cette pression. On investit en plusieurs fois, sur une période définie. Cela ne garantit pas une meilleure performance, mais cela peut aider à mieux vivre la décision.",
+      "Le plus important, c’est de choisir une méthode cohérente avec son horizon, son profil de risque et sa capacité à accepter les variations.",
+      "Le bon rythme d’investissement est celui qu’on peut tenir sans paniquer."
+    ],
+    "notes": {
+      "intention": "Expliquer l’intérêt psychologique de l’investissement progressif sans le présenter comme supérieur.",
+      "rythme": "Posé, rassurant, insister sur la différence entre logique et confort émotionnel.",
+      "vigilance": "Ne pas affirmer que l’entrée progressive bat toujours l’investissement immédiat."
+    },
+    "sources": "À compléter avec principes généraux d’investissement progressif.",
+    "guide": "Ton pédagogique, exemples simples, éviter les promesses de performance."
+  },
+  {
+    "id": "script-055",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "11:00",
+    "theme": "fiscalite",
+    "category": "Fiscalité · Déclaration",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi déclarer un changement d’adresse ?",
+    "summary": "Script court sur l’importance fiscale de l’adresse à jour.",
+    "target": "Contribuables qui déménagent et oublient la mise à jour administrative.",
+    "conclusion": "Une adresse à jour, c’est une fiscalité plus simple à suivre.",
+    "body": [
+      "Un déménagement, ce n’est pas seulement des cartons et un nouveau logement. C’est aussi une information importante pour l’administration fiscale.",
+      "Votre adresse peut servir à recevoir des courriers, à rattacher certains impôts locaux, à suivre votre dossier et à éviter des confusions dans les échanges administratifs.",
+      "Si l’adresse n’est pas mise à jour, vous pouvez manquer une information, recevoir un document en retard, ou devoir corriger une situation qui aurait pu être simple dès le départ.",
+      "Ce n’est pas la démarche la plus spectaculaire, mais elle fait partie des réflexes utiles après un déménagement.",
+      "Quand votre vie change d’adresse, vos informations fiscales doivent suivre.",
+      "Une adresse à jour, c’est une fiscalité plus simple à suivre."
+    ],
+    "notes": {
+      "intention": "Rappeler un réflexe administratif simple et utile.",
+      "rythme": "Pratique, direct, sans dramatiser.",
+      "vigilance": "Vérifier les modalités exactes de déclaration d’adresse avant publication."
+    },
+    "sources": "À vérifier avec impots.gouv.fr.",
+    "guide": "Ton concret, parler d’un réflexe post-déménagement."
+  },
+  {
+    "id": "script-056",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "11:30",
+    "theme": "epargne",
+    "category": "Épargne · Habitudes",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi une petite épargne régulière compte ?",
+    "summary": "Script court sur l’effet des petites sommes mises de côté régulièrement.",
+    "target": "Personnes qui pensent qu’épargner peu ne sert à rien.",
+    "conclusion": "Une petite somme répétée peut devenir une vraie habitude financière.",
+    "body": [
+      "Beaucoup de personnes n’épargnent pas parce qu’elles se disent que le montant serait trop faible. Dix euros, vingt euros, cinquante euros : à quoi bon ?",
+      "Mais l’épargne ne sert pas seulement à accumuler vite. Elle sert aussi à créer une habitude. Mettre de côté régulièrement, même peu, change la relation à l’argent.",
+      "Cela permet de reprendre un peu de contrôle, de créer une réserve, et surtout d’installer un réflexe. Avec le temps, ce réflexe peut s’adapter si les revenus augmentent ou si les charges diminuent.",
+      "L’objectif n’est pas de se comparer à quelqu’un qui met beaucoup plus de côté. L’objectif est de commencer à son niveau, sans se mettre en difficulté.",
+      "Une petite somme répétée peut devenir une vraie habitude financière."
+    ],
+    "notes": {
+      "intention": "Valoriser le démarrage modeste sans culpabiliser.",
+      "rythme": "Encouragement calme, ton accessible.",
+      "vigilance": "Ne pas minimiser les difficultés des budgets contraints."
+    },
+    "sources": "À compléter avec principes généraux de budget personnel.",
+    "guide": "Ton rassurant, insister sur l’habitude plus que sur le montant."
+  },
+  {
+    "id": "script-057",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "12:00",
+    "theme": "investir",
+    "category": "Investir · Compréhension",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi ne pas investir dans ce qu’on ne comprend pas ?",
+    "summary": "Script court sur l’importance de comprendre un placement avant d’y mettre son argent.",
+    "target": "Épargnants attirés par des placements complexes ou très prometteurs.",
+    "conclusion": "Si vous ne comprenez pas comment ça gagne, vous risquez de découvrir trop tard comment ça perd.",
+    "body": [
+      "Un placement peut avoir l’air sérieux, moderne, rentable ou très populaire. Mais avant d’y mettre de l’argent, il y a une question simple : est-ce que je comprends vraiment comment ça fonctionne ?",
+      "Comprendre un placement, ce n’est pas tout savoir dans le moindre détail. Mais il faut savoir d’où vient le rendement, quels sont les risques, dans quelles conditions on peut récupérer son argent, et ce qui peut mal se passer.",
+      "Quand on investit sans comprendre, on dépend entièrement du discours des autres. Et c’est dangereux, surtout quand le discours insiste beaucoup sur les gains et très peu sur les risques.",
+      "Un placement incompris peut sembler rassurant tant qu’il monte. Le problème apparaît souvent quand il baisse, se bloque ou devient difficile à revendre.",
+      "Si vous ne comprenez pas comment ça gagne, vous risquez de découvrir trop tard comment ça perd."
+    ],
+    "notes": {
+      "intention": "Encourager la prudence face aux produits mal compris.",
+      "rythme": "Sérieux, protecteur, phrase finale marquée.",
+      "vigilance": "Ne pas viser un produit précis ni créer de peur excessive."
+    },
+    "sources": "À compléter avec principes de connaissance du risque investisseur.",
+    "guide": "Ton ferme mais pédagogique, accent sur les questions à poser."
+  },
+  {
+    "id": "script-058",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "12:30",
+    "theme": "fiscalite",
+    "category": "Fiscalité · Prélèvement",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Individualiser son taux de prélèvement, à quoi ça sert ?",
+    "summary": "Script court sur le taux individualisé au sein d’un couple.",
+    "target": "Couples avec des revenus différents qui veulent comprendre le prélèvement à la source.",
+    "conclusion": "Individualiser le taux peut mieux répartir le prélèvement, sans changer l’impôt total du foyer.",
+    "body": [
+      "Dans un couple soumis à imposition commune, il peut y avoir un écart important entre les revenus des deux personnes. Et dans ce cas, le taux de prélèvement à la source peut parfois sembler mal réparti.",
+      "Le taux individualisé permet d’appliquer un taux différent à chaque membre du couple, en fonction de ses revenus propres. L’objectif est de mieux répartir le prélèvement mensuel entre les deux personnes.",
+      "Mais attention : cela ne veut pas dire que le foyer paiera moins d’impôt au total. Le calcul global de l’impôt reste celui du foyer. Ce qui change, c’est la façon dont le prélèvement est réparti pendant l’année.",
+      "C’est donc surtout un outil de trésorerie et d’équilibre au sein du couple.",
+      "Individualiser le taux peut mieux répartir le prélèvement, sans changer l’impôt total du foyer."
+    ],
+    "notes": {
+      "intention": "Clarifier le rôle du taux individualisé.",
+      "rythme": "Très pédagogique, bien distinguer prélèvement et impôt total.",
+      "vigilance": "Vérifier les règles actuelles sur impots.gouv.fr avant publication."
+    },
+    "sources": "À vérifier avec impots.gouv.fr.",
+    "guide": "Ton clair, exemple verbal d’un couple avec revenus différents."
+  },
+  {
+    "id": "script-059",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "13:00",
+    "theme": "epargne",
+    "category": "Épargne · Projets",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi mélanger tous ses projets complique l’épargne ?",
+    "summary": "Script court sur l’intérêt de séparer les objectifs d’épargne.",
+    "target": "Personnes qui utilisent une seule réserve pour tous leurs projets.",
+    "conclusion": "Quand les projets sont mélangés, les décisions deviennent floues.",
+    "body": [
+      "Quand toute l’épargne est regroupée au même endroit, on a l’impression que c’est simple. Un seul solde, une seule réserve, une seule vision.",
+      "Mais le problème, c’est que tous les projets n’ont pas le même horizon. Les vacances dans six mois, les impôts à payer, l’apport immobilier, la retraite ou les imprévus ne doivent pas forcément être gérés de la même façon.",
+      "Si tout est mélangé, on peut utiliser pour un projet court terme de l’argent prévu pour autre chose. Ou au contraire, ne jamais oser toucher une somme qui était pourtant destinée à être utilisée.",
+      "Séparer les projets permet de clarifier les décisions. Chaque somme a un rôle, une échéance et une logique.",
+      "Quand les projets sont mélangés, les décisions deviennent floues."
+    ],
+    "notes": {
+      "intention": "Montrer l’intérêt d’une épargne organisée par objectifs.",
+      "rythme": "Simple, concret, très visuel.",
+      "vigilance": "Ne pas imposer une méthode unique de comptes ou d’enveloppes."
+    },
+    "sources": "À compléter avec principes de gestion budgétaire.",
+    "guide": "Ton pratique, image des enveloppes par projet."
+  },
+  {
+    "id": "script-060",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "13:30",
+    "theme": "investir",
+    "category": "Investir · Horizon",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi vendre trop vite peut coûter cher ?",
+    "summary": "Script court sur les conséquences d’une vente précipitée après une baisse.",
+    "target": "Investisseurs débutants tentés de sortir dès que le marché baisse.",
+    "conclusion": "Vendre peut être une décision rationnelle, mais vendre dans la panique l’est rarement.",
+    "body": [
+      "Quand un placement baisse, l’envie de vendre peut arriver très vite. On veut arrêter la perte, reprendre le contrôle, ne pas voir le chiffre descendre davantage.",
+      "Parfois, vendre peut être justifié. Si la stratégie a changé, si le placement n’est plus adapté, ou si le risque avait été mal évalué dès le départ. Mais vendre uniquement parce qu’on panique peut transformer une baisse temporaire en perte définitive.",
+      "C’est pour ça que l’horizon de placement doit être défini avant d’investir. Si l’argent est prévu pour le long terme, il faut savoir à l’avance que des baisses peuvent arriver en cours de route.",
+      "Le danger, c’est de découvrir son plan au moment de la crise.",
+      "Vendre peut être une décision rationnelle, mais vendre dans la panique l’est rarement."
+    ],
+    "notes": {
+      "intention": "Distinguer vente rationnelle et vente émotionnelle.",
+      "rythme": "Calme, prudent, sans dire qu’il ne faut jamais vendre.",
+      "vigilance": "Ne pas conseiller de conserver coûte que coûte."
+    },
+    "sources": "À compléter avec principes de volatilité et comportement investisseur.",
+    "guide": "Ton équilibré, éviter les formules absolues."
+  },
+  {
+    "id": "script-061",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "14:00",
+    "theme": "fiscalite",
+    "category": "Fiscalité · Revenus fonciers",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Louer un bien, ce n’est pas seulement encaisser un loyer",
+    "summary": "Script court sur les implications fiscales et financières des revenus locatifs.",
+    "target": "Propriétaires ou futurs investisseurs immobiliers.",
+    "conclusion": "Un loyer est un revenu, mais ce n’est pas forcément ce qu’il reste à la fin.",
+    "body": [
+      "Quand on pense à l’investissement locatif, on regarde souvent le loyer. On se dit : ce bien peut rapporter tant par mois. Mais le loyer encaissé n’est pas le résultat final.",
+      "Il faut tenir compte des charges, des travaux, des périodes sans locataire, de l’assurance, de la gestion éventuelle, de la taxe foncière, et aussi de la fiscalité.",
+      "Les revenus locatifs peuvent être imposés selon des règles qui dépendent du type de location, du régime choisi et de la situation du propriétaire.",
+      "C’est pour ça qu’un projet immobilier ne doit pas être jugé uniquement sur le loyer brut. Il faut regarder ce qu’il reste après les coûts, le temps de gestion, le risque et l’impôt.",
+      "Un loyer est un revenu, mais ce n’est pas forcément ce qu’il reste à la fin."
+    ],
+    "notes": {
+      "intention": "Corriger la vision trop simple du loyer brut.",
+      "rythme": "Pédagogique, liste des coûts avec pauses.",
+      "vigilance": "Ne pas détailler un régime fiscal sans vérification actuelle."
+    },
+    "sources": "À vérifier avec règles fiscales applicables aux revenus locatifs.",
+    "guide": "Ton réaliste, ne pas décourager l’immobilier mais le cadrer."
+  },
+  {
+    "id": "script-062",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "14:30",
+    "theme": "epargne",
+    "category": "Épargne · Sécurité",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi l’épargne de précaution doit rester simple ?",
+    "summary": "Script court sur la nécessité de garder la réserve de sécurité disponible et lisible.",
+    "target": "Personnes qui veulent optimiser toute leur épargne, même la réserve de sécurité.",
+    "conclusion": "L’épargne de précaution n’est pas là pour être brillante. Elle est là pour être disponible.",
+    "body": [
+      "Quand on commence à s’intéresser à son argent, on peut vouloir tout optimiser. Même l’épargne de précaution. On cherche alors le meilleur rendement, le meilleur support, la meilleure stratégie.",
+      "Mais l’épargne de précaution a un rôle particulier. Elle doit être disponible, lisible et sécurisante. Son objectif principal n’est pas de faire la meilleure performance possible. Son objectif est d’être là quand un imprévu arrive.",
+      "Si cette réserve devient trop complexe, trop risquée ou trop difficile à récupérer, elle ne joue plus vraiment son rôle.",
+      "Cela ne veut pas dire qu’il faut ignorer totalement sa rémunération. Mais il faut garder la priorité dans le bon ordre : disponibilité, sécurité, simplicité.",
+      "L’épargne de précaution n’est pas là pour être brillante. Elle est là pour être disponible."
+    ],
+    "notes": {
+      "intention": "Replacer l’épargne de sécurité dans son rôle.",
+      "rythme": "Rassurant, simple, presque conversationnel.",
+      "vigilance": "Ne pas recommander un produit spécifique."
+    },
+    "sources": "À compléter avec principes d’épargne de précaution.",
+    "guide": "Ton de bon sens, insister sur la priorité disponibilité."
+  },
+  {
+    "id": "script-063",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "15:00",
+    "theme": "investir",
+    "category": "Investir · Rendement",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Un rendement élevé cache souvent une question importante",
+    "summary": "Script court sur le lien entre rendement annoncé et risque accepté.",
+    "target": "Épargnants attirés par des promesses ou rendements très supérieurs à la moyenne.",
+    "conclusion": "Quand le rendement paraît très élevé, la bonne question est : quel risque permet ce rendement ?",
+    "body": [
+      "Un rendement élevé attire toujours l’attention. C’est normal. Quand un placement annonce beaucoup plus que les solutions classiques, on a envie de comprendre, ou parfois de se précipiter.",
+      "Mais un rendement élevé n’arrive presque jamais sans contrepartie. Il peut y avoir plus de risque, moins de liquidité, plus de complexité, des frais, une durée de blocage ou une incertitude plus forte.",
+      "Cela ne veut pas dire qu’un rendement élevé est forcément suspect. Mais cela veut dire qu’il doit être expliqué clairement.",
+      "Avant de regarder ce qu’on peut gagner, il faut regarder ce qu’on accepte de risquer. Et surtout vérifier si ce risque est compatible avec sa situation.",
+      "Quand le rendement paraît très élevé, la bonne question est : quel risque permet ce rendement ?"
+    ],
+    "notes": {
+      "intention": "Installer un réflexe de prudence face aux rendements élevés.",
+      "rythme": "Sérieux, pédagogique, sans ton alarmiste.",
+      "vigilance": "Ne pas qualifier tous les rendements élevés d’arnaques."
+    },
+    "sources": "À compléter avec principes rendement-risque.",
+    "guide": "Ton sobre, insister sur “contrepartie”."
+  },
+  {
+    "id": "script-064",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "15:30",
+    "theme": "fiscalite",
+    "category": "Fiscalité · Crédits d’impôt",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi un crédit d’impôt peut donner lieu à remboursement ?",
+    "summary": "Script court sur la différence entre réduction et crédit d’impôt.",
+    "target": "Contribuables qui ne comprennent pas pourquoi certains avantages sont remboursés.",
+    "conclusion": "Le crédit d’impôt peut aller plus loin qu’une simple baisse de l’impôt à payer.",
+    "body": [
+      "En fiscalité, on confond souvent réduction d’impôt et crédit d’impôt. Pourtant, la différence peut être importante.",
+      "Une réduction d’impôt vient diminuer l’impôt à payer. Si vous n’avez pas assez d’impôt, l’avantage peut être limité selon les cas.",
+      "Un crédit d’impôt, lui, peut dans certaines situations donner lieu à un remboursement si son montant dépasse l’impôt dû. C’est ce qui le rend différent.",
+      "Cela ne veut pas dire que tous les crédits d’impôt fonctionnent de la même manière dans tous les cas. Il faut toujours vérifier les conditions, les plafonds, les dépenses éligibles et les justificatifs à conserver.",
+      "Mais l’idée générale est simple : un crédit d’impôt peut produire un effet même lorsque l’impôt dû est faible.",
+      "Le crédit d’impôt peut aller plus loin qu’une simple baisse de l’impôt à payer."
+    ],
+    "notes": {
+      "intention": "Clarifier simplement le mécanisme du crédit d’impôt.",
+      "rythme": "Didactique, bien séparer réduction et crédit.",
+      "vigilance": "Vérifier les dispositifs précis avant publication."
+    },
+    "sources": "À vérifier avec impots.gouv.fr.",
+    "guide": "Ton professeur simple, utiliser l’opposition réduction/crédit."
+  },
+  {
+    "id": "script-065",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "16:00",
+    "theme": "epargne",
+    "category": "Épargne · Charges futures",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi anticiper les grosses dépenses prévisibles ?",
+    "summary": "Script court sur les dépenses annuelles ou ponctuelles qu’on peut préparer.",
+    "target": "Personnes surprises par des dépenses pourtant récurrentes.",
+    "conclusion": "Une dépense prévisible devient moins lourde quand elle est préparée.",
+    "body": [
+      "Certaines dépenses donnent l’impression d’arriver par surprise, alors qu’elles reviennent régulièrement. Assurance, impôts, entretien de voiture, rentrée scolaire, vacances, charges annuelles.",
+      "Quand on ne les anticipe pas, elles peuvent déséquilibrer un mois entier. On puise dans l’épargne de précaution, on utilise le découvert, ou on repousse d’autres projets.",
+      "Une méthode simple consiste à transformer ces dépenses ponctuelles en effort mensuel. Si une dépense revient chaque année, on peut mettre de côté progressivement pour qu’elle soit prête au moment venu.",
+      "Ce n’est pas toujours possible parfaitement, mais même une anticipation partielle peut réduire la pression.",
+      "L’objectif n’est pas de prévoir toute la vie. L’objectif est de ne pas être surpris par ce qu’on connaît déjà.",
+      "Une dépense prévisible devient moins lourde quand elle est préparée."
+    ],
+    "notes": {
+      "intention": "Encourager l’anticipation budgétaire des dépenses connues.",
+      "rythme": "Très concret, exemples rapides.",
+      "vigilance": "Ne pas culpabiliser les budgets qui n’ont pas de marge."
+    },
+    "sources": "À compléter avec principes de budget annuel.",
+    "guide": "Ton pratique, parler d’un calendrier de charges."
+  },
+  {
+    "id": "script-066",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "16:30",
+    "theme": "investir",
+    "category": "Investir · Supports",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Le support d’investissement n’est pas le projet",
+    "summary": "Script court sur la différence entre outil financier et objectif patrimonial.",
+    "target": "Épargnants qui commencent par choisir un produit avant de définir leur besoin.",
+    "conclusion": "Un produit ne doit pas chercher un objectif après coup. C’est l’objectif qui choisit l’outil.",
+    "body": [
+      "Beaucoup de décisions financières commencent par une question de produit : assurance-vie, PEA, immobilier, livret, retraite, compte-titres. On demande : est-ce que ce support est intéressant ?",
+      "Mais avant de choisir le support, il faut connaître le projet. Pourquoi cet argent est-il placé ? Pour combien de temps ? Avec quel niveau de risque ? Pour quelle disponibilité ? Avec quelle fiscalité possible ?",
+      "Un même support peut être adapté dans une situation et inadapté dans une autre. Ce n’est pas seulement le nom du produit qui compte, c’est le rôle qu’on lui donne.",
+      "Commencer par le produit peut conduire à faire rentrer son objectif dans un cadre qui n’est pas le bon.",
+      "Un produit ne doit pas chercher un objectif après coup. C’est l’objectif qui choisit l’outil."
+    ],
+    "notes": {
+      "intention": "Ramener la réflexion à l’objectif avant le produit.",
+      "rythme": "Structuré, pédagogique, répéter “objectif”.",
+      "vigilance": "Ne pas dévaloriser les enveloppes financières utiles."
+    },
+    "sources": "À compléter avec principes d’allocation par objectifs.",
+    "guide": "Ton clair, image de l’outil au service du projet."
+  },
+  {
+    "id": "script-067",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "17:00",
+    "theme": "fiscalite",
+    "category": "Fiscalité · Options fiscales",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi une option fiscale doit être comprise avant d’être cochée ?",
+    "summary": "Script court sur les conséquences possibles d’un choix fiscal.",
+    "target": "Contribuables qui choisissent une option sans mesurer son impact.",
+    "conclusion": "En fiscalité, une case cochée peut parfois changer tout le calcul.",
+    "body": [
+      "Dans une déclaration ou un choix patrimonial, il peut exister des options fiscales. Une case à cocher, un régime à choisir, une préférence à exprimer.",
+      "Le problème, c’est qu’une option fiscale n’est pas toujours neutre. Elle peut modifier la façon dont un revenu est imposé, la possibilité de déduire certaines charges, ou le calcul final selon votre situation.",
+      "Ce qui est avantageux pour une personne ne l’est pas forcément pour une autre. Et certaines options peuvent être difficiles à corriger une fois le choix effectué, selon les règles applicables.",
+      "Avant de cocher une option, il faut donc comprendre ce qu’elle change, sur quelle durée, et avec quelles conséquences.",
+      "En fiscalité, une case cochée peut parfois changer tout le calcul."
+    ],
+    "notes": {
+      "intention": "Encourager la vigilance avant les choix fiscaux.",
+      "rythme": "Sérieux, prudent, pédagogique.",
+      "vigilance": "Ne pas citer une option précise sans vérification actuelle."
+    },
+    "sources": "À vérifier selon les options fiscales concernées.",
+    "guide": "Ton avertissement calme, parler de “case cochée” comme image."
+  },
+  {
+    "id": "script-068",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "17:30",
+    "theme": "epargne",
+    "category": "Épargne · Couple",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi parler d’argent en couple avant les tensions ?",
+    "summary": "Script court sur l’importance de clarifier l’organisation financière du couple.",
+    "target": "Couples qui évitent les discussions budgétaires.",
+    "conclusion": "L’argent est plus facile à organiser quand on en parle avant le conflit.",
+    "body": [
+      "Dans un couple, parler d’argent peut être délicat. On préfère parfois éviter le sujet pour ne pas créer de tension.",
+      "Mais ne pas en parler ne fait pas disparaître les questions. Qui paie quoi ? Comment répartir les charges ? Quelle part garder pour soi ? Comment épargner pour les projets communs ? Que faire si les revenus sont différents ?",
+      "Ces sujets deviennent souvent plus difficiles quand ils apparaissent au moment d’un désaccord.",
+      "Parler d’argent, ce n’est pas tout mettre en commun ni tout contrôler. C’est clarifier les règles, les attentes et les objectifs.",
+      "Chaque couple peut avoir son organisation. Le plus important, c’est qu’elle soit comprise et acceptée par les deux personnes.",
+      "L’argent est plus facile à organiser quand on en parle avant le conflit."
+    ],
+    "notes": {
+      "intention": "Encourager une discussion saine sur l’argent dans le couple.",
+      "rythme": "Empathique, calme, non intrusif.",
+      "vigilance": "Ne pas imposer un modèle de gestion commun ou séparé."
+    },
+    "sources": "À compléter avec principes de gestion budgétaire du foyer.",
+    "guide": "Ton humain, parler de clarification plutôt que de contrôle."
+  },
+  {
+    "id": "script-069",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "18:00",
+    "theme": "investir",
+    "category": "Investir · Discipline",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi changer de stratégie trop souvent peut nuire ?",
+    "summary": "Script court sur l’impact des changements permanents de stratégie d’investissement.",
+    "target": "Investisseurs qui modifient leur plan à chaque nouvelle information.",
+    "conclusion": "Une stratégie n’a pas besoin d’être parfaite chaque semaine. Elle doit être cohérente dans le temps.",
+    "body": [
+      "En investissement, il y a toujours une nouvelle information. Un marché qui monte, un marché qui baisse, un expert qui change d’avis, un produit qui devient populaire.",
+      "Le risque, c’est de modifier sa stratégie à chaque signal. On vend, on achète, on change de support, puis on recommence quelques semaines plus tard.",
+      "À force, on peut accumuler des frais, perdre de la cohérence, et surtout prendre des décisions sous influence du moment.",
+      "Une stratégie doit pouvoir évoluer, bien sûr. Si votre situation change, si votre horizon change, ou si un placement n’est plus adapté, il faut réévaluer. Mais ce n’est pas la même chose que réagir en permanence.",
+      "Une stratégie n’a pas besoin d’être parfaite chaque semaine. Elle doit être cohérente dans le temps."
+    ],
+    "notes": {
+      "intention": "Valoriser la discipline sans rigidité.",
+      "rythme": "Calme, légèrement ferme, distinguer ajustement et agitation.",
+      "vigilance": "Ne pas dire qu’il ne faut jamais modifier sa stratégie."
+    },
+    "sources": "À compléter avec principes de discipline d’investissement.",
+    "guide": "Ton pédagogique, exemples de changements trop fréquents."
+  },
+  {
+    "id": "script-070",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "18:30",
+    "theme": "fiscalite",
+    "category": "Fiscalité · Organisation",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi créer un dossier fiscal personnel ?",
+    "summary": "Script court sur l’organisation des documents fiscaux.",
+    "target": "Contribuables qui cherchent leurs justificatifs au dernier moment.",
+    "conclusion": "Un dossier fiscal bien rangé fait gagner du temps au moment où on en a besoin.",
+    "body": [
+      "Chaque année, au moment de déclarer ou de vérifier ses impôts, on cherche souvent les mêmes documents : revenus, dons, frais, crédits d’impôt, avis, justificatifs, attestations.",
+      "Quand tout est dispersé, la déclaration devient plus stressante. On perd du temps, on oublie une information, ou on valide sans être vraiment sûr.",
+      "Créer un dossier fiscal personnel peut simplement vouloir dire regrouper les documents utiles au même endroit, en version numérique ou papier. L’idée n’est pas de faire une archive parfaite, mais de retrouver rapidement ce qui justifie les informations déclarées.",
+      "C’est aussi utile si une question arrive plus tard, plusieurs mois après la déclaration.",
+      "Un dossier fiscal bien rangé fait gagner du temps au moment où on en a besoin."
+    ],
+    "notes": {
+      "intention": "Encourager une organisation fiscale simple.",
+      "rythme": "Pratique, concret, rassurant.",
+      "vigilance": "Vérifier les délais de conservation selon les documents avant publication."
+    },
+    "sources": "À vérifier avec recommandations officielles sur la conservation des justificatifs.",
+    "guide": "Ton pratique, exemple de dossier annuel."
+  },
+  {
+    "id": "script-071",
+    "day": "17",
+    "weekday": "Jeu",
+    "time": "19:00",
+    "theme": "epargne",
+    "category": "Épargne · Priorités",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi vouloir tout optimiser peut bloquer ?",
+    "summary": "Script court sur la paralysie liée à la recherche de la meilleure décision financière.",
+    "target": "Personnes qui repoussent leurs décisions par peur de ne pas choisir parfaitement.",
+    "conclusion": "Une décision simple et cohérente vaut souvent mieux qu’une décision parfaite jamais prise.",
+    "body": [
+      "Quand on s’intéresse à son argent, on veut souvent faire le meilleur choix. Le meilleur livret, le meilleur placement, le meilleur moment, la meilleure stratégie.",
+      "Mais parfois, cette recherche de la perfection bloque tout. On compare, on hésite, on attend, puis on ne fait rien.",
+      "Le problème, c’est qu’une décision financière n’a pas toujours besoin d’être parfaite pour être utile. Mettre en place une épargne régulière, séparer ses projets, relire sa fiscalité, commencer à comprendre son profil de risque : ce sont déjà des actions concrètes.",
+      "Bien sûr, il faut réfléchir avant d’agir. Mais réfléchir ne doit pas devenir une manière de repousser indéfiniment.",
+      "Une décision simple et cohérente vaut souvent mieux qu’une décision parfaite jamais prise."
+    ],
+    "notes": {
+      "intention": "Débloquer l’action sans encourager la précipitation.",
+      "rythme": "Encourageant, posé, pratique.",
+      "vigilance": "Ne pas minimiser l’importance de se renseigner."
+    },
+    "sources": "À compléter avec notions de comportement financier.",
+    "guide": "Ton motivant, sans injonction agressive."
+  },
+  {
+    "id": "script-072",
+    "day": "18",
+    "weekday": "Ven",
+    "time": "09:00",
+    "theme": "investir",
+    "category": "Investir · Long terme",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi le long terme ne veut pas dire oublier son placement ?",
+    "summary": "Script court sur le suivi nécessaire même dans une stratégie long terme.",
+    "target": "Investisseurs qui pensent qu’un placement long terme ne doit jamais être suivi.",
+    "conclusion": "Investir long terme, ce n’est pas regarder tous les jours. Mais ce n’est pas disparaître non plus.",
+    "body": [
+      "On dit souvent qu’il faut investir avec une vision long terme. Et c’est vrai dans beaucoup de situations. Mais long terme ne veut pas dire oublier complètement son placement.",
+      "Un suivi reste nécessaire. Pas tous les jours, pas dans la panique, pas à chaque variation de marché. Mais régulièrement, pour vérifier que le placement correspond toujours à votre objectif.",
+      "Votre situation peut changer. Votre horizon peut se rapprocher. Votre tolérance au risque peut évoluer. Les frais, les supports ou la répartition peuvent aussi nécessiter une relecture.",
+      "Le long terme sert à éviter les réactions émotionnelles excessives. Il ne doit pas devenir une excuse pour ne jamais regarder.",
+      "Investir long terme, ce n’est pas regarder tous les jours. Mais ce n’est pas disparaître non plus."
+    ],
+    "notes": {
+      "intention": "Distinguer discipline long terme et absence totale de suivi.",
+      "rythme": "Posé, équilibré, éviter les extrêmes.",
+      "vigilance": "Ne pas inciter à surveiller excessivement les marchés."
+    },
+    "sources": "À compléter avec principes de suivi patrimonial.",
+    "guide": "Ton équilibré, insister sur “régulièrement mais pas constamment”."
+  },
+  {
+    "id": "script-073",
+    "day": "18",
+    "weekday": "Ven",
+    "time": "09:30",
+    "theme": "fiscalite",
+    "category": "Fiscalité · Régularisation",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi recevoir un remboursement d’impôt ne veut pas toujours dire bonne nouvelle ?",
+    "summary": "Script court sur la lecture correcte d’un remboursement fiscal.",
+    "target": "Contribuables qui interprètent un remboursement comme un gain.",
+    "conclusion": "Un remboursement d’impôt, c’est souvent de l’argent qui vous appartenait déjà.",
+    "body": [
+      "Recevoir un remboursement d’impôt fait toujours plaisir. On a l’impression d’une bonne nouvelle, presque d’un bonus.",
+      "Mais il faut comprendre ce que cela signifie. Souvent, un remboursement veut simplement dire que vous avez trop payé pendant l’année, ou que certains avantages fiscaux ont été pris en compte après coup.",
+      "Ce n’est donc pas forcément un gain nouveau. C’est parfois de l’argent qui vous revient parce qu’il avait été avancé ou prélevé en trop.",
+      "À l’inverse, devoir payer un solde ne veut pas toujours dire qu’il y a une erreur. Cela peut aussi venir d’un prélèvement insuffisant pendant l’année.",
+      "L’important, c’est de comprendre pourquoi le remboursement existe, pour mieux ajuster son taux, ses acomptes ou son organisation.",
+      "Un remboursement d’impôt, c’est souvent de l’argent qui vous appartenait déjà."
+    ],
+    "notes": {
+      "intention": "Expliquer le remboursement fiscal sans le présenter comme négatif.",
+      "rythme": "Pédagogique, légèrement contre-intuitif.",
+      "vigilance": "Ne pas généraliser tous les remboursements sans vérifier la situation."
+    },
+    "sources": "À vérifier avec impots.gouv.fr.",
+    "guide": "Ton clair, distinguer bonus perçu et régularisation."
+  },
+  {
+    "id": "script-074",
+    "day": "18",
+    "weekday": "Ven",
+    "time": "10:00",
+    "theme": "epargne",
+    "category": "Épargne · Objectifs",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi une épargne sans objectif finit souvent par bouger ?",
+    "summary": "Script court sur la difficulté à protéger une épargne qui n’a pas de rôle précis.",
+    "target": "Personnes qui épargnent mais puisent régulièrement dans leur réserve.",
+    "conclusion": "Une épargne sans rôle précis devient plus facile à utiliser pour tout et n’importe quoi.",
+    "body": [
+      "Mettre de l’argent de côté, c’est une bonne chose. Mais si cette épargne n’a pas de rôle précis, elle peut vite devenir une réserve dans laquelle on pioche au fil des envies ou des urgences.",
+      "Ce n’est pas forcément grave une fois. Mais à force, on peut avoir l’impression d’épargner sans jamais avancer.",
+      "Donner un objectif à son épargne change la manière de la protéger. Si une somme est destinée aux imprévus, on hésite davantage à l’utiliser pour une dépense plaisir. Si une autre est destinée à un projet, on voit mieux la progression.",
+      "L’objectif rend l’épargne plus concrète. Il transforme un simple solde en décision.",
+      "Une épargne sans rôle précis devient plus facile à utiliser pour tout et n’importe quoi."
+    ],
+    "notes": {
+      "intention": "Montrer que l’objectif protège l’épargne.",
+      "rythme": "Simple, concret, orienté comportement.",
+      "vigilance": "Ne pas culpabiliser les dépenses plaisir."
+    },
+    "sources": "À compléter avec principes de budget par objectifs.",
+    "guide": "Ton pratique, image d’une réserve avec une étiquette."
+  },
+  {
+    "id": "script-075",
+    "day": "18",
+    "weekday": "Ven",
+    "time": "10:30",
+    "theme": "investir",
+    "category": "Investir · Erreurs fréquentes",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi copier le portefeuille de quelqu’un d’autre est risqué ?",
+    "summary": "Script court sur les dangers d’imiter une stratégie sans connaître le contexte.",
+    "target": "Investisseurs influencés par les portefeuilles partagés en ligne ou par l’entourage.",
+    "conclusion": "Vous pouvez vous inspirer des autres, mais vous ne vivez pas leur situation.",
+    "body": [
+      "Voir quelqu’un partager ses placements peut être intéressant. On découvre des idées, des supports, une façon de penser. Mais copier directement le portefeuille de quelqu’un d’autre peut être risqué.",
+      "Vous ne connaissez pas toujours son patrimoine global, ses revenus, ses dettes, son horizon, sa fiscalité, son expérience, ni sa capacité à supporter les pertes.",
+      "Un portefeuille peut être cohérent pour une personne et totalement inadapté pour une autre. Même avec les mêmes montants, la même stratégie ne produit pas le même confort ni les mêmes conséquences.",
+      "S’inspirer peut être utile. Copier sans comprendre, beaucoup moins.",
+      "Avant de reprendre une idée, il faut se demander : est-ce que cela a une place logique dans ma propre situation ?",
+      "Vous pouvez vous inspirer des autres, mais vous ne vivez pas leur situation."
+    ],
+    "notes": {
+      "intention": "Prévenir contre l’imitation financière aveugle.",
+      "rythme": "Clair, protecteur, sans critiquer le partage d’expérience.",
+      "vigilance": "Ne pas viser un influenceur ou une communauté précise."
+    },
+    "sources": "À compléter avec principes d’adéquation investisseur.",
+    "guide": "Ton pédagogique, faire la distinction inspiration/copie."
+  },
+  {
+    "id": "script-076",
+    "day": "18",
+    "weekday": "Ven",
+    "time": "11:00",
+    "theme": "fiscalite",
+    "category": "Fiscalité · Anticipation",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi simuler son impôt avant une décision importante ?",
+    "summary": "Script court sur l’intérêt d’estimer l’impact fiscal avant un changement.",
+    "target": "Contribuables qui prennent une décision sans mesurer l’effet fiscal.",
+    "conclusion": "Une simulation ne décide pas à votre place, mais elle évite d’avancer dans le brouillard.",
+    "body": [
+      "Avant une décision importante, on pense souvent au montant immédiat : une prime, une vente, un retrait, un revenu supplémentaire, une location, un changement de situation.",
+      "Mais il peut y avoir un impact fiscal derrière. Et cet impact n’est pas toujours évident à deviner.",
+      "Faire une simulation permet d’obtenir un ordre d’idée. Ce n’est pas une certitude absolue, parce que tout dépend des données saisies et des règles applicables. Mais cela peut aider à éviter les mauvaises surprises.",
+      "La simulation permet aussi de comparer plusieurs scénarios : agir maintenant, attendre, étaler, ou vérifier s’il faut se faire accompagner.",
+      "Une simulation ne décide pas à votre place, mais elle évite d’avancer dans le brouillard."
+    ],
+    "notes": {
+      "intention": "Encourager l’anticipation fiscale avant décision.",
+      "rythme": "Prudent, concret, orienté méthode.",
+      "vigilance": "Ne pas présenter une simulation comme un calcul définitif."
+    },
+    "sources": "À vérifier avec simulateurs officiels disponibles.",
+    "guide": "Ton pratique, parler d’ordre d’idée et de scénarios."
+  },
+  {
+    "id": "script-077",
+    "day": "18",
+    "weekday": "Ven",
+    "time": "11:30",
+    "theme": "epargne",
+    "category": "Épargne · Revenus",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi augmenter son épargne après une hausse de revenus ?",
+    "summary": "Script court sur le réflexe d’ajuster son épargne quand les revenus augmentent.",
+    "target": "Personnes qui gagnent plus mais ne voient pas leur épargne progresser.",
+    "conclusion": "Quand les revenus montent, l’épargne doit être revue avant que les dépenses prennent toute la place.",
+    "body": [
+      "Quand les revenus augmentent, on a naturellement envie de respirer un peu plus. C’est normal. Mais si toutes les nouvelles marges partent immédiatement dans les dépenses, l’épargne ne progresse jamais.",
+      "Une augmentation, une prime régulière ou un revenu complémentaire peut être l’occasion de revoir son organisation. Pas forcément pour tout mettre de côté. Mais pour décider à l’avance quelle partie améliore le quotidien, quelle partie sert aux projets, et quelle partie renforce l’épargne.",
+      "Sinon, les dépenses s’adaptent très vite au nouveau revenu. Et quelques mois plus tard, on peut avoir l’impression de gagner plus sans vraiment avancer.",
+      "Le bon moment pour ajuster l’épargne, c’est souvent dès que la hausse arrive.",
+      "Quand les revenus montent, l’épargne doit être revue avant que les dépenses prennent toute la place."
+    ],
+    "notes": {
+      "intention": "Expliquer l’adaptation du niveau de vie et l’importance d’un arbitrage.",
+      "rythme": "Empathique, concret, non culpabilisant.",
+      "vigilance": "Ne pas dire qu’il faut épargner toute augmentation."
+    },
+    "sources": "À compléter avec principes de budget et adaptation des dépenses.",
+    "guide": "Ton pratique, faire sentir la fenêtre de décision au moment de la hausse."
+  },
+  {
+    "id": "script-078",
+    "day": "18",
+    "weekday": "Ven",
+    "time": "12:00",
+    "theme": "investir",
+    "category": "Investir · Décision",
+    "status": "À valider",
+    "productionStatus": "À écrire",
+    "natural": "Naturel",
+    "duration": "Objectif 60–65 secondes",
+    "title": "Pourquoi écrire sa stratégie avant d’investir ?",
+    "summary": "Script court sur l’intérêt de formaliser ses règles avant les périodes de stress.",
+    "target": "Investisseurs qui prennent leurs décisions au fil des émotions.",
+    "conclusion": "Une stratégie écrite aide à se souvenir de ses raisons quand les émotions montent.",
+    "body": [
+      "Avant d’investir, beaucoup de personnes réfléchissent à leur stratégie dans leur tête. Elles savent à peu près pourquoi elles le font, combien elles veulent placer, et pour combien de temps.",
+      "Mais quand les marchés bougent, quand une mauvaise nouvelle arrive, ou quand tout le monde parle d’une opportunité, cette stratégie mentale peut devenir floue.",
+      "Écrire sa stratégie permet de poser des règles simples : pourquoi j’investis, quel est mon horizon, quel niveau de risque j’accepte, quand je revois ma répartition, et dans quels cas je change vraiment de plan.",
+      "Ce document n’a pas besoin d’être long. Il doit surtout être clair.",
+      "Le but n’est pas de devenir rigide. Le but est d’éviter de réécrire sa stratégie à chaque émotion.",
+      "Une stratégie écrite aide à se souvenir de ses raisons quand les émotions montent."
+    ],
+    "notes": {
+      "intention": "Encourager la formalisation simple de la stratégie d’investissement.",
+      "rythme": "Calme, structuré, très pratique.",
+      "vigilance": "Ne pas transformer cela en conseil réglementaire personnalisé."
+    },
+    "sources": "À compléter avec principes de discipline d’investissement.",
+    "guide": "Ton méthodique, parler d’une page simple avec règles personnelles."
   }
-]
