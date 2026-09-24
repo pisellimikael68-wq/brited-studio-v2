@@ -69,6 +69,10 @@ function isScriptShot(scriptId) {
   return shotScriptIds.has(scriptId);
 }
 
+function getProductionStatus(script) {
+  return script.productionStatus || script.status || "Non défini";
+}
+
 function renderDays() {
   const allButton = `
     <button class="day ${activeDay === "all" ? "active" : ""}" onclick="selectDay('all')">
@@ -142,6 +146,7 @@ function filteredScripts() {
       script.target,
       script.conclusion,
       script.status,
+      getProductionStatus(script),
       script.natural,
       script.day,
       script.weekday,
@@ -216,6 +221,43 @@ function getShootingCounts() {
   return { total, shot, notShot };
 }
 
+function getProductionCounts() {
+  const counts = {
+    writing: 0,
+    validation: 0,
+    validated: 0,
+    toShoot: 0,
+    shot: 0,
+    edited: 0,
+    published: 0,
+    other: 0
+  };
+
+  scripts.forEach((script) => {
+    const status = normalizeText(getProductionStatus(script));
+
+    if (status.includes("ecrire")) {
+      counts.writing += 1;
+    } else if (status.includes("valider")) {
+      counts.validation += 1;
+    } else if (status.includes("valide")) {
+      counts.validated += 1;
+    } else if (status.includes("tourner")) {
+      counts.toShoot += 1;
+    } else if (status.includes("tourne")) {
+      counts.shot += 1;
+    } else if (status.includes("monte")) {
+      counts.edited += 1;
+    } else if (status.includes("publie")) {
+      counts.published += 1;
+    } else {
+      counts.other += 1;
+    }
+  });
+
+  return counts;
+}
+
 function renderSummaryPanel() {
   const total = scripts.length;
   const investir = scripts.filter((script) => script.theme === "investir").length;
@@ -223,12 +265,13 @@ function renderSummaryPanel() {
   const epargne = scripts.filter((script) => script.theme === "epargne").length;
   const statusCounts = getStatusCounts();
   const shootingCounts = getShootingCounts();
+  const productionCounts = getProductionCounts();
 
   summaryPanel.innerHTML = `
     <div class="summary-head">
       <div>
         <h3>Synthèse automatique</h3>
-        <p>Vue globale de la bibliothèque complète, avec suivi local du tournage.</p>
+        <p>Vue globale de la bibliothèque complète, avec suivi local du tournage et statut de production.</p>
       </div>
       <span class="summary-refresh">Mise à jour automatique</span>
     </div>
@@ -280,6 +323,56 @@ function renderSummaryPanel() {
         <span>Restants</span>
         <strong>${shootingCounts.notShot}</strong>
         <small>Scripts encore à tourner</small>
+      </div>
+    </div>
+
+    <div class="summary-grid" style="margin-top: 12px;">
+      <div class="summary-card">
+        <span>Prod. à écrire</span>
+        <strong>${productionCounts.writing}</strong>
+        <small>Scripts à rédiger</small>
+      </div>
+
+      <div class="summary-card gold">
+        <span>Prod. à valider</span>
+        <strong>${productionCounts.validation}</strong>
+        <small>Scripts en validation</small>
+      </div>
+
+      <div class="summary-card">
+        <span>Prod. validés</span>
+        <strong>${productionCounts.validated}</strong>
+        <small>Prêts pour la suite</small>
+      </div>
+
+      <div class="summary-card blue">
+        <span>Prod. à tourner</span>
+        <strong>${productionCounts.toShoot}</strong>
+        <small>À passer en tournage</small>
+      </div>
+
+      <div class="summary-card blue">
+        <span>Prod. tournés</span>
+        <strong>${productionCounts.shot}</strong>
+        <small>Enregistrés</small>
+      </div>
+
+      <div class="summary-card">
+        <span>Prod. montés</span>
+        <strong>${productionCounts.edited}</strong>
+        <small>Montage terminé</small>
+      </div>
+
+      <div class="summary-card">
+        <span>Prod. publiés</span>
+        <strong>${productionCounts.published}</strong>
+        <small>Mis en ligne</small>
+      </div>
+
+      <div class="summary-card">
+        <span>Prod. autres</span>
+        <strong>${productionCounts.other}</strong>
+        <small>Statuts non classés</small>
       </div>
     </div>
 
@@ -359,8 +452,13 @@ function renderQualityPanel(items) {
       </div>
 
       <div class="quality-field">
-        <span>Statut</span>
+        <span>Statut éditorial</span>
         <strong>${script.status}</strong>
+      </div>
+
+      <div class="quality-field">
+        <span>Production</span>
+        <strong>${getProductionStatus(script)}</strong>
       </div>
 
       <div class="quality-field">
@@ -380,7 +478,7 @@ function renderQualityPanel(items) {
     <div class="quality-head">
       <div>
         <h3>Contrôle qualité</h3>
-        <p>Vue rapide des scripts visibles avec leurs informations de relecture et de tournage.</p>
+        <p>Vue rapide des scripts visibles avec leurs informations de relecture, production et tournage.</p>
       </div>
       <span class="quality-count">${items.length} script${items.length > 1 ? "s" : ""}</span>
     </div>
@@ -423,6 +521,7 @@ function renderList() {
         <div class="list-meta">
           <span class="list-time">${activeDay === "all" ? `${script.day} ${script.weekday} · ${script.time}` : script.time}</span>
           <span class="list-status">${script.status}</span>
+          <span class="shot-badge">${getProductionStatus(script)}</span>
           ${shot ? `<span class="shot-badge">Tourné</span>` : ""}
         </div>
         <h3>${script.title}</h3>
@@ -447,6 +546,7 @@ function renderDetail() {
         <span class="badge time">${script.day} ${script.weekday} · ${script.time}</span>
         <span class="badge status">${script.status}</span>
         <span class="badge natural">${script.natural}</span>
+        <span class="badge shot">Production : ${getProductionStatus(script)}</span>
         ${shot ? `<span class="badge shot">Tourné</span>` : `<span class="badge shot">Non tourné</span>`}
       </div>
 
@@ -464,6 +564,8 @@ function renderDetail() {
     <div class="meta-box">
       <strong>${script.category}</strong><br>
       <strong>Pour :</strong> ${script.target}<br>
+      <strong>Statut éditorial :</strong> ${script.status}<br>
+      <strong>Statut de production :</strong> ${getProductionStatus(script)}<br>
       <strong>Phrase finale :</strong> ${script.conclusion}
     </div>
 
@@ -589,7 +691,7 @@ function openShootingMode() {
   if (!script) return;
 
   shootingTitle.textContent = script.title;
-  shootingMeta.textContent = `${script.day} ${script.weekday} · ${script.time} · ${script.category} · ${script.duration}`;
+  shootingMeta.textContent = `${script.day} ${script.weekday} · ${script.time} · ${script.category} · ${script.duration} · Production : ${getProductionStatus(script)}`;
   shootingBody.innerHTML = script.body.map((paragraph) => `<p>${paragraph}</p>`).join("");
 
   updateShootingShotButton();
@@ -632,7 +734,8 @@ function formatScriptForCopy(script, index = null) {
     `${number}${script.title}`,
     `${script.day} ${script.weekday} · ${script.time}`,
     `${script.category}`,
-    `Statut : ${script.status}`,
+    `Statut éditorial : ${script.status}`,
+    `Statut de production : ${getProductionStatus(script)}`,
     `Tournage : ${shotLabel}`,
     "",
     script.body.join("\n\n"),
@@ -658,7 +761,7 @@ function buildExportForItems(items, title) {
     title,
     `Date : ${getDateLabel()}`,
     `Thème : ${getThemeLabel()}`,
-    `Statut : ${getStatusLabel()}`,
+    `Statut éditorial : ${getStatusLabel()}`,
     `Tournage : ${getShootingLabel()}`,
     `Recherche : ${activeSearch.trim() ? activeSearch.trim() : "Aucune"}`,
     `Nombre : ${items.length} script${items.length > 1 ? "s" : ""}`,
