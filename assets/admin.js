@@ -22,6 +22,7 @@ function buildScriptObject() {
     theme: getFormValue("theme"),
     category: getFormValue("category"),
     status: getFormValue("status"),
+    productionStatus: getFormValue("productionStatus"),
     natural: getFormValue("natural"),
     duration: getFormValue("duration"),
     title: getFormValue("title"),
@@ -47,6 +48,7 @@ function generateJson() {
     <strong>Aperçu</strong>
     <h3>${scriptObject.title || "Titre non renseigné"}</h3>
     <p>${scriptObject.day} ${scriptObject.weekday} · ${scriptObject.time} · ${scriptObject.category}</p>
+    <p><strong>Production :</strong> ${scriptObject.productionStatus}</p>
   `;
 
   showToast("JSON généré");
@@ -74,6 +76,7 @@ function resetForm() {
   "theme": "",
   "category": "",
   "status": "",
+  "productionStatus": "",
   "natural": "",
   "duration": "",
   "title": "",
