@@ -23,6 +23,7 @@
 
       <div class="top-actions">
         <button class="small-button" onclick="window.location.href='index.html'">Retour au studio</button>
+        <button class="small-button" onclick="window.location.href='import.html'">Import massif</button>
         <div class="access">
           <span class="access-dot"></span>
           Local
@@ -37,7 +38,7 @@
       <h1>Créer un script sans écrire le JSON à la main.</h1>
       <p>
         Remplis le formulaire, génère le bloc JSON, puis copie-le dans <strong>data/scripts.json</strong>.
-        Cette page ne modifie pas encore automatiquement le fichier : elle sécurise la création des nouveaux scripts.
+        Cette page ne modifie pas automatiquement le fichier : elle sécurise la création des nouveaux scripts.
       </p>
     </section>
 
@@ -47,8 +48,8 @@
 
         <div class="field">
           <label for="id">Identifiant unique</label>
-          <input id="id" name="id" type="text" placeholder="ex : script-016" required />
-          <div class="field-help">Utilise un identifiant stable, sans espace. Exemple : script-029.</div>
+          <input id="id" name="id" type="text" placeholder="ex : script-054" required />
+          <div class="field-help">Utilise un identifiant stable, sans espace. Exemple : script-054.</div>
         </div>
 
         <div class="field">
@@ -68,6 +69,8 @@
             <option value="13">13</option>
             <option value="14">14</option>
             <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
           </select>
         </div>
 
@@ -213,198 +216,6 @@
   "category": "",
   "status": "",
   "productionStatus": "",
-  "natural": "",
-  "duration": "",
-  "title": "",
-  "summary": "",
-  "target": "",
-  "conclusion": "",
-  "body": [],
-  "notes": {
-    "intention": "",
-    "rythme": "",
-    "vigilance": ""
-  },
-  "sources": "",
-  "guide": ""
-}</textarea>
-
-        <div class="preview-card" id="previewCard">
-          <strong>Aperçu</strong>
-          <h3>Aucun script généré</h3>
-          <p>Remplis le formulaire puis clique sur “Générer le JSON”.</p>
-        </div>
-      </aside>
-    </section>
-  </main>
-
-  <div class="toast" id="toast">Action confirmée</div>
-
-  <script src="assets/admin.js"></script>
-</body>
-</html>      <h1>Créer un script sans écrire le JSON à la main.</h1>
-      <p>
-        Remplis le formulaire, génère le bloc JSON, puis copie-le dans <strong>data/scripts.json</strong>.
-        Cette page ne modifie pas encore automatiquement le fichier : elle sécurise la création des nouveaux scripts.
-      </p>
-    </section>
-
-    <section class="admin-layout">
-      <form class="admin-card admin-form" id="scriptForm">
-        <h2>Nouveau script</h2>
-
-        <div class="field">
-          <label for="id">Identifiant unique</label>
-          <input id="id" name="id" type="text" placeholder="ex : script-016" required />
-          <div class="field-help">Utilise un identifiant stable, sans espace. Exemple : script-029.</div>
-        </div>
-
-        <div class="field">
-          <label for="day">Jour</label>
-          <select id="day" name="day" required>
-            <option value="02">02</option>
-            <option value="03">03</option>
-            <option value="04">04</option>
-            <option value="05">05</option>
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="weekday">Jour semaine</label>
-          <select id="weekday" name="weekday" required>
-            <option value="Mer">Mer</option>
-            <option value="Jeu">Jeu</option>
-            <option value="Ven">Ven</option>
-            <option value="Sam">Sam</option>
-            <option value="Dim">Dim</option>
-            <option value="Lun">Lun</option>
-            <option value="Mar">Mar</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="time">Horaire</label>
-          <input id="time" name="time" type="text" placeholder="ex : 09:30" required />
-        </div>
-
-        <div class="field">
-          <label for="theme">Thème technique</label>
-          <select id="theme" name="theme" required>
-            <option value="investir">Investir</option>
-            <option value="fiscalite">Fiscalité</option>
-            <option value="epargne">Épargne</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="category">Catégorie affichée</label>
-          <input id="category" name="category" type="text" placeholder="ex : Fiscalité · Impôt sur le revenu" required />
-        </div>
-
-        <div class="field">
-          <label for="status">Statut</label>
-          <select id="status" name="status" required>
-            <option value="À valider">À valider</option>
-            <option value="À relire">À relire</option>
-            <option value="Prêt">Prêt</option>
-            <option value="Validé">Validé</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="natural">Style oral</label>
-          <input id="natural" name="natural" type="text" value="Naturel" required />
-        </div>
-
-        <div class="field">
-          <label for="duration">Durée estimée</label>
-          <input id="duration" name="duration" type="text" value="Objectif 60–65 secondes" required />
-        </div>
-
-        <div class="field">
-          <label for="title">Titre</label>
-          <input id="title" name="title" type="text" placeholder="Titre du script" required />
-        </div>
-
-        <div class="field">
-          <label for="summary">Résumé court</label>
-          <textarea id="summary" name="summary" placeholder="Résumé affiché dans la liste des scripts." required></textarea>
-        </div>
-
-        <div class="field">
-          <label for="target">Pour qui ?</label>
-          <textarea id="target" name="target" placeholder="Public ou situation concernée." required></textarea>
-        </div>
-
-        <div class="field">
-          <label for="conclusion">Phrase finale</label>
-          <textarea id="conclusion" name="conclusion" placeholder="Phrase finale facile à retenir." required></textarea>
-        </div>
-
-        <div class="field">
-          <label for="body">Texte face caméra</label>
-          <textarea id="body" name="body" placeholder="Un paragraphe par bloc. Sépare les paragraphes par une ligne vide." required></textarea>
-          <div class="field-help">Chaque paragraphe deviendra automatiquement une entrée dans le tableau body.</div>
-        </div>
-
-        <div class="field">
-          <label for="intention">Intention</label>
-          <textarea id="intention" name="intention" placeholder="Ce que le script doit faire comprendre." required></textarea>
-        </div>
-
-        <div class="field">
-          <label for="rythme">Rythme</label>
-          <textarea id="rythme" name="rythme" placeholder="Indications de diction, tempo, pauses." required></textarea>
-        </div>
-
-        <div class="field">
-          <label for="vigilance">Vigilance</label>
-          <textarea id="vigilance" name="vigilance" placeholder="Points à vérifier avant tournage." required></textarea>
-        </div>
-
-        <div class="field">
-          <label for="sources">Sources et précisions</label>
-          <textarea id="sources" name="sources" placeholder="Sources, limites, précisions de fond." required></textarea>
-        </div>
-
-        <div class="field">
-          <label for="guide">Guide de tournage</label>
-          <textarea id="guide" name="guide" placeholder="Conseils de tournage, ton, posture, exemple." required></textarea>
-        </div>
-
-        <div class="admin-actions">
-          <button class="admin-button" type="submit">Générer le JSON</button>
-          <button class="admin-button secondary" type="button" onclick="copyJson()">Copier le JSON</button>
-          <button class="admin-button secondary" type="button" onclick="resetForm()">Réinitialiser</button>
-        </div>
-
-        <div class="admin-note">
-          Quand le JSON est généré, ajoute-le dans <strong>data/scripts.json</strong>, entre deux objets,
-          en pensant à la virgule avant ou après selon l’endroit où tu l’insères.
-        </div>
-      </form>
-
-      <aside class="admin-card">
-        <h2>JSON généré</h2>
-
-        <textarea class="output-box" id="jsonOutput" readonly>{
-  "id": "",
-  "day": "",
-  "weekday": "",
-  "time": "",
-  "theme": "",
-  "category": "",
-  "status": "",
   "natural": "",
   "duration": "",
   "title": "",
