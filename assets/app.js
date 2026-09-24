@@ -17,7 +17,9 @@ const days = [
   { day: "12", weekday: "Sam" },
   { day: "13", weekday: "Dim" },
   { day: "14", weekday: "Lun" },
-  { day: "15", weekday: "Mar" }
+  { day: "15", weekday: "Mar" },
+  { day: "16", weekday: "Mer" },
+  { day: "17", weekday: "Jeu" }
 ];
 
 let activeDay = "all";
@@ -895,6 +897,33 @@ function scrollToScripts() {
   document.getElementById("scripts").scrollIntoView({ behavior: "smooth" });
 }
 
+function normalizeScript(script) {
+  return {
+    id: script.id || "",
+    day: script.day || "",
+    weekday: script.weekday || "",
+    time: script.time || "",
+    theme: script.theme || "",
+    category: script.category || "",
+    status: script.status || "Non défini",
+    productionStatus: script.productionStatus || script.status || "Non défini",
+    natural: script.natural || "Naturel",
+    duration: script.duration || "Durée non définie",
+    title: script.title || "Titre non renseigné",
+    summary: script.summary || "",
+    target: script.target || "",
+    conclusion: script.conclusion || "",
+    body: Array.isArray(script.body) ? script.body : [],
+    notes: {
+      intention: script.notes?.intention || "Non renseignée",
+      rythme: script.notes?.rythme || "Non renseigné",
+      vigilance: script.notes?.vigilance || "Non renseignée"
+    },
+    sources: script.sources || "Non renseigné",
+    guide: script.guide || "Non renseigné"
+  };
+}
+
 searchInput.addEventListener("input", () => {
   activeSearch = searchInput.value;
   activeMode = "script";
@@ -922,28 +951,31 @@ async function loadScripts() {
     emptyState.style.display = "block";
     emptyState.textContent = "Chargement des scripts...";
 
-    const response = await fetch("data/scripts.json");
+    const response = await fetch(`data/scripts.json?v=${Date.now()}`);
 
     if (!response.ok) {
       throw new Error("Impossible de charger data/scripts.json");
     }
 
-    scripts = await response.json();
+    const loadedScripts = await response.json();
 
-    if (!scripts.length) {
-      throw new Error("Le fichier scripts.json est vide");
+    if (!Array.isArray(loadedScripts) || !loadedScripts.length) {
+      throw new Error("Le fichier scripts.json est vide ou invalide");
     }
 
+    scripts = loadedScripts.map(normalizeScript);
     activeScriptId = scripts[0].id;
+
     renderSummaryPanel();
     renderDays();
     renderList();
   } catch (error) {
-    console.error(error);
+    console.error("Erreur de chargement des scripts :", error);
+
     scriptList.innerHTML = "";
     summaryPanel.innerHTML = "";
     emptyState.style.display = "block";
-    emptyState.textContent = "Impossible de charger les scripts. Vérifiez le fichier data/scripts.json.";
+    emptyState.textContent = "Impossible de charger les scripts. Vérifiez data/scripts.json ou la console du navigateur.";
     scriptDetail.style.display = "none";
     updateControlPanel(0);
   }
