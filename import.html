@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BRITED Studio V2 — Import massif</title>
+
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/import.css" />
+</head>
+
+<body>
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">B</div>
+        <div>
+          <div class="brand-title">BRITED Studio</div>
+          <div class="brand-subtitle">Import massif · Générateur JSON</div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="small-button" onclick="window.location.href='index.html'">Retour au studio</button>
+        <button class="small-button" onclick="window.location.href='admin.html'">Back-office simple</button>
+        <div class="access">
+          <span class="access-dot"></span>
+          Local
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="import-main">
+    <section class="import-hero">
+      <div class="eyebrow">Import massif</div>
+      <h1>Transformer un lot de scripts en JSON propre.</h1>
+      <p>
+        Colle plusieurs scripts au format texte structuré, génère un tableau JSON,
+        puis ajoute les objets obtenus dans <strong>data/scripts.json</strong>.
+      </p>
+    </section>
+
+    <section class="import-layout">
+      <section class="import-card">
+        <h2>Texte source</h2>
+        <p>
+          Chaque script doit être placé entre deux lignes <strong>---</strong>.
+          Les champs principaux sont lus automatiquement.
+        </p>
+
+        <div class="import-actions">
+          <button class="import-button blue" type="button" onclick="setDefaultTemplate()">Charger un modèle</button>
+          <button class="import-button" type="button" onclick="generateImportJson()">Générer le JSON</button>
+          <button class="import-button secondary" type="button" onclick="clearImport()">Réinitialiser</button>
+        </div>
+
+        <textarea class="import-editor" id="importInput" placeholder="Colle ici ton lot de scripts au format structuré..."></textarea>
+
+        <div class="import-format">
+          <strong>Format attendu :</strong><br>
+          id, day, weekday, time, theme, category, status, productionStatus, title, summary, target,
+          conclusion, puis les sections Texte, Notes, Sources et Guide.
+        </div>
+      </section>
+
+      <aside class="import-card">
+        <h2>JSON généré</h2>
+
+        <div class="import-stats">
+          <div class="import-stat">
+            <span>Blocs lus</span>
+            <strong id="statBlocks">0</strong>
+          </div>
+
+          <div class="import-stat blue">
+            <span>Scripts valides</span>
+            <strong id="statScripts">0</strong>
+          </div>
+
+          <div class="import-stat gold">
+            <span>Alertes</span>
+            <strong id="statErrors">0</strong>
+          </div>
+        </div>
+
+        <div class="import-errors" id="importErrors"></div>
+
+        <div class="import-actions">
+          <button class="import-button" type="button" onclick="copyImportJson()">Copier le JSON</button>
+          <button class="import-button secondary" type="button" onclick="downloadImportJson()">Télécharger .json</button>
+        </div>
+
+        <textarea class="import-output" id="importOutput" readonly placeholder="Le JSON généré apparaîtra ici..."></textarea>
+
+        <div class="import-note">
+          Le JSON généré est un tableau. Pour l’intégrer à <strong>data/scripts.json</strong>,
+          copie les objets à l’intérieur du tableau existant, en vérifiant les virgules entre les objets.
+        </div>
+
+        <div class="import-preview" id="importPreview"></div>
+      </aside>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">Action confirmée</div>
+
+  <script src="assets/import.js"></script>
+</body>
+</html>
