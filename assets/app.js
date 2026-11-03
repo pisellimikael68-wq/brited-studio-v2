@@ -3,25 +3,7 @@ let scripts = [];
 const storageKey = "britedStudioV2ShotScripts";
 let shotScriptIds = new Set(loadShotScriptIds());
 
-const days = [
-  { day: "02", weekday: "Mer" },
-  { day: "03", weekday: "Jeu" },
-  { day: "04", weekday: "Ven" },
-  { day: "05", weekday: "Sam" },
-  { day: "06", weekday: "Dim" },
-  { day: "07", weekday: "Lun" },
-  { day: "08", weekday: "Mar" },
-  { day: "09", weekday: "Mer" },
-  { day: "10", weekday: "Jeu" },
-  { day: "11", weekday: "Ven" },
-  { day: "12", weekday: "Sam" },
-  { day: "13", weekday: "Dim" },
-  { day: "14", weekday: "Lun" },
-  { day: "15", weekday: "Mar" },
-  { day: "16", weekday: "Mer" },
-  { day: "17", weekday: "Jeu" },
-  { day: "18", weekday: "Ven" }
-];
+let days = [];
 
 let activeDay = "all";
 let activeTheme = "all";
@@ -965,6 +947,7 @@ async function loadScripts() {
     }
 
     scripts = loadedScripts.map(normalizeScript);
+    days = [...new Map(scripts.map((script) => [script.day, { day: script.day, weekday: script.weekday }])).values()];
     activeScriptId = scripts[0].id;
 
     renderSummaryPanel();

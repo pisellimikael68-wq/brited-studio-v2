@@ -24,7 +24,7 @@ const requiredFields = [
 
 const defaultTemplate = `---
 id: script-029
-day: 16
+day: 04/11
 weekday: Mer
 time: 09:00
 theme: investir
@@ -56,7 +56,7 @@ Guide: Ton simple, exemple concret.
 
 ---
 id: script-030
-day: 16
+day: 04/11
 weekday: Mer
 time: 09:30
 theme: fiscalite
