@@ -19,7 +19,8 @@ const days = [
   { day: "14", weekday: "Lun" },
   { day: "15", weekday: "Mar" },
   { day: "16", weekday: "Mer" },
-  { day: "17", weekday: "Jeu" }
+  { day: "17", weekday: "Jeu" },
+  { day: "18", weekday: "Ven" }
 ];
 
 let activeDay = "all";
@@ -106,7 +107,7 @@ function normalizeText(value) {
 
 function isReadyStatus(script) {
   const status = normalizeText(script.status);
-  return status.includes("pret") || status.includes("valide");
+  return status.includes("pret") || /\bvalide\b/.test(status);
 }
 
 function isToValidateStatus(script) {

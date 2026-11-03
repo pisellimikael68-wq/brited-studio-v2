@@ -32,7 +32,7 @@ category: Investir · Allocation
 status: À valider
 productionStatus: À écrire
 natural: Naturel
-duration: Objectif 60–65 secondes
+duration: Objectif 60–90 secondes
 title: Pourquoi diversifier ses placements ?
 summary: Script court sur la diversification.
 target: Épargnants qui concentrent tout sur un seul support.
@@ -64,7 +64,7 @@ category: Fiscalité · Déclaration
 status: À valider
 productionStatus: À écrire
 natural: Naturel
-duration: Objectif 60–65 secondes
+duration: Objectif 60–90 secondes
 title: Pourquoi relire sa déclaration avant de valider ?
 summary: Script court sur l’intérêt de vérifier les informations fiscales.
 target: Contribuables qui valident trop vite leur déclaration.
@@ -278,7 +278,7 @@ function parseScriptBlock(block, index) {
     status: data.status || "",
     productionStatus: data.productionStatus || "",
     natural: data.natural || "Naturel",
-    duration: data.duration || "Objectif 60–65 secondes",
+    duration: data.duration || "Objectif 60–90 secondes",
     title: data.title || "",
     summary: data.summary || "",
     target: data.target || "",
