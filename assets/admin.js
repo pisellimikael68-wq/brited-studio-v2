@@ -16,9 +16,6 @@ function getFormValue(name) {
 function buildScriptObject() {
   return {
     id: getFormValue("id"),
-    day: getFormValue("day"),
-    weekday: getFormValue("weekday"),
-    time: getFormValue("time"),
     theme: getFormValue("theme"),
     category: getFormValue("category"),
     status: getFormValue("status"),
@@ -47,7 +44,7 @@ function generateJson() {
   previewCard.innerHTML = `
     <strong>Aperçu</strong>
     <h3>${scriptObject.title || "Titre non renseigné"}</h3>
-    <p>${scriptObject.day} ${scriptObject.weekday} · ${scriptObject.time} · ${scriptObject.category}</p>
+    <p>${scriptObject.category}</p>
     <p><strong>Production :</strong> ${scriptObject.productionStatus}</p>
   `;
 
@@ -70,9 +67,6 @@ function resetForm() {
 
   jsonOutput.value = `{
   "id": "",
-  "day": "",
-  "weekday": "",
-  "time": "",
   "theme": "",
   "category": "",
   "status": "",

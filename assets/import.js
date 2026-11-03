@@ -9,9 +9,6 @@ const statErrors = document.getElementById("statErrors");
 
 const requiredFields = [
   "id",
-  "day",
-  "weekday",
-  "time",
   "theme",
   "category",
   "status",
@@ -24,9 +21,6 @@ const requiredFields = [
 
 const defaultTemplate = `---
 id: script-029
-day: 04/11
-weekday: Mer
-time: 09:00
 theme: investir
 category: Investir · Allocation
 status: À valider
@@ -56,9 +50,6 @@ Guide: Ton simple, exemple concret.
 
 ---
 id: script-030
-day: 04/11
-weekday: Mer
-time: 09:30
 theme: fiscalite
 category: Fiscalité · Déclaration
 status: À valider
@@ -168,12 +159,6 @@ function normalizeFieldName(key) {
 
   const map = {
     id: "id",
-    day: "day",
-    jour: "day",
-    weekday: "weekday",
-    joursemaine: "weekday",
-    time: "time",
-    horaire: "time",
     theme: "theme",
     themetechnique: "theme",
     category: "category",
@@ -270,9 +255,6 @@ function parseScriptBlock(block, index) {
 
   const script = {
     id: data.id || "",
-    day: data.day || "",
-    weekday: data.weekday || "",
-    time: data.time || "",
     theme: data.theme || "",
     category: data.category || "",
     status: data.status || "",
@@ -453,7 +435,7 @@ function renderPreview(scripts) {
     <div class="import-preview-item">
       <strong>${script.id} · ${script.productionStatus}</strong>
       <h3>${script.title}</h3>
-      <p>${script.day} ${script.weekday} · ${script.time} · ${script.category}</p>
+      <p>${script.category}</p>
     </div>
   `).join("");
 

@@ -1,9 +1,6 @@
 [
   {
     "id": "investir-100-euros",
-    "day": "04/11",
-    "weekday": "Mer",
-    "time": "10 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 95 %",
@@ -42,9 +39,6 @@
   },
   {
     "id": "augmentation-impot",
-    "day": "04/11",
-    "weekday": "Mer",
-    "time": "17 h",
     "theme": "fiscalite",
     "status": "À valider",
     "natural": "Naturel 96 %",
@@ -85,9 +79,6 @@
   },
   {
     "id": "compte-courant-trop-plein",
-    "day": "05/11",
-    "weekday": "Jeu",
-    "time": "10 h",
     "theme": "epargne",
     "status": "À valider",
     "natural": "Naturel 93 %",
@@ -126,9 +117,6 @@
   },
   {
     "id": "assurance-vie-huit-ans",
-    "day": "05/11",
-    "weekday": "Jeu",
-    "time": "17 h",
     "theme": "epargne",
     "status": "À valider",
     "natural": "Naturel 95 %",
@@ -166,9 +154,6 @@
   },
   {
     "id": "livret-a-ou-investissement",
-    "day": "06/11",
-    "weekday": "Ven",
-    "time": "10 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 92 %",
@@ -210,9 +195,6 @@
   },
   {
     "id": "inflation-epargne",
-    "day": "06/11",
-    "weekday": "Ven",
-    "time": "17 h",
     "theme": "epargne",
     "status": "À valider",
     "natural": "Naturel 94 %",
@@ -249,9 +231,6 @@
   },
   {
     "id": "diversification-simple",
-    "day": "09/11",
-    "weekday": "Lun",
-    "time": "10 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 91 %",
@@ -288,9 +267,6 @@
   },
   {
     "id": "credit-rembourser-ou-epargner",
-    "day": "09/11",
-    "weekday": "Lun",
-    "time": "17 h",
     "theme": "epargne",
     "status": "À valider",
     "natural": "Naturel 90 %",
@@ -327,9 +303,6 @@
   },
   {
     "id": "pea-a-quoi-ca-sert",
-    "day": "10/11",
-    "weekday": "Mar",
-    "time": "10 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 92 %",
@@ -365,9 +338,6 @@
   },
   {
     "id": "prelevement-source-solde",
-    "day": "10/11",
-    "weekday": "Mar",
-    "time": "17 h",
     "theme": "fiscalite",
     "status": "À valider",
     "natural": "Naturel 91 %",
@@ -404,9 +374,6 @@
   },
   {
     "id": "epargne-precaution-combien",
-    "day": "12/11",
-    "weekday": "Jeu",
-    "time": "10 h",
     "theme": "epargne",
     "status": "À valider",
     "natural": "Naturel 93 %",
@@ -440,9 +407,6 @@
   },
   {
     "id": "versements-programmes",
-    "day": "12/11",
-    "weekday": "Jeu",
-    "time": "17 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 94 %",
@@ -479,9 +443,6 @@
   },
   {
     "id": "frais-placement",
-    "day": "13/11",
-    "weekday": "Ven",
-    "time": "10 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 92 %",
@@ -518,9 +479,6 @@
   },
   {
     "id": "tmi-taux-moyen",
-    "day": "13/11",
-    "weekday": "Ven",
-    "time": "17 h",
     "theme": "fiscalite",
     "status": "À valider",
     "natural": "Naturel 91 %",
@@ -556,9 +514,6 @@
   },
   {
     "id": "risque-perte-capital",
-    "day": "16/11",
-    "weekday": "Lun",
-    "time": "10 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 95 %",
@@ -593,9 +548,6 @@
   },
   {
     "id": "donation-succession",
-    "day": "16/11",
-    "weekday": "Lun",
-    "time": "17 h",
     "theme": "fiscalite",
     "status": "À valider",
     "natural": "Naturel 90 %",
@@ -630,9 +582,6 @@
   },
   {
     "id": "horizon-placement",
-    "day": "17/11",
-    "weekday": "Mar",
-    "time": "10 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 93 %",
@@ -668,9 +617,6 @@
   },
   {
     "id": "niches-fiscales",
-    "day": "17/11",
-    "weekday": "Mar",
-    "time": "17 h",
     "theme": "fiscalite",
     "status": "À valider",
     "natural": "Naturel 91 %",
@@ -707,9 +653,6 @@
   },
   {
     "id": "immobilier-rendement-net",
-    "day": "18/11",
-    "weekday": "Mer",
-    "time": "10 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 92 %",
@@ -747,9 +690,6 @@
   },
   {
     "id": "assurance-vie-beneficiaire",
-    "day": "18/11",
-    "weekday": "Mer",
-    "time": "17 h",
     "theme": "epargne",
     "status": "À valider",
     "natural": "Naturel 94 %",
@@ -786,9 +726,6 @@
   },
   {
     "id": "budget-avant-placement",
-    "day": "19/11",
-    "weekday": "Jeu",
-    "time": "10 h",
     "theme": "epargne",
     "status": "À valider",
     "natural": "Naturel 93 %",
@@ -825,9 +762,6 @@
   },
   {
     "id": "volatilite-marche",
-    "day": "19/11",
-    "weekday": "Jeu",
-    "time": "17 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 91 %",
@@ -864,9 +798,6 @@
   },
   {
     "id": "revenus-exceptionnels-impots",
-    "day": "20/11",
-    "weekday": "Ven",
-    "time": "10 h",
     "theme": "fiscalite",
     "status": "À valider",
     "natural": "Naturel 92 %",
@@ -903,9 +834,6 @@
   },
   {
     "id": "retraite-tot",
-    "day": "20/11",
-    "weekday": "Ven",
-    "time": "17 h",
     "theme": "epargne",
     "status": "À valider",
     "natural": "Naturel 91 %",
@@ -942,9 +870,6 @@
   },
   {
     "id": "profil-risque",
-    "day": "23/11",
-    "weekday": "Lun",
-    "time": "10 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 94 %",
@@ -984,9 +909,6 @@
   },
   {
     "id": "parts-fiscales",
-    "day": "23/11",
-    "weekday": "Lun",
-    "time": "17 h",
     "theme": "fiscalite",
     "status": "À valider",
     "natural": "Naturel 90 %",
@@ -1024,9 +946,6 @@
   },
   {
     "id": "strategie-patrimoine-simple",
-    "day": "24/11",
-    "weekday": "Mar",
-    "time": "10 h",
     "theme": "epargne",
     "status": "À valider",
     "natural": "Naturel 95 %",
@@ -1064,9 +983,6 @@
   },
   {
     "id": "erreur-placement-mode",
-    "day": "24/11",
-    "weekday": "Mar",
-    "time": "17 h",
     "theme": "investir",
     "status": "À valider",
     "natural": "Naturel 93 %",
@@ -1104,9 +1020,6 @@
   },
   {
     "id": "script-029",
-    "day": "25/11",
-    "weekday": "Mer",
-    "time": "10 h",
     "theme": "epargne",
     "category": "Épargne · Budget",
     "status": "À valider",
@@ -1144,9 +1057,6 @@
   },
   {
     "id": "script-030",
-    "day": "25/11",
-    "weekday": "Mer",
-    "time": "17 h",
     "theme": "investir",
     "category": "Investir · Risque",
     "status": "À valider",
@@ -1185,9 +1095,6 @@
   },
   {
     "id": "script-031",
-    "day": "26/11",
-    "weekday": "Jeu",
-    "time": "10 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Impôt sur le revenu",
     "status": "À valider",
@@ -1224,9 +1131,6 @@
   },
   {
     "id": "script-032",
-    "day": "26/11",
-    "weekday": "Jeu",
-    "time": "17 h",
     "theme": "epargne",
     "category": "Épargne · Livrets",
     "status": "À valider",
@@ -1263,9 +1167,6 @@
   },
   {
     "id": "script-033",
-    "day": "27/11",
-    "weekday": "Ven",
-    "time": "10 h",
     "theme": "investir",
     "category": "Investir · Horizon",
     "status": "À valider",
@@ -1303,9 +1204,6 @@
   },
   {
     "id": "script-034",
-    "day": "27/11",
-    "weekday": "Ven",
-    "time": "17 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Déductions",
     "status": "À valider",
@@ -1342,9 +1240,6 @@
   },
   {
     "id": "script-035",
-    "day": "30/11",
-    "weekday": "Lun",
-    "time": "10 h",
     "theme": "epargne",
     "category": "Épargne · Objectifs",
     "status": "À valider",
@@ -1382,9 +1277,6 @@
   },
   {
     "id": "script-036",
-    "day": "30/11",
-    "weekday": "Lun",
-    "time": "17 h",
     "theme": "investir",
     "category": "Investir · Diversification",
     "status": "À valider",
@@ -1421,9 +1313,6 @@
   },
   {
     "id": "script-037",
-    "day": "01/12",
-    "weekday": "Mar",
-    "time": "10 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Revenus",
     "status": "À valider",
@@ -1459,9 +1348,6 @@
   },
   {
     "id": "script-038",
-    "day": "01/12",
-    "weekday": "Mar",
-    "time": "17 h",
     "theme": "epargne",
     "category": "Épargne · Automatisation",
     "status": "À valider",
@@ -1498,9 +1384,6 @@
   },
   {
     "id": "script-039",
-    "day": "02/12",
-    "weekday": "Mer",
-    "time": "10 h",
     "theme": "investir",
     "category": "Investir · Frais",
     "status": "À valider",
@@ -1536,9 +1419,6 @@
   },
   {
     "id": "script-040",
-    "day": "02/12",
-    "weekday": "Mer",
-    "time": "17 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Déclaration",
     "status": "À valider",
@@ -1575,9 +1455,6 @@
   },
   {
     "id": "script-041",
-    "day": "03/12",
-    "weekday": "Jeu",
-    "time": "10 h",
     "theme": "epargne",
     "category": "Épargne · Inflation",
     "status": "À valider",
@@ -1614,9 +1491,6 @@
   },
   {
     "id": "script-042",
-    "day": "03/12",
-    "weekday": "Jeu",
-    "time": "17 h",
     "theme": "investir",
     "category": "Investir · Performance",
     "status": "À valider",
@@ -1654,9 +1528,6 @@
   },
   {
     "id": "script-043",
-    "day": "04/12",
-    "weekday": "Ven",
-    "time": "10 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Foyer fiscal",
     "status": "À valider",
@@ -1693,9 +1564,6 @@
   },
   {
     "id": "script-044",
-    "day": "04/12",
-    "weekday": "Ven",
-    "time": "17 h",
     "theme": "epargne",
     "category": "Épargne · Priorités",
     "status": "À valider",
@@ -1734,9 +1602,6 @@
   },
   {
     "id": "script-045",
-    "day": "07/12",
-    "weekday": "Lun",
-    "time": "10 h",
     "theme": "investir",
     "category": "Investir · Allocation",
     "status": "À valider",
@@ -1774,9 +1639,6 @@
   },
   {
     "id": "script-046",
-    "day": "07/12",
-    "weekday": "Lun",
-    "time": "17 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Erreurs fréquentes",
     "status": "À valider",
@@ -1813,9 +1675,6 @@
   },
   {
     "id": "script-047",
-    "day": "08/12",
-    "weekday": "Mar",
-    "time": "10 h",
     "theme": "epargne",
     "category": "Épargne · Comportement",
     "status": "À valider",
@@ -1854,9 +1713,6 @@
   },
   {
     "id": "script-048",
-    "day": "08/12",
-    "weekday": "Mar",
-    "time": "17 h",
     "theme": "investir",
     "category": "Investir · Liquidité",
     "status": "À valider",
@@ -1892,9 +1748,6 @@
   },
   {
     "id": "script-049",
-    "day": "09/12",
-    "weekday": "Mer",
-    "time": "10 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Calendrier",
     "status": "À valider",
@@ -1932,9 +1785,6 @@
   },
   {
     "id": "script-050",
-    "day": "09/12",
-    "weekday": "Mer",
-    "time": "17 h",
     "theme": "epargne",
     "category": "Épargne · Revenus variables",
     "status": "À valider",
@@ -1971,9 +1821,6 @@
   },
   {
     "id": "script-051",
-    "day": "10/12",
-    "weekday": "Jeu",
-    "time": "10 h",
     "theme": "investir",
     "category": "Investir · Psychologie",
     "status": "À valider",
@@ -2011,9 +1858,6 @@
   },
   {
     "id": "script-052",
-    "day": "10/12",
-    "weekday": "Jeu",
-    "time": "17 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Situation familiale",
     "status": "À valider",
@@ -2049,9 +1893,6 @@
   },
   {
     "id": "script-053",
-    "day": "11/12",
-    "weekday": "Ven",
-    "time": "10 h",
     "theme": "epargne",
     "category": "Épargne · Séparation des comptes",
     "status": "À valider",
@@ -2088,9 +1929,6 @@
   },
   {
     "id": "script-054",
-    "day": "11/12",
-    "weekday": "Ven",
-    "time": "17 h",
     "theme": "investir",
     "category": "Investir · Allocation",
     "status": "À valider",
@@ -2126,9 +1964,6 @@
   },
   {
     "id": "script-055",
-    "day": "14/12",
-    "weekday": "Lun",
-    "time": "10 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Déclaration",
     "status": "À valider",
@@ -2165,9 +2000,6 @@
   },
   {
     "id": "script-056",
-    "day": "14/12",
-    "weekday": "Lun",
-    "time": "17 h",
     "theme": "epargne",
     "category": "Épargne · Habitudes",
     "status": "À valider",
@@ -2204,9 +2036,6 @@
   },
   {
     "id": "script-057",
-    "day": "15/12",
-    "weekday": "Mar",
-    "time": "10 h",
     "theme": "investir",
     "category": "Investir · Compréhension",
     "status": "À valider",
@@ -2245,9 +2074,6 @@
   },
   {
     "id": "script-058",
-    "day": "15/12",
-    "weekday": "Mar",
-    "time": "17 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Prélèvement",
     "status": "À valider",
@@ -2285,9 +2111,6 @@
   },
   {
     "id": "script-059",
-    "day": "16/12",
-    "weekday": "Mer",
-    "time": "10 h",
     "theme": "epargne",
     "category": "Épargne · Projets",
     "status": "À valider",
@@ -2327,9 +2150,6 @@
   },
   {
     "id": "script-060",
-    "day": "16/12",
-    "weekday": "Mer",
-    "time": "17 h",
     "theme": "investir",
     "category": "Investir · Horizon",
     "status": "À valider",
@@ -2367,9 +2187,6 @@
   },
   {
     "id": "script-061",
-    "day": "17/12",
-    "weekday": "Jeu",
-    "time": "10 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Revenus fonciers",
     "status": "À valider",
@@ -2407,9 +2224,6 @@
   },
   {
     "id": "script-062",
-    "day": "17/12",
-    "weekday": "Jeu",
-    "time": "17 h",
     "theme": "epargne",
     "category": "Épargne · Sécurité",
     "status": "À valider",
@@ -2447,9 +2261,6 @@
   },
   {
     "id": "script-063",
-    "day": "18/12",
-    "weekday": "Ven",
-    "time": "10 h",
     "theme": "investir",
     "category": "Investir · Rendement",
     "status": "À valider",
@@ -2486,9 +2297,6 @@
   },
   {
     "id": "script-064",
-    "day": "18/12",
-    "weekday": "Ven",
-    "time": "17 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Crédits d’impôt",
     "status": "À valider",
@@ -2528,9 +2336,6 @@
   },
   {
     "id": "script-065",
-    "day": "21/12",
-    "weekday": "Lun",
-    "time": "10 h",
     "theme": "epargne",
     "category": "Épargne · Charges futures",
     "status": "À valider",
@@ -2569,9 +2374,6 @@
   },
   {
     "id": "script-066",
-    "day": "21/12",
-    "weekday": "Lun",
-    "time": "17 h",
     "theme": "investir",
     "category": "Investir · Supports",
     "status": "À valider",
@@ -2608,9 +2410,6 @@
   },
   {
     "id": "script-067",
-    "day": "22/12",
-    "weekday": "Mar",
-    "time": "10 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Options fiscales",
     "status": "À valider",
@@ -2648,9 +2447,6 @@
   },
   {
     "id": "script-068",
-    "day": "22/12",
-    "weekday": "Mar",
-    "time": "17 h",
     "theme": "epargne",
     "category": "Épargne · Couple",
     "status": "À valider",
@@ -2687,9 +2483,6 @@
   },
   {
     "id": "script-069",
-    "day": "23/12",
-    "weekday": "Mer",
-    "time": "10 h",
     "theme": "investir",
     "category": "Investir · Discipline",
     "status": "À valider",
@@ -2726,9 +2519,6 @@
   },
   {
     "id": "script-070",
-    "day": "23/12",
-    "weekday": "Mer",
-    "time": "17 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Organisation",
     "status": "À valider",
@@ -2766,9 +2556,6 @@
   },
   {
     "id": "script-071",
-    "day": "24/12",
-    "weekday": "Jeu",
-    "time": "10 h",
     "theme": "epargne",
     "category": "Épargne · Priorités",
     "status": "À valider",
@@ -2807,9 +2594,6 @@
   },
   {
     "id": "script-072",
-    "day": "24/12",
-    "weekday": "Jeu",
-    "time": "17 h",
     "theme": "investir",
     "category": "Investir · Long terme",
     "status": "À valider",
@@ -2848,9 +2632,6 @@
   },
   {
     "id": "script-073",
-    "day": "28/12",
-    "weekday": "Lun",
-    "time": "10 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Régularisation",
     "status": "À valider",
@@ -2886,9 +2667,6 @@
   },
   {
     "id": "script-074",
-    "day": "28/12",
-    "weekday": "Lun",
-    "time": "17 h",
     "theme": "epargne",
     "category": "Épargne · Objectifs",
     "status": "À valider",
@@ -2925,9 +2703,6 @@
   },
   {
     "id": "script-075",
-    "day": "29/12",
-    "weekday": "Mar",
-    "time": "10 h",
     "theme": "investir",
     "category": "Investir · Erreurs fréquentes",
     "status": "À valider",
@@ -2965,9 +2740,6 @@
   },
   {
     "id": "script-076",
-    "day": "29/12",
-    "weekday": "Mar",
-    "time": "17 h",
     "theme": "fiscalite",
     "category": "Fiscalité · Anticipation",
     "status": "À valider",
@@ -3004,9 +2776,6 @@
   },
   {
     "id": "script-077",
-    "day": "30/12",
-    "weekday": "Mer",
-    "time": "10 h",
     "theme": "epargne",
     "category": "Épargne · Revenus",
     "status": "À valider",
@@ -3042,9 +2811,6 @@
   },
   {
     "id": "script-078",
-    "day": "30/12",
-    "weekday": "Mer",
-    "time": "17 h",
     "theme": "investir",
     "category": "Investir · Décision",
     "status": "À valider",

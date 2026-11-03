@@ -3,9 +3,7 @@ let scripts = [];
 const storageKey = "britedStudioV2ShotScripts";
 let shotScriptIds = new Set(loadShotScriptIds());
 
-let days = [];
 
-let activeDay = "all";
 let activeTheme = "all";
 let activeStatus = "all";
 let activeShootingFilter = "all";
@@ -14,14 +12,12 @@ let activeScriptId = null;
 let activeMode = "script";
 let qualityMode = false;
 
-const dayFilters = document.getElementById("dayFilters");
 const scriptList = document.getElementById("scriptList");
 const scriptDetail = document.getElementById("scriptDetail");
 const emptyState = document.getElementById("emptyState");
 const searchInput = document.getElementById("searchInput");
 
 const countValue = document.getElementById("countValue");
-const dateValue = document.getElementById("dateValue");
 const themeValue = document.getElementById("themeValue");
 const statusValue = document.getElementById("statusValue");
 const shootingValue = document.getElementById("shootingValue");
@@ -56,28 +52,6 @@ function isScriptShot(scriptId) {
 
 function getProductionStatus(script) {
   return script.productionStatus || script.status || "Non défini";
-}
-
-function renderDays() {
-  const allButton = `
-    <button class="day ${activeDay === "all" ? "active" : ""}" onclick="selectDay('all')">
-      <div>
-        <strong>Tous</strong>
-        <span>Dates</span>
-      </div>
-    </button>
-  `;
-
-  const dayButtons = days.map((item) => `
-    <button class="day ${item.day === activeDay ? "active" : ""}" onclick="selectDay('${item.day}')">
-      <div>
-        <strong>${item.day}</strong>
-        <span>${item.weekday}</span>
-      </div>
-    </button>
-  `).join("");
-
-  dayFilters.innerHTML = allButton + dayButtons;
 }
 
 function normalizeText(value) {
@@ -118,7 +92,6 @@ function filteredScripts() {
   const query = normalizeText(activeSearch);
 
   return scripts.filter((script) => {
-    const dayOk = activeDay === "all" || script.day === activeDay;
     const themeOk = activeTheme === "all" || script.theme === activeTheme;
     const statusOk = matchesStatusFilter(script);
     const shootingOk = matchesShootingFilter(script);
@@ -133,9 +106,7 @@ function filteredScripts() {
       script.status,
       getProductionStatus(script),
       script.natural,
-      script.day,
-      script.weekday,
-      script.time,
+      `n° ${script.number}`,
       script.duration,
       script.notes?.intention,
       script.notes?.rythme,
@@ -145,14 +116,8 @@ function filteredScripts() {
 
     const searchOk = !query || searchableText.includes(query);
 
-    return dayOk && themeOk && statusOk && shootingOk && searchOk;
+    return themeOk && statusOk && shootingOk && searchOk;
   });
-}
-
-function getDateLabel() {
-  if (activeDay === "all") return "Toutes dates";
-  const day = days.find((item) => item.day === activeDay);
-  return day ? `${day.day} ${day.weekday}` : activeDay;
 }
 
 function getThemeLabel() {
@@ -393,7 +358,6 @@ function renderSummaryPanel() {
 
 function updateControlPanel(count) {
   countValue.textContent = `${count} script${count > 1 ? "s" : ""}`;
-  dateValue.textContent = getDateLabel();
   themeValue.textContent = getThemeLabel();
   statusValue.textContent = getStatusLabel();
   shootingValue.textContent = getShootingLabel();
@@ -428,7 +392,7 @@ function renderQualityPanel(items) {
       <div class="quality-title">
         <span>Titre</span>
         <strong>${script.title}</strong>
-        <small>${script.day} ${script.weekday} · ${script.time}</small>
+        <small>N° ${script.number}</small>
       </div>
 
       <div class="quality-field">
@@ -504,7 +468,7 @@ function renderList() {
     return `
       <button class="list-card ${script.id === activeScriptId ? "active" : ""} ${shot ? "shot" : ""}" onclick="selectScript('${script.id}')">
         <div class="list-meta">
-          <span class="list-time">${activeDay === "all" ? `${script.day} ${script.weekday} · ${script.time}` : script.time}</span>
+          <span class="list-time">N° ${script.number}</span>
           <span class="list-status">${script.status}</span>
           <span class="shot-badge">${getProductionStatus(script)}</span>
           ${shot ? `<span class="shot-badge">Tourné</span>` : ""}
@@ -528,7 +492,7 @@ function renderDetail() {
   scriptDetail.innerHTML = `
     <div class="script-top">
       <div class="badges">
-        <span class="badge time">${script.day} ${script.weekday} · ${script.time}</span>
+        <span class="badge time">N° ${script.number}</span>
         <span class="badge status">${script.status}</span>
         <span class="badge natural">${script.natural}</span>
         <span class="badge shot">Production : ${getProductionStatus(script)}</span>
@@ -603,13 +567,6 @@ function renderDetail() {
   `;
 }
 
-function selectDay(day) {
-  activeDay = day;
-  activeMode = "script";
-  renderDays();
-  renderList();
-}
-
 function selectScript(id) {
   activeScriptId = id;
   activeMode = "script";
@@ -676,7 +633,7 @@ function openShootingMode() {
   if (!script) return;
 
   shootingTitle.textContent = script.title;
-  shootingMeta.textContent = `${script.day} ${script.weekday} · ${script.time} · ${script.category} · ${script.duration} · Production : ${getProductionStatus(script)}`;
+  shootingMeta.textContent = `N° ${script.number} · ${script.category} · ${script.duration} · Production : ${getProductionStatus(script)}`;
   shootingBody.innerHTML = script.body.map((paragraph) => `<p>${paragraph}</p>`).join("");
 
   updateShootingShotButton();
@@ -694,7 +651,6 @@ function closeShootingMode() {
 }
 
 function resetFilters() {
-  activeDay = "all";
   activeTheme = "all";
   activeStatus = "all";
   activeShootingFilter = "all";
@@ -707,17 +663,14 @@ function resetFilters() {
     chip.classList.toggle("active", chip.dataset.theme === "all");
   });
 
-  renderDays();
   renderList();
 }
 
-function formatScriptForCopy(script, index = null) {
-  const number = index !== null ? `${index + 1}. ` : "";
+function formatScriptForCopy(script) {
   const shotLabel = isScriptShot(script.id) ? "Tourné" : "Non tourné";
 
   return [
-    `${number}${script.title}`,
-    `${script.day} ${script.weekday} · ${script.time}`,
+    `${script.number}. ${script.title}`,
     `${script.category}`,
     `Statut éditorial : ${script.status}`,
     `Statut de production : ${getProductionStatus(script)}`,
@@ -744,7 +697,6 @@ function buildExportForItems(items, title) {
 
   const header = [
     title,
-    `Date : ${getDateLabel()}`,
     `Thème : ${getThemeLabel()}`,
     `Statut éditorial : ${getStatusLabel()}`,
     `Tournage : ${getShootingLabel()}`,
@@ -753,7 +705,7 @@ function buildExportForItems(items, title) {
     "========================================"
   ].join("\n");
 
-  const body = items.map((script, index) => formatScriptForCopy(script, index)).join("\n\n");
+  const body = items.map((script) => formatScriptForCopy(script)).join("\n\n");
 
   return {
     items,
@@ -832,7 +784,6 @@ function downloadVisibleScripts() {
     return;
   }
 
-  const datePart = createSafeFilename(getDateLabel());
   const themePart = createSafeFilename(getThemeLabel());
   const statusPart = createSafeFilename(getStatusLabel());
   const shootingPart = createSafeFilename(getShootingLabel());
@@ -840,7 +791,7 @@ function downloadVisibleScripts() {
     ? `-${createSafeFilename(activeSearch.trim())}`
     : "";
 
-  const filename = `brited-studio-scripts-${datePart}-${themePart}-${statusPart}-${shootingPart}${searchPart}.txt`;
+  const filename = `brited-studio-scripts-${themePart}-${statusPart}-${shootingPart}${searchPart}.txt`;
 
   downloadTextFile(exportData.text, filename, exportData.items.length);
 }
@@ -863,7 +814,6 @@ function downloadShotScripts(type) {
     return;
   }
 
-  const datePart = createSafeFilename(getDateLabel());
   const themePart = createSafeFilename(getThemeLabel());
   const statusPart = createSafeFilename(getStatusLabel());
   const typePart = type === "shot" ? "tournes" : "non-tournes";
@@ -871,7 +821,7 @@ function downloadShotScripts(type) {
     ? `-${createSafeFilename(activeSearch.trim())}`
     : "";
 
-  const filename = `brited-studio-${typePart}-${datePart}-${themePart}-${statusPart}${searchPart}.txt`;
+  const filename = `brited-studio-${typePart}-${themePart}-${statusPart}${searchPart}.txt`;
 
   downloadTextFile(exportData.text, filename, exportData.items.length);
 }
@@ -880,12 +830,10 @@ function scrollToScripts() {
   document.getElementById("scripts").scrollIntoView({ behavior: "smooth" });
 }
 
-function normalizeScript(script) {
+function normalizeScript(script, index) {
   return {
+    number: index + 1,
     id: script.id || "",
-    day: script.day || "",
-    weekday: script.weekday || "",
-    time: script.time || "",
     theme: script.theme || "",
     category: script.category || "",
     status: script.status || "Non défini",
@@ -947,11 +895,9 @@ async function loadScripts() {
     }
 
     scripts = loadedScripts.map(normalizeScript);
-    days = [...new Map(scripts.map((script) => [script.day, { day: script.day, weekday: script.weekday }])).values()];
     activeScriptId = scripts[0].id;
 
     renderSummaryPanel();
-    renderDays();
     renderList();
   } catch (error) {
     console.error("Erreur de chargement des scripts :", error);
@@ -965,5 +911,4 @@ async function loadScripts() {
   }
 }
 
-renderDays();
 loadScripts();

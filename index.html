@@ -77,8 +77,8 @@
     <section id="scripts">
       <div class="section-head">
         <div>
-          <div class="section-label">Programme</div>
-          <h2>Programme de tournage</h2>
+          <div class="section-label">Bibliothèque</div>
+          <h2>Tous les scripts, dans l’ordre</h2>
         </div>
       </div>
 
@@ -87,11 +87,9 @@
           class="search-input"
           id="searchInput"
           type="search"
-          placeholder="Rechercher dans toutes les dates : impôt, retraite, assurance-vie, risque..."
+          placeholder="Rechercher dans tous les scripts : impôt, retraite, assurance-vie, risque..."
           autocomplete="off"
         />
-
-        <div class="days" id="dayFilters"></div>
 
         <div class="filter-row">
           <button class="chip active" data-theme="all">Tous</button>
@@ -107,11 +105,6 @@
         <div class="control-item">
           <span class="control-label">Scripts affichés</span>
           <span class="control-value" id="countValue">0</span>
-        </div>
-
-        <div class="control-item">
-          <span class="control-label">Date active</span>
-          <span class="control-value" id="dateValue">Toutes dates</span>
         </div>
 
         <div class="control-item">
@@ -145,6 +138,7 @@
       </div>
 
       <div class="program-note">
+        Les scripts sont numérotés dans l’ordre à suivre, à tourner selon vos disponibilités.
         Les textes sont chargés depuis <strong>data/scripts.json</strong>.
         Le suivi “tourné / non tourné” est sauvegardé localement dans ce navigateur.
         Il reste mémorisé sur cet ordinateur, mais n’est pas partagé automatiquement entre plusieurs appareils.
@@ -189,6 +183,6 @@
 
   <div class="toast" id="toast">Action confirmée</div>
 
-  <script src="assets/app.js?v=20261103-2"></script>
+  <script src="assets/app.js?v=20261103-3"></script>
 </body>
 </html>
