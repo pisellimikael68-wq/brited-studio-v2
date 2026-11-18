@@ -1353,3 +1353,187 @@ details div {
     line-height: 1.42;
   }
 }
+
+/* Hors-série : vidéos liées au calendrier, en complément de la ligne directrice */
+
+.chip.gold {
+  border-color: #ead390;
+  color: var(--gold-text);
+}
+
+.chip.gold.active {
+  background: var(--gold-soft);
+  border-color: #ead390;
+  color: var(--gold-text);
+}
+
+.hs-panel {
+  background: var(--card);
+  border-color: #ead390;
+}
+
+.hs-all-button {
+  border: 1px solid #ead390;
+  background: white;
+  color: var(--gold-text);
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 950;
+  cursor: pointer;
+  transition: 0.2s ease;
+  white-space: nowrap;
+}
+
+.hs-all-button:hover,
+.hs-all-button.active {
+  background: var(--gold-soft);
+}
+
+.hs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.hs-card {
+  border: 1px solid #ead390;
+  background: var(--gold-soft);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.hs-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(25, 56, 49, 0.07);
+}
+
+.hs-card.soon {
+  background: white;
+}
+
+.hs-state {
+  display: block;
+  color: var(--gold-text);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.hs-card strong {
+  display: block;
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-weight: 900;
+}
+
+.hs-card small {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.hs-empty {
+  background: white;
+  border: 1px dashed #ead390;
+  border-radius: 16px;
+  padding: 16px;
+  color: var(--muted);
+  font-weight: 720;
+  line-height: 1.5;
+}
+
+.list-group-label {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 4px 0;
+}
+
+.list-group-label.gold {
+  color: var(--gold-text);
+}
+
+.list-card.hors-serie {
+  border-color: #ead390;
+  background: #fffaf0;
+}
+
+.list-card.hors-serie.active {
+  background: var(--gold-soft);
+}
+
+.list-card.expired {
+  opacity: 0.55;
+}
+
+.list-time.gold {
+  background: var(--gold);
+  color: #5c3f00;
+}
+
+.list-window {
+  color: var(--gold-text);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.list-window.expired {
+  color: var(--muted);
+}
+
+.badge.hors-serie {
+  background: var(--gold);
+  color: #5c3f00;
+}
+
+.window-box {
+  background: var(--gold-soft);
+  border-left: 4px solid var(--gold);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.window-box strong {
+  color: var(--gold-text);
+}
+
+.window-box.expired {
+  background: #f1f3f2;
+  border-left-color: #c9d2ce;
+}
+
+.window-box.expired strong {
+  color: var(--muted);
+}
+
+.empty-script {
+  color: var(--muted);
+  font-style: italic;
+}
+
+@media (max-width: 1100px) {
+  .hs-grid {
+    grid-template-columns: 1fr;
+  }
+}

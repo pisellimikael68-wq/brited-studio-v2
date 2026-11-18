@@ -187,10 +187,32 @@ function normalizeFieldName(key) {
     sources: "sources",
     source: "sources",
     guide: "guide",
-    guidedetournage: "guide"
+    guidedetournage: "guide",
+    horsserie: "horsSerie",
+    "hors-serie": "horsSerie",
+    publishfrom: "publishFrom",
+    apublierdu: "publishFrom",
+    publishuntil: "publishUntil",
+    perimeapresle: "publishUntil",
+    recurrence: "recurrence",
+    retour: "recurrence"
   };
 
   return map[normalized] || key.trim();
+}
+
+/* Champs facultatifs d'un hors-série : « horsSerie: oui », puis deux dates au format AAAA-MM-JJ. */
+function buildHorsSerieFields(data) {
+  const flag = normalizeKey(data.horsSerie);
+
+  if (!["oui", "true", "1"].includes(flag)) return {};
+
+  return {
+    horsSerie: true,
+    publishFrom: data.publishFrom || "",
+    publishUntil: data.publishUntil || "",
+    recurrence: data.recurrence || ""
+  };
 }
 
 function parseScriptBlock(block, index) {
@@ -255,6 +277,7 @@ function parseScriptBlock(block, index) {
 
   const script = {
     id: data.id || "",
+    ...buildHorsSerieFields(data),
     theme: data.theme || "",
     category: data.category || "",
     status: data.status || "",

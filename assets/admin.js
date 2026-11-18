@@ -13,9 +13,21 @@ function getFormValue(name) {
   return form.elements[name].value.trim();
 }
 
+function buildHorsSerieFields() {
+  if (getFormValue("horsSerie") !== "oui") return {};
+
+  return {
+    horsSerie: true,
+    publishFrom: getFormValue("publishFrom"),
+    publishUntil: getFormValue("publishUntil"),
+    recurrence: getFormValue("recurrence")
+  };
+}
+
 function buildScriptObject() {
   return {
     id: getFormValue("id"),
+    ...buildHorsSerieFields(),
     theme: getFormValue("theme"),
     category: getFormValue("category"),
     status: getFormValue("status"),

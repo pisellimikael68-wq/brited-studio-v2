@@ -62,6 +62,30 @@
         </div>
 
         <div class="field">
+          <label for="horsSerie">Série</label>
+          <select id="horsSerie" name="horsSerie">
+            <option value="non">Ligne directrice (numérotée)</option>
+            <option value="oui">Hors-série (lié au calendrier)</option>
+          </select>
+          <div class="field-help">Un hors-série s’ajoute selon la période de l’année, sans décaler les numéros. Les trois champs suivants ne servent que pour lui.</div>
+        </div>
+
+        <div class="field">
+          <label for="publishFrom">Hors-série : à publier à partir du</label>
+          <input id="publishFrom" name="publishFrom" type="date" />
+        </div>
+
+        <div class="field">
+          <label for="publishUntil">Hors-série : périmé après le</label>
+          <input id="publishUntil" name="publishUntil" type="date" />
+        </div>
+
+        <div class="field">
+          <label for="recurrence">Hors-série : retour du sujet</label>
+          <input id="recurrence" name="recurrence" type="text" placeholder="ex : chaque année, en décembre" />
+        </div>
+
+        <div class="field">
           <label for="category">Catégorie affichée</label>
           <input id="category" name="category" type="text" placeholder="ex : Fiscalité · Impôt sur le revenu" required />
         </div>

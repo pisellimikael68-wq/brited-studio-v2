@@ -23,6 +23,7 @@ const statusValue = document.getElementById("statusValue");
 const shootingValue = document.getElementById("shootingValue");
 const searchValue = document.getElementById("searchValue");
 
+const horsSeriePanel = document.getElementById("horsSeriePanel");
 const summaryPanel = document.getElementById("summaryPanel");
 const qualityPanel = document.getElementById("qualityPanel");
 const qualityButton = document.getElementById("qualityButton");
@@ -48,6 +49,131 @@ function saveShotScriptIds() {
 
 function isScriptShot(scriptId) {
   return shotScriptIds.has(scriptId);
+}
+
+/* Hors-série : vidéos liées au calendrier, en complément de la ligne directrice.
+   Un hors-série porte horsSerie: true et, si possible, une fenêtre de publication
+   (publishFrom et publishUntil au format AAAA-MM-JJ). */
+
+const horsSerieLeadDays = 30;
+const horsSerieStateRank = { open: 0, soon: 1, undated: 2, later: 3, expired: 4 };
+
+function parseIsoDate(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value || "").trim());
+  if (!match) return null;
+
+  return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+}
+
+function getToday() {
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+}
+
+function daysBetween(from, to) {
+  return Math.round((to - from) / 86400000);
+}
+
+function formatDayMonth(date) {
+  const day = date.getDate() === 1 ? "1er" : String(date.getDate());
+  return `${day} ${date.toLocaleDateString("fr-FR", { month: "long" })}`;
+}
+
+function formatFullDate(date) {
+  return `${formatDayMonth(date)} ${date.getFullYear()}`;
+}
+
+function formatWindow(script) {
+  const from = parseIsoDate(script.publishFrom);
+  const until = parseIsoDate(script.publishUntil);
+
+  if (from && until) {
+    const sameYear = from.getFullYear() === until.getFullYear();
+    return `du ${sameYear ? formatDayMonth(from) : formatFullDate(from)} au ${formatFullDate(until)}`;
+  }
+
+  if (from) return `à partir du ${formatFullDate(from)}`;
+  if (until) return `jusqu’au ${formatFullDate(until)}`;
+
+  return "date à fixer";
+}
+
+function formatDayCount(days) {
+  return `${days} jour${days > 1 ? "s" : ""}`;
+}
+
+function getHorsSerieState(script) {
+  if (!script.horsSerie) return null;
+
+  const today = getToday();
+  const from = parseIsoDate(script.publishFrom);
+  const until = parseIsoDate(script.publishUntil);
+
+  // label : l'état ; detail : la phrase du bloc « du moment » ; short : la précision entre parenthèses.
+  if (!from && !until) {
+    return { key: "undated", label: "Date à fixer", detail: "fenêtre de publication à définir", short: "" };
+  }
+
+  if (until && today > until) {
+    return { key: "expired", label: "Passé", detail: `fenêtre close le ${formatFullDate(until)}`, short: "close" };
+  }
+
+  if (!from || today >= from) {
+    if (!until) {
+      return { key: "open", label: "À publier maintenant", detail: "fenêtre ouverte", short: "ouverte" };
+    }
+
+    const left = daysBetween(today, until);
+    const leftText = left === 0 ? "dernier jour" : `encore ${formatDayCount(left)}`;
+
+    return { key: "open", label: "À publier maintenant", detail: `jusqu’au ${formatDayMonth(until)}, ${leftText}`, short: leftText };
+  }
+
+  const wait = daysBetween(today, from);
+  const waitText = `dans ${formatDayCount(wait)}`;
+
+  return {
+    key: wait <= horsSerieLeadDays ? "soon" : "later",
+    label: wait <= horsSerieLeadDays ? "À préparer" : "À venir",
+    detail: `fenêtre ${waitText}`,
+    short: waitText
+  };
+}
+
+function isHorsSerieCurrent(script) {
+  const state = getHorsSerieState(script);
+  return Boolean(state) && (state.key === "open" || state.key === "soon");
+}
+
+function compareHorsSerie(a, b) {
+  const stateA = getHorsSerieState(a);
+  const stateB = getHorsSerieState(b);
+  const rankDiff = horsSerieStateRank[stateA.key] - horsSerieStateRank[stateB.key];
+
+  if (rankDiff !== 0) return rankDiff;
+
+  const farFuture = new Date(9999, 0, 1);
+  const fromA = parseIsoDate(a.publishFrom) || farFuture;
+  const fromB = parseIsoDate(b.publishFrom) || farFuture;
+  const untilA = parseIsoDate(a.publishUntil) || farFuture;
+  const untilB = parseIsoDate(b.publishUntil) || farFuture;
+
+  if (stateA.key === "open") return untilA - untilB;
+  if (stateA.key === "expired") return untilB - untilA;
+
+  return fromA - fromB;
+}
+
+function getHorsSerieScripts() {
+  return scripts.filter((script) => script.horsSerie).sort(compareHorsSerie);
+}
+
+function getMainScripts() {
+  return scripts.filter((script) => !script.horsSerie);
+}
+
+function hasBody(script) {
+  return Array.isArray(script.body) && script.body.length > 0;
 }
 
 function getProductionStatus(script) {
@@ -91,8 +217,7 @@ function matchesShootingFilter(script) {
 function filteredScripts() {
   const query = normalizeText(activeSearch);
 
-  return scripts.filter((script) => {
-    const themeOk = activeTheme === "all" || script.theme === activeTheme;
+  const matches = scripts.filter((script) => {
     const statusOk = matchesStatusFilter(script);
     const shootingOk = matchesShootingFilter(script);
 
@@ -106,7 +231,8 @@ function filteredScripts() {
       script.status,
       getProductionStatus(script),
       script.natural,
-      `n° ${script.number}`,
+      script.label,
+      script.horsSerie ? `hors-série hors serie actualité ${formatWindow(script)} ${script.recurrence}` : "",
       script.duration,
       script.notes?.intention,
       script.notes?.rythme,
@@ -116,8 +242,25 @@ function filteredScripts() {
 
     const searchOk = !query || searchableText.includes(query);
 
+    let themeOk;
+
+    if (activeTheme === "hors-serie") {
+      themeOk = script.horsSerie;
+    } else {
+      const sameTheme = activeTheme === "all" || script.theme === activeTheme;
+      // Hors du filtre « Hors-série », seuls les hors-série du moment remontent,
+      // sauf pendant une recherche, qui parcourt toute la bibliothèque.
+      const visible = !script.horsSerie || Boolean(query) || isHorsSerieCurrent(script);
+      themeOk = sameTheme && visible;
+    }
+
     return themeOk && statusOk && shootingOk && searchOk;
   });
+
+  const horsSerie = matches.filter((script) => script.horsSerie).sort(compareHorsSerie);
+  const main = matches.filter((script) => !script.horsSerie);
+
+  return [...horsSerie, ...main];
 }
 
 function getThemeLabel() {
@@ -125,7 +268,8 @@ function getThemeLabel() {
     all: "Tous",
     investir: "Investir",
     fiscalite: "Fiscalité",
-    epargne: "Épargne"
+    epargne: "Épargne",
+    "hors-serie": "Hors-série"
   };
 
   return labels[activeTheme] || activeTheme;
@@ -151,11 +295,13 @@ function getShootingLabel() {
   return labels[activeShootingFilter] || "Tous";
 }
 
+/* La synthèse compte la ligne directrice. Les hors-série ont leur propre bloc. */
+
 function getStatusCounts() {
   let ready = 0;
   let toValidate = 0;
 
-  scripts.forEach((script) => {
+  getMainScripts().forEach((script) => {
     if (isReadyStatus(script)) ready += 1;
     if (isToValidateStatus(script)) toValidate += 1;
   });
@@ -164,8 +310,9 @@ function getStatusCounts() {
 }
 
 function getShootingCounts() {
-  const total = scripts.length;
-  const shot = scripts.filter((script) => isScriptShot(script.id)).length;
+  const main = getMainScripts();
+  const total = main.length;
+  const shot = main.filter((script) => isScriptShot(script.id)).length;
   const notShot = total - shot;
 
   return { total, shot, notShot };
@@ -183,7 +330,7 @@ function getProductionCounts() {
     other: 0
   };
 
-  scripts.forEach((script) => {
+  getMainScripts().forEach((script) => {
     const status = normalizeText(getProductionStatus(script));
 
     if (status.includes("ecrire")) {
@@ -208,11 +355,65 @@ function getProductionCounts() {
   return counts;
 }
 
+function renderHorsSeriePanel() {
+  if (!horsSeriePanel) return;
+
+  const all = getHorsSerieScripts();
+
+  if (!all.length) {
+    horsSeriePanel.style.display = "none";
+    horsSeriePanel.innerHTML = "";
+    return;
+  }
+
+  horsSeriePanel.style.display = "block";
+
+  const current = all.filter(isHorsSerieCurrent);
+  const next = all.find((script) => {
+    const state = getHorsSerieState(script);
+    return state.key === "later";
+  });
+
+  const cards = current.map((script) => {
+    const state = getHorsSerieState(script);
+    const shot = isScriptShot(script.id);
+
+    return `
+      <button class="hs-card ${state.key}" onclick="openHorsSerie('${script.id}')">
+        <span class="hs-state">${state.label} · ${state.detail}</span>
+        <strong>${script.title}</strong>
+        <small>${script.label} · À publier ${formatWindow(script)} · ${shot ? "Tourné" : script.status}</small>
+      </button>
+    `;
+  }).join("");
+
+  const emptyText = next
+    ? `Aucun hors-série à préparer dans les ${horsSerieLeadDays} prochains jours. Prochain : « ${next.title} », à publier ${formatWindow(next)}.`
+    : "Tous les hors-série du calendrier sont passés : il est à reconduire, avec de nouvelles dates, pour l’année qui vient.";
+
+  horsSeriePanel.innerHTML = `
+    <div class="summary-head">
+      <div>
+        <h3>Hors-série du moment</h3>
+        <p>Des vidéos liées au calendrier, à tourner en complément de la ligne directrice. Elles ne décalent aucun numéro.</p>
+      </div>
+      <button class="hs-all-button ${activeTheme === "hors-serie" ? "active" : ""}" onclick="selectTheme('hors-serie')">
+        Voir les ${all.length} hors-série de l’année
+      </button>
+    </div>
+
+    ${current.length ? `<div class="hs-grid">${cards}</div>` : `<div class="hs-empty">${emptyText}</div>`}
+  `;
+}
+
 function renderSummaryPanel() {
-  const total = scripts.length;
-  const investir = scripts.filter((script) => script.theme === "investir").length;
-  const fiscalite = scripts.filter((script) => script.theme === "fiscalite").length;
-  const epargne = scripts.filter((script) => script.theme === "epargne").length;
+  renderHorsSeriePanel();
+
+  const mainScripts = getMainScripts();
+  const total = mainScripts.length;
+  const investir = mainScripts.filter((script) => script.theme === "investir").length;
+  const fiscalite = mainScripts.filter((script) => script.theme === "fiscalite").length;
+  const epargne = mainScripts.filter((script) => script.theme === "epargne").length;
   const statusCounts = getStatusCounts();
   const shootingCounts = getShootingCounts();
   const productionCounts = getProductionCounts();
@@ -221,16 +422,16 @@ function renderSummaryPanel() {
     <div class="summary-head">
       <div>
         <h3>Synthèse automatique</h3>
-        <p>Vue globale de la bibliothèque complète, avec suivi local du tournage et statut de production.</p>
+        <p>Vue globale de la ligne directrice, avec suivi local du tournage et statut de production. Les hors-série sont suivis dans le bloc ci-dessus.</p>
       </div>
       <span class="summary-refresh">Mise à jour automatique</span>
     </div>
 
     <div class="summary-grid">
       <div class="summary-card">
-        <span>Total scripts</span>
+        <span>Ligne directrice</span>
         <strong>${total}</strong>
-        <small>Bibliothèque complète</small>
+        <small>Scripts numérotés, dans l’ordre</small>
       </div>
 
       <div class="summary-card">
@@ -392,7 +593,7 @@ function renderQualityPanel(items) {
       <div class="quality-title">
         <span>Titre</span>
         <strong>${script.title}</strong>
-        <small>N° ${script.number}</small>
+        <small>${script.label}${script.horsSerie ? ` · Hors-série, à publier ${formatWindow(script)}` : ""}</small>
       </div>
 
       <div class="quality-field">
@@ -459,20 +660,62 @@ function renderList() {
   scriptDetail.style.display = "block";
 
   if (!items.find((script) => script.id === activeScriptId)) {
-    activeScriptId = items[0].id;
+    // Par défaut, on ouvre le premier script de la ligne directrice, pas un hors-série épinglé.
+    activeScriptId = (items.find((script) => !script.horsSerie) || items[0]).id;
   }
+
+  const horsSerieGroupLabels = {
+    open: "Hors-série · à publier maintenant",
+    soon: "Hors-série · à préparer",
+    undated: "Hors-série · date à fixer",
+    later: "Hors-série · à venir",
+    expired: "Hors-série · passés"
+  };
+
+  const hasHorsSerie = items.some((script) => script.horsSerie);
+  let lastGroup = null;
 
   scriptList.innerHTML = items.map((script) => {
     const shot = isScriptShot(script.id);
+    const state = getHorsSerieState(script);
+
+    // Un intertitre à chaque changement de groupe : les hors-série d'abord,
+    // classés par échéance, puis la ligne directrice dans l'ordre des numéros.
+    let group = "";
+    let groupLabel = "";
+
+    if (script.horsSerie) {
+      group = activeTheme === "hors-serie" ? state.key : "current";
+      groupLabel = activeTheme === "hors-serie" ? horsSerieGroupLabels[state.key] : "Hors-série du moment";
+    } else if (hasHorsSerie) {
+      group = "main";
+      groupLabel = "Ligne directrice";
+    }
+
+    const separator = group && group !== lastGroup
+      ? `<div class="list-group-label ${script.horsSerie ? "gold" : ""}">${groupLabel}</div>`
+      : "";
+
+    lastGroup = group;
+
+    const classes = [
+      "list-card",
+      script.id === activeScriptId ? "active" : "",
+      shot ? "shot" : "",
+      script.horsSerie ? "hors-serie" : "",
+      state && state.key === "expired" ? "expired" : ""
+    ].filter(Boolean).join(" ");
 
     return `
-      <button class="list-card ${script.id === activeScriptId ? "active" : ""} ${shot ? "shot" : ""}" onclick="selectScript('${script.id}')">
+      ${separator}
+      <button class="${classes}" onclick="selectScript('${script.id}')">
         <div class="list-meta">
-          <span class="list-time">N° ${script.number}</span>
+          <span class="list-time ${script.horsSerie ? "gold" : ""}">${script.label}</span>
           <span class="list-status">${script.status}</span>
           <span class="shot-badge">${getProductionStatus(script)}</span>
           ${shot ? `<span class="shot-badge">Tourné</span>` : ""}
         </div>
+        ${state ? `<div class="list-window ${state.key}"><strong>${state.label}</strong> · fenêtre ${formatWindow(script)}</div>` : ""}
         <h3>${script.title}</h3>
         <p>${script.summary}</p>
       </button>
@@ -487,12 +730,28 @@ function renderDetail() {
   if (!script) return;
 
   const shot = isScriptShot(script.id);
-  const bodyHtml = script.body.map((paragraph) => `<p>${paragraph}</p>`).join("");
+  const state = getHorsSerieState(script);
+  const written = hasBody(script);
+
+  const bodyHtml = written
+    ? script.body.map((paragraph) => `<p>${paragraph}</p>`).join("")
+    : `<p class="empty-script">Ce script n’est pas encore écrit. L’angle prévu, les points à vérifier et les sources à consulter sont dans les notes de tournage.</p>`;
+
+  const windowHtml = state
+    ? `
+    <div class="window-box ${state.key}">
+      <strong>Hors-série · ${state.label}</strong><br>
+      Fenêtre de publication : ${formatWindow(script)}${state.short ? ` (${state.short})` : ""}.<br>
+      ${script.recurrence ? `Retour du sujet : ${script.recurrence}.<br>` : ""}
+      Cette vidéo s’ajoute à la ligne directrice, sans en changer l’ordre.
+    </div>`
+    : "";
 
   scriptDetail.innerHTML = `
     <div class="script-top">
       <div class="badges">
-        <span class="badge time">N° ${script.number}</span>
+        <span class="badge time">${script.label}</span>
+        ${script.horsSerie ? `<span class="badge hors-serie">Hors-série</span>` : ""}
         <span class="badge status">${script.status}</span>
         <span class="badge natural">${script.natural}</span>
         <span class="badge shot">Production : ${getProductionStatus(script)}</span>
@@ -509,6 +768,8 @@ function renderDetail() {
     </div>
 
     <h3 class="script-title">${script.title}</h3>
+
+    ${windowHtml}
 
     <div class="meta-box">
       <strong>${script.category}</strong><br>
@@ -562,6 +823,7 @@ function renderDetail() {
 
       <div class="warning">
         Texte à valider avant tournage. Vérifiez le fond, les chiffres et l’adéquation avec votre pratique professionnelle.
+        ${script.horsSerie ? "Sujet daté : vérifiez aussi, le jour du tournage, que les règles et les chiffres cités sont toujours en vigueur." : ""}
       </div>
     </div>
   `;
@@ -576,6 +838,35 @@ function selectScript(id) {
 function setMode(mode) {
   activeMode = mode;
   renderDetail();
+}
+
+function selectTheme(theme) {
+  activeTheme = theme;
+  activeMode = "script";
+
+  document.querySelectorAll(".chip").forEach((chip) => {
+    chip.classList.toggle("active", chip.dataset.theme === theme);
+  });
+
+  renderList();
+}
+
+function openHorsSerie(id) {
+  activeScriptId = id;
+  activeMode = "script";
+
+  // Si les filtres en cours cachent ce hors-série, on bascule sur son filtre.
+  if (!filteredScripts().some((script) => script.id === id)) {
+    activeStatus = "all";
+    activeShootingFilter = "all";
+    activeSearch = "";
+    searchInput.value = "";
+    selectTheme("hors-serie");
+    activeScriptId = id;
+  }
+
+  renderList();
+  scriptDetail.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function selectStatusFilter(status) {
@@ -632,8 +923,13 @@ function openShootingMode() {
   const script = scripts.find((item) => item.id === activeScriptId);
   if (!script) return;
 
+  if (!hasBody(script)) {
+    showToast("Ce script n’est pas encore écrit");
+    return;
+  }
+
   shootingTitle.textContent = script.title;
-  shootingMeta.textContent = `N° ${script.number} · ${script.category} · ${script.duration} · Production : ${getProductionStatus(script)}`;
+  shootingMeta.textContent = `${script.label} · ${script.category} · ${script.duration} · Production : ${getProductionStatus(script)}`;
   shootingBody.innerHTML = script.body.map((paragraph) => `<p>${paragraph}</p>`).join("");
 
   updateShootingShotButton();
@@ -670,13 +966,14 @@ function formatScriptForCopy(script) {
   const shotLabel = isScriptShot(script.id) ? "Tourné" : "Non tourné";
 
   return [
-    `${script.number}. ${script.title}`,
+    script.horsSerie ? `${script.label} · ${script.title}` : `${script.number}. ${script.title}`,
     `${script.category}`,
+    ...(script.horsSerie ? [`Hors-série, à publier ${formatWindow(script)}`] : []),
     `Statut éditorial : ${script.status}`,
     `Statut de production : ${getProductionStatus(script)}`,
     `Tournage : ${shotLabel}`,
     "",
-    script.body.join("\n\n"),
+    hasBody(script) ? script.body.join("\n\n") : "(Script pas encore écrit)",
     "",
     `Intention : ${script.notes.intention}`,
     `Rythme : ${script.notes.rythme}`,
@@ -730,6 +1027,11 @@ function showToast(message) {
 function copyCurrentScript() {
   const script = scripts.find((item) => item.id === activeScriptId);
   if (!script) return;
+
+  if (!hasBody(script)) {
+    showToast("Ce script n’est pas encore écrit");
+    return;
+  }
 
   const text = script.body.join("\n\n");
 
@@ -830,9 +1132,18 @@ function scrollToScripts() {
   document.getElementById("scripts").scrollIntoView({ behavior: "smooth" });
 }
 
-function normalizeScript(script, index) {
+function isHorsSerieValue(value) {
+  return value === true || ["true", "oui", "1"].includes(normalizeText(value));
+}
+
+function normalizeScript(script) {
   return {
-    number: index + 1,
+    number: 0,
+    label: "",
+    horsSerie: isHorsSerieValue(script.horsSerie),
+    publishFrom: script.publishFrom || "",
+    publishUntil: script.publishUntil || "",
+    recurrence: script.recurrence || "",
     id: script.id || "",
     theme: script.theme || "",
     category: script.category || "",
@@ -863,11 +1174,7 @@ searchInput.addEventListener("input", () => {
 
 document.querySelectorAll(".chip").forEach((chip) => {
   chip.addEventListener("click", () => {
-    document.querySelectorAll(".chip").forEach((item) => item.classList.remove("active"));
-    chip.classList.add("active");
-    activeTheme = chip.dataset.theme;
-    activeMode = "script";
-    renderList();
+    selectTheme(chip.dataset.theme);
   });
 });
 
@@ -894,16 +1201,42 @@ async function loadScripts() {
       throw new Error("Le fichier scripts.json est vide ou invalide");
     }
 
-    scripts = loadedScripts.map(normalizeScript);
-    activeScriptId = scripts[0].id;
+    // Deux numérotations séparées : la ligne directrice garde ses numéros (N° 1, N° 2…)
+    // quel que soit le nombre de hors-série (HS 1, HS 2…) ajoutés au fichier.
+    let mainNumber = 0;
+    let horsSerieNumber = 0;
 
-    renderSummaryPanel();
-    renderList();
+    scripts = loadedScripts.map((rawScript) => {
+      const script = normalizeScript(rawScript);
+
+      if (script.horsSerie) {
+        horsSerieNumber += 1;
+        script.number = horsSerieNumber;
+        script.label = `HS ${horsSerieNumber}`;
+      } else {
+        mainNumber += 1;
+        script.number = mainNumber;
+        script.label = `N° ${mainNumber}`;
+      }
+
+      return script;
+    });
+
+    // La ligne directrice reste le point d'entrée : on ouvre sur son premier script.
+    activeScriptId = (getMainScripts()[0] || scripts[0]).id;
+
+    // Lien direct vers le calendrier des hors-série : index.html#hors-serie
+    if (window.location.hash === "#hors-serie" && scripts.some((script) => script.horsSerie)) {
+      selectTheme("hors-serie");
+    } else {
+      renderList();
+    }
   } catch (error) {
     console.error("Erreur de chargement des scripts :", error);
 
     scriptList.innerHTML = "";
     summaryPanel.innerHTML = "";
+    if (horsSeriePanel) horsSeriePanel.innerHTML = "";
     emptyState.style.display = "block";
     emptyState.textContent = "Impossible de charger les scripts. Vérifiez data/scripts.json ou la console du navigateur.";
     scriptDetail.style.display = "none";
