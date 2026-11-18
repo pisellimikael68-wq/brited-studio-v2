@@ -406,6 +406,30 @@ function renderHorsSeriePanel() {
   `;
 }
 
+/* Synthèse repliée par défaut ; le choix est retenu dans ce navigateur. */
+const summaryOpenKey = "britedStudioV2SummaryOpen";
+let summaryOpen = loadSummaryOpen();
+
+function loadSummaryOpen() {
+  try {
+    return localStorage.getItem(summaryOpenKey) === "1";
+  } catch (error) {
+    return false;
+  }
+}
+
+function toggleSummary() {
+  summaryOpen = !summaryOpen;
+
+  try {
+    localStorage.setItem(summaryOpenKey, summaryOpen ? "1" : "0");
+  } catch (error) {
+    // Sans stockage, le choix vaut pour la visite en cours.
+  }
+
+  renderSummaryPanel();
+}
+
 function renderSummaryPanel() {
   renderHorsSeriePanel();
 
@@ -422,11 +446,16 @@ function renderSummaryPanel() {
     <div class="summary-head">
       <div>
         <h3>Synthèse automatique</h3>
-        <p>Vue globale de la ligne directrice, avec suivi local du tournage et statut de production. Les hors-série sont suivis dans le bloc ci-dessus.</p>
+        <p>${summaryOpen
+          ? "Vue globale de la ligne directrice, avec suivi local du tournage et statut de production. Les hors-série sont suivis dans le bloc ci-dessus."
+          : `${total} scripts · ${statusCounts.toValidate} à valider · ${shootingCounts.shot} tourné${shootingCounts.shot > 1 ? "s" : ""} · ${shootingCounts.notShot} restant${shootingCounts.notShot > 1 ? "s" : ""}`}</p>
       </div>
-      <span class="summary-refresh">Mise à jour automatique</span>
+      <button class="summary-toggle" onclick="toggleSummary()" aria-expanded="${summaryOpen}">
+        ${summaryOpen ? "Masquer le détail" : "Afficher le détail"}
+      </button>
     </div>
 
+    <div class="summary-details ${summaryOpen ? "" : "hidden"}">
     <div class="summary-grid">
       <div class="summary-card">
         <span>Ligne directrice</span>
@@ -525,6 +554,7 @@ function renderSummaryPanel() {
         <strong>${productionCounts.other}</strong>
         <small>Statuts non classés</small>
       </div>
+    </div>
     </div>
 
     <div class="summary-actions">
