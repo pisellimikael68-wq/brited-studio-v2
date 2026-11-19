@@ -5,189 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
 
-  <title>BRITED Studio V2 — Bibliothèque de tournage</title>
+  <title>BRITED Studio — Scripts de tournage</title>
 
-  <link rel="stylesheet" href="assets/style.css?v=20261119-2" />
+  <link rel="stylesheet" href="assets/studio.css?v=20261119-4" />
 </head>
 
 <body>
-  <header>
-    <div class="topbar">
-      <div class="brand">
-        <div class="brand-mark">B</div>
-        <div>
-          <div class="brand-title">BRITED Studio</div>
-          <div class="brand-subtitle">Bibliothèque de tournage · V2</div>
-        </div>
-      </div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">B</span>
+        <span class="brand-name">BRITED Studio</span>
+      </a>
 
-      <div class="top-actions">
-        <button class="small-button" onclick="scrollToScripts()">Voir les scripts</button>
-        <button class="small-button" onclick="window.location.href='admin.html'">Back-office</button>
-        <button class="small-button" onclick="window.location.href='import.html'">Import massif</button>
-        <div class="access">
-          <span class="access-dot"></span>
-          Textes à valider
-        </div>
-      </div>
+      <nav class="topnav">
+        <a href="admin.html">Back-office</a>
+        <a href="import.html">Import massif</a>
+      </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
+  <main class="page">
+    <section class="intro">
       <div>
-        <div class="eyebrow">Scripts face caméra</div>
-        <h1>Vos textes de tournage, à relire puis à dire.</h1>
-        <p class="hero-text">
-          Chaque script s’adresse à une seule personne, en phrases complètes et au vouvoiement :
+        <h1>Scripts de tournage</h1>
+        <p class="intro-text">
+          Chaque script s’adresse à une seule personne, au vouvoiement et en phrases complètes :
           sa situation, un calcul vérifié, ce que ça change pour elle, et un geste à faire.
-          Repère de durée : 1 min à 1 min 30.
+          Repère de durée&nbsp;: 1&nbsp;min à 1&nbsp;min&nbsp;30.
         </p>
       </div>
 
-      <aside class="hero-panel">
-        <div class="hero-panel-title">Version V2</div>
+      <div class="progress" id="progressPanel"></div>
+    </section>
 
-        <div class="metric">
-          <div class="metric-icon">1</div>
-          <div>
-            <strong>Mode tournage</strong>
-            <span>Une lecture plein écran pour utiliser le studio comme prompteur simple.</span>
-          </div>
+    <section class="hs-strip" id="horsSeriePanel" hidden></section>
+
+    <section class="toolbar" id="scripts">
+      <input
+        class="search"
+        id="searchInput"
+        type="search"
+        placeholder="Rechercher : impôt, retraite, assurance-vie, risque…"
+        autocomplete="off"
+      />
+
+      <div class="toolbar-row">
+        <div class="segmented" role="group" aria-label="Thème">
+          <button class="seg active" data-theme="all">Tous</button>
+          <button class="seg" data-theme="investir">Investir</button>
+          <button class="seg" data-theme="fiscalite">Fiscalité</button>
+          <button class="seg" data-theme="epargne">Épargne</button>
+          <button class="seg seg-hs" data-theme="hors-serie">Hors-série</button>
         </div>
 
-        <div class="metric">
-          <div class="metric-icon">2</div>
-          <div>
-            <strong>Suivi de tournage</strong>
-            <span>Marquez les scripts déjà tournés et retrouvez ce qui reste à enregistrer.</span>
-          </div>
-        </div>
+        <div class="toolbar-filters">
+          <label class="select-wrap">
+            <span class="visually-hidden">Statut éditorial</span>
+            <select id="statusSelect">
+              <option value="all">Tous les statuts</option>
+              <option value="toValidate">À valider</option>
+              <option value="ready">Prêts</option>
+            </select>
+          </label>
 
-        <div class="metric">
-          <div class="metric-icon">3</div>
-          <div>
-            <strong>Exports ciblés</strong>
-            <span>Exportez uniquement les scripts tournés ou uniquement les scripts restants.</span>
-          </div>
+          <label class="select-wrap">
+            <span class="visually-hidden">Tournage</span>
+            <select id="shootingSelect">
+              <option value="all">Tournés et non tournés</option>
+              <option value="notShot">Non tournés</option>
+              <option value="shot">Tournés</option>
+            </select>
+          </label>
+
+          <details class="menu" id="exportMenu">
+            <summary>Exporter</summary>
+            <div class="menu-list">
+              <button onclick="copyVisibleScripts(); closeMenu()">Copier les scripts affichés</button>
+              <button onclick="downloadVisibleScripts(); closeMenu()">Fichier .txt des scripts affichés</button>
+              <button onclick="downloadShotScripts('notShot'); closeMenu()">Fichier .txt des non tournés</button>
+              <button onclick="downloadShotScripts('shot'); closeMenu()">Fichier .txt des tournés</button>
+              <hr />
+              <button id="qualityButton" onclick="toggleQualityMode(); closeMenu()">Vue contrôle qualité</button>
+            </div>
+          </details>
         </div>
+      </div>
+
+      <div class="toolbar-status">
+        <span id="countValue">Chargement…</span>
+        <button class="link-button" id="resetButton" onclick="resetFilters()" hidden>Réinitialiser les filtres</button>
+      </div>
+    </section>
+
+    <section class="quality" id="qualityPanel" hidden></section>
+
+    <div class="layout" id="layout">
+      <aside class="list-pane">
+        <div class="script-list" id="scriptList"></div>
+        <div class="empty" id="emptyState">Chargement des scripts…</div>
       </aside>
-    </section>
 
-    <section id="scripts">
-      <div class="section-head">
-        <div>
-          <div class="section-label">Bibliothèque</div>
-          <h2>Tous les scripts, dans l’ordre</h2>
-        </div>
-      </div>
+      <article class="detail" id="scriptDetail"></article>
+    </div>
 
-      <div class="filters">
-        <input
-          class="search-input"
-          id="searchInput"
-          type="search"
-          placeholder="Rechercher dans tous les scripts : impôt, retraite, assurance-vie, risque..."
-          autocomplete="off"
-        />
-
-        <div class="filter-row">
-          <button class="chip active" data-theme="all">Tous</button>
-          <button class="chip" data-theme="investir">Investir</button>
-          <button class="chip" data-theme="fiscalite">Fiscalité</button>
-          <button class="chip" data-theme="epargne">Épargne</button>
-          <button class="chip gold" data-theme="hors-serie">Hors-série</button>
-        </div>
-      </div>
-
-      <section class="summary-panel hs-panel" id="horsSeriePanel" style="display: none;"></section>
-
-      <section class="summary-panel" id="summaryPanel"></section>
-
-      <div class="control-panel">
-        <div class="control-item">
-          <span class="control-label">Scripts affichés</span>
-          <span class="control-value" id="countValue">0</span>
-        </div>
-
-        <div class="control-item">
-          <span class="control-label">Thème actif</span>
-          <span class="control-value" id="themeValue">Tous</span>
-        </div>
-
-        <div class="control-item">
-          <span class="control-label">Statut actif</span>
-          <span class="control-value" id="statusValue">Tous</span>
-        </div>
-
-        <div class="control-item blue">
-          <span class="control-label">Tournage</span>
-          <span class="control-value" id="shootingValue">Tous</span>
-        </div>
-
-        <div class="control-item">
-          <span class="control-label">Recherche</span>
-          <span class="control-value" id="searchValue">Aucune</span>
-        </div>
-
-        <div class="control-actions">
-          <button class="bulk-copy-button" onclick="copyVisibleScripts()">Copier tous les scripts affichés</button>
-          <button class="export-button" onclick="downloadVisibleScripts()">Exporter en fichier .txt</button>
-          <button class="export-button blue" onclick="downloadShotScripts('notShot')">Exporter non tournés</button>
-          <button class="export-button blue" onclick="downloadShotScripts('shot')">Exporter tournés</button>
-          <button class="quality-button" id="qualityButton" onclick="toggleQualityMode()">Mode contrôle qualité</button>
-          <button class="reset-button" onclick="resetFilters()">Réinitialiser</button>
-        </div>
-      </div>
-
-      <div class="program-note">
-        Les scripts sont numérotés dans l’ordre à suivre, à tourner selon vos disponibilités.
-        Les hors-série (HS) s’y ajoutent selon la période de l’année : ils remontent en tête de liste
-        30 jours avant leur fenêtre de publication, puis s’effacent une fois la date passée, sans décaler aucun numéro.
-        Les textes sont chargés depuis <strong>data/scripts.json</strong>.
-        Le suivi “tourné / non tourné” est sauvegardé localement dans ce navigateur.
-        Il reste mémorisé sur cet ordinateur, mais n’est pas partagé automatiquement entre plusieurs appareils.
-      </div>
-
-      <section class="quality-panel" id="qualityPanel"></section>
-
-      <div class="layout">
-        <aside>
-          <div class="script-list" id="scriptList"></div>
-          <div class="empty" id="emptyState">Chargement des scripts...</div>
-        </aside>
-
-        <article class="script-card" id="scriptDetail"></article>
-      </div>
-    </section>
+    <p class="footnote">
+      Les scripts sont numérotés dans l’ordre à suivre, à tourner selon vos disponibilités.
+      Les hors-série (HS) s’y ajoutent selon la période : ils remontent en tête 30 jours avant leur fenêtre
+      de publication, puis se grisent une fois la date passée, sans décaler aucun numéro.
+      Le suivi « tourné » est enregistré dans ce navigateur, sans partage entre appareils.
+    </p>
   </main>
 
   <section class="shooting-overlay" id="shootingOverlay" aria-hidden="true">
-    <div class="shooting-shell">
-      <div class="shooting-top">
-        <div>
-          <div class="shooting-label">Mode tournage</div>
-          <h2 class="shooting-title" id="shootingTitle"></h2>
-          <div class="shooting-meta" id="shootingMeta"></div>
-        </div>
-
-        <div class="shooting-actions">
-          <button class="shooting-action" onclick="copyCurrentScript()">Copier le texte</button>
-          <button class="shooting-action blue" id="shootingShotButton" onclick="toggleCurrentScriptShot()">Marquer comme tourné</button>
-          <button class="shooting-action primary" onclick="closeShootingMode()">Quitter</button>
-        </div>
+    <div class="shooting-top">
+      <div class="shooting-heading">
+        <span class="shooting-label">Mode tournage</span>
+        <span class="shooting-title" id="shootingTitle"></span>
       </div>
 
-      <div class="shooting-body" id="shootingBody"></div>
-
-      <div class="shooting-footer">
-        Lecture plein écran · Appuie sur Échap pour quitter · Le statut tourné est sauvegardé localement.
+      <div class="shooting-actions">
+        <button class="shooting-action" onclick="changeShootingSize(-2)" title="Texte plus petit (touche −)">A−</button>
+        <button class="shooting-action" onclick="changeShootingSize(2)" title="Texte plus grand (touche +)">A+</button>
+        <button class="shooting-action" id="shootingFitButton" onclick="fitShootingText(true)">Tout à l’écran</button>
+        <button class="shooting-action" id="shootingShotButton" onclick="toggleCurrentScriptShot()">Marquer comme tourné</button>
+        <button class="shooting-action primary" onclick="closeShootingMode()">Quitter</button>
       </div>
     </div>
+
+    <div class="shooting-body" id="shootingBody"></div>
+
+    <div class="shooting-footer" id="shootingMeta"></div>
   </section>
 
-  <div class="toast" id="toast">Action confirmée</div>
+  <div class="toast" id="toast" role="status">Action confirmée</div>
 
-  <script src="assets/app.js?v=20261119-2"></script>
+  <script src="assets/app.js?v=20261119-4"></script>
 </body>
 </html>
